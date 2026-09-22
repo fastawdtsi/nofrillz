@@ -1,0 +1,23 @@
+{
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/PushNotificationManager.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/PushNotificationManager.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/PushNotificationManager.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/PushNotificationManager.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/PushNotificationManager.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/PushNotificationManager.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Auth/AuthLandingViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/AuthLandingViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/AuthLandingViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/AuthLandingViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/AuthLandingViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/AuthLandingViewController.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Auth/LoginViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/LoginViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/LoginViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/LoginViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/LoginViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/LoginViewController.swiftdeps"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/User/ProfileSettingsViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/User/ReadingListViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/ReadingListViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/ReadingListViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/ReadingListViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/ReadingListViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/ReadingListViewController.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/User/SecuritySettingsViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.swiftdeps"
+  }
+}

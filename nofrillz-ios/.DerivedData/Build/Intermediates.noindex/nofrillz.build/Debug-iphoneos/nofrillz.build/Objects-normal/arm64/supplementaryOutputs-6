@@ -1,0 +1,23 @@
+{
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Auth/AuthLandingViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Auth/LoginViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/LoginViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/LoginViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/LoginViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/LoginViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/LoginViewController.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Auth/SignupViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/SignupViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/SignupViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/SignupViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/SignupViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphoneos/nofrillz.build/Objects-normal/arm64/SignupViewController.swiftdeps"
+  }
+}

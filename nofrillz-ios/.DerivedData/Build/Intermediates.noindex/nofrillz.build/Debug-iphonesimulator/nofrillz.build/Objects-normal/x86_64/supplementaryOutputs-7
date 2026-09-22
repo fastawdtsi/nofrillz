@@ -1,0 +1,23 @@
+{
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Auth/SignupViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/SignupViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/SignupViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/SignupViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/SignupViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/SignupViewController.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Feed/FeedViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/FeedViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/FeedViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/FeedViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/FeedViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/FeedViewController.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Feed/PostTableViewCell.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/PostTableViewCell.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/PostTableViewCell.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/PostTableViewCell.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/PostTableViewCell.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/PostTableViewCell.swiftdeps"
+  }
+}

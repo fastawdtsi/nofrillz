@@ -1,0 +1,23 @@
+{
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/GeneratedAssetSymbols.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/GeneratedAssetSymbols.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/RootViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/RootViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/RootViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/RootViewController.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/RootViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/RootViewController.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/SceneDelegate.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/SceneDelegate.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/SceneDelegate.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/SceneDelegate.dia",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/SceneDelegate.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/x86_64/SceneDelegate.swiftdeps"
+  }
+}

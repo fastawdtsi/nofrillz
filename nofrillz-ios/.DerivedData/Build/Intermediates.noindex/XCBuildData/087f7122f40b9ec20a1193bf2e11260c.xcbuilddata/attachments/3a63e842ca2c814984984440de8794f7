@@ -1,0 +1,379 @@
+{
+  "" : {
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/nofrillz-primary.dia",
+    "emit-module-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/nofrillz-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/nofrillz-primary-emit-module.dia",
+    "pch" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/nofrillz-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/nofrillz-primary.swiftdeps"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/AppDelegate.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppDelegate.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppDelegate.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppDelegate.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppDelegate.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppDelegate.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppDelegate.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppDelegate.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppDelegate~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/API/APIConfig.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/APIConfig.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/APIConfig.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/APIConfig.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/APIConfig.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/APIConfig.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/APIConfig.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/APIConfig.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/APIConfig~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/API/Models.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Models.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Models.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Models.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Models.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Models.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Models.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Models.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Models~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/API/NoFrillzAPI.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzAPI.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzAPI.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzAPI.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzAPI.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzAPI.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzAPI.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzAPI.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzAPI~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/AppEnvironment.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppEnvironment.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppEnvironment.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppEnvironment.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppEnvironment.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppEnvironment.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppEnvironment.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppEnvironment.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppEnvironment~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/AppNotifications.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppNotifications.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppNotifications.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppNotifications.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppNotifications.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppNotifications.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppNotifications.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppNotifications.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppNotifications~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/Auth/AuthInputValidator.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthInputValidator.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthInputValidator.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthInputValidator.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthInputValidator.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthInputValidator.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthInputValidator.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthInputValidator.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthInputValidator~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/Auth/SessionStore.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SessionStore.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SessionStore.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SessionStore.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SessionStore.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SessionStore.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SessionStore.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SessionStore.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SessionStore~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/PushNotificationManager.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PushNotificationManager.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PushNotificationManager.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PushNotificationManager.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PushNotificationManager.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PushNotificationManager.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PushNotificationManager.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PushNotificationManager.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PushNotificationManager~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/UI/AppIcon.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppIcon.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppIcon.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppIcon.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppIcon.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppIcon.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppIcon.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppIcon.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AppIcon~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/UI/AvatarView.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AvatarView.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AvatarView.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AvatarView.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AvatarView.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AvatarView.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AvatarView.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AvatarView.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AvatarView~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/UI/BaseViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/BaseViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/BaseViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/BaseViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/BaseViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/BaseViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/BaseViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/BaseViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/BaseViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/UI/Haptics.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Haptics.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Haptics.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Haptics.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Haptics.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Haptics.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Haptics.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Haptics.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Haptics~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/UI/L10n.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/L10n.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/L10n.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/L10n.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/L10n.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/L10n.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/L10n.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/L10n.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/L10n~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/UI/NFButton.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFButton.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFButton.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFButton.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFButton.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFButton.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFButton.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFButton.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFButton~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/UI/NFTextField.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFTextField.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFTextField.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFTextField.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFTextField.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFTextField.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFTextField.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFTextField.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NFTextField~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/UI/NoFrillzNavigationController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzNavigationController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzNavigationController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzNavigationController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzNavigationController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzNavigationController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzNavigationController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzNavigationController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NoFrillzNavigationController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Core/UI/Theme.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Theme.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Theme.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Theme.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Theme.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Theme.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Theme.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Theme.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/Theme~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Auth/AuthLandingViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthLandingViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/AuthLandingViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Auth/LoginViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/LoginViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/LoginViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/LoginViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/LoginViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/LoginViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/LoginViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/LoginViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/LoginViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Auth/SignupViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SignupViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SignupViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SignupViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SignupViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SignupViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SignupViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SignupViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SignupViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Feed/FeedViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/FeedViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/FeedViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/FeedViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/FeedViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/FeedViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/FeedViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/FeedViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/FeedViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Feed/PostTableViewCell.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostTableViewCell.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostTableViewCell.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostTableViewCell.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostTableViewCell.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostTableViewCell.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostTableViewCell.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostTableViewCell.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostTableViewCell~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Post/CreatePostViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/CreatePostViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/CreatePostViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/CreatePostViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/CreatePostViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/CreatePostViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/CreatePostViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/CreatePostViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/CreatePostViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Post/PostDetailViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostDetailViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostDetailViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostDetailViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostDetailViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostDetailViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostDetailViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostDetailViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/PostDetailViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/Search/SearchViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SearchViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SearchViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SearchViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SearchViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SearchViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SearchViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SearchViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SearchViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/User/NotificationsSettingsViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NotificationsSettingsViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NotificationsSettingsViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NotificationsSettingsViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NotificationsSettingsViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NotificationsSettingsViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NotificationsSettingsViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NotificationsSettingsViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/NotificationsSettingsViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/User/ProfileSettingsViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/ProfileSettingsViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/User/SecuritySettingsViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SecuritySettingsViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/User/SettingsViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SettingsViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SettingsViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SettingsViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SettingsViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SettingsViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SettingsViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SettingsViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SettingsViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/User/UserCell.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserCell.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserCell.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserCell.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserCell.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserCell.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserCell.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserCell.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserCell~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/User/UserConnectionsViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserConnectionsViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserConnectionsViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserConnectionsViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserConnectionsViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserConnectionsViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserConnectionsViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserConnectionsViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserConnectionsViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/Features/User/UserProfileViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserProfileViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserProfileViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserProfileViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserProfileViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserProfileViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserProfileViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserProfileViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/UserProfileViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/MainTabBarController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/MainTabBarController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/MainTabBarController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/MainTabBarController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/MainTabBarController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/MainTabBarController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/MainTabBarController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/MainTabBarController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/MainTabBarController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/RootViewController.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/RootViewController.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/RootViewController.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/RootViewController.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/RootViewController.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/RootViewController.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/RootViewController.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/RootViewController.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/RootViewController~partial.swiftmodule"
+  },
+  "/Users/ernie/Projects/NoFrillz/nofrillz-ios/nofrillz/SceneDelegate.swift" : {
+    "const-values" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SceneDelegate.swiftconstvalues",
+    "dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SceneDelegate.d",
+    "diagnostics" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SceneDelegate.dia",
+    "index-unit-output-path" : "/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SceneDelegate.o",
+    "llvm-bc" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SceneDelegate.bc",
+    "object" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SceneDelegate.o",
+    "swift-dependencies" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SceneDelegate.swiftdeps",
+    "swiftmodule" : "/Users/ernie/Projects/NoFrillz/nofrillz-ios/.DerivedData/Build/Intermediates.noindex/nofrillz.build/Debug-iphonesimulator/nofrillz.build/Objects-normal/arm64/SceneDelegate~partial.swiftmodule"
+  }
+}
