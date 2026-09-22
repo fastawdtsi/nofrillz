@@ -1,0 +1,137 @@
+"api.error.auth_missing_token_payload" = "В ответе авторизации отсутствует токен. Полезная нагрузка: %@";
+"api.error.decode_users_payload" = "Не удалось декодировать ответ со списком пользователей. Полезная нагрузка: %@";
+"api.error.decoding" = "Не удалось декодировать ответ API.";
+"api.error.invalid_response" = "API вернул некорректный ответ.";
+"api.error.invalid_url" = "Некорректный URL API.";
+"api.error.missing_current_user_id" = "В сессии отсутствует ID текущего пользователя.";
+"api.error.request_failed_status" = "Запрос завершился ошибкой со статусом %d";
+"api.error.server_request_failed" = "Ошибка запроса к серверу.";
+"api.error.unauthorized" = "Нет доступа. Войдите снова.";
+"auth.brand" = "NoFrillz";
+"auth.create_account" = "Создать аккаунт";
+"auth.login" = "Войти";
+"auth.sign_up" = "Регистрация";
+"auth.subtitle" = "Пиши. Читай. Ничего лишнего.";
+"auth.welcome" = "Добро пожаловать";
+"common.error" = "Ошибка";
+"common.ok" = "ОК";
+"create.empty_error" = "Напишите что-нибудь перед публикацией.";
+"create.meta" = "Без медиа. Без ссылок. Только текст.";
+"create.post_action" = "Опубликовать";
+"create.title" = "Создать пост";
+"date.few_minutes_ago" = "Несколько минут назад";
+"date.mins_ago" = "%d мин назад";
+"date.now" = "Сейчас";
+"date.one_min_ago" = "1 мин назад";
+"error.enter_email_password" = "Введите email и пароль.";
+"error.enter_username_email_password" = "Введите имя пользователя, email и пароль.";
+"error.invalid_email" = "Введите корректный email.";
+"error.invalid_username" = "Имя пользователя должно быть длиной 3–30 символов и содержать только буквы, цифры, _, -, или .";
+"field.email" = "Эл. почта";
+"field.password" = "Пароль";
+"field.username" = "Имя пользователя";
+"post.meta.created_likes_comments" = "%@    Лайки: %d    Комментарии: %d";
+"post.meta.likes_comments" = "Лайки: %d    Комментарии: %d";
+"post.title" = "Пост";
+"profile.counts" = "%d Подписчики  •  %d Подписки  •  %d Посты";
+"profile.default_user_handle" = "пользователь";
+"profile.default_username" = "@пользователь";
+"profile.followers" = "Подписчики";
+"profile.followers_count" = "%d Подписчики";
+"profile.following" = "Подписки";
+"profile.following_count" = "%d Подписки";
+"profile.follows_you" = "Подписан на вас";
+"profile.logout" = "Выйти";
+
+"profile.no_users_yet" = "Пользователей пока нет.";
+"profile.posts_count" = "%d постов";
+"profile.user" = "Пользователь";
+"profile.you_follow" = "Вы подписаны";
+"search.empty" = "Пользователи не найдены.";
+"search.placeholder" = "Поиск пользователей";
+"tab.feed" = "Лента";
+"tab.post" = "Пост";
+"tab.profile" = "Профиль";
+"tab.search" = "Поиск";
+"user.fallback.anonymous" = "аноним";
+"user.fallback.unknown" = "неизвестно";
+"date.short.now" = "сейчас";
+"date.short.min" = "%dм";
+"date.short.hour" = "%dч";
+"date.short.day" = "%dд";
+"date.short.week" = "%dнед";
+"date.short.month" = "%dмес";
+"date.short.year" = "%dг";
+
+"field.first_name" = "Имя";
+"field.last_name" = "Фамилия";
+"error.enter_signup_fields" = "Введите имя, фамилию, имя пользователя, email и пароль.";
+
+"auth.subtitle.1" = "Пиши. Читай. Ничего лишнего.";
+
+"auth.subtitle.2" = "Более тихое место для письма.";
+
+"auth.subtitle.3" = "Слова без шума.";
+
+"settings.title" = "Настройки";
+
+"field.about" = "О себе";
+
+"profile.no_about" = "Пока нет информации.";
+
+"common.ai_label" = "ai";
+"common.back" = "Назад";
+"common.cancel" = "Отмена";
+"common.clear" = "Очистить";
+"common.count_of_total" = "%d/%d";
+"common.dismiss_keyboard" = "Скрыть клавиатуру";
+"common.more" = "Ещё";
+"common.report" = "Пожаловаться";
+"common.settings" = "Настройки";
+"common.share" = "Поделиться";
+
+"create.write_title" = "Писать";
+
+"notifications.title" = "Уведомления";
+"notifications.note" = "Пока настройки уведомлений не поддерживаются API, эти параметры действуют только на этом устройстве.";
+"notifications.master.title" = "Push-уведомления";
+"notifications.master.subtitle" = "Разрешить уведомления от NoFrillz";
+"notifications.likes.title" = "Лайки";
+"notifications.likes.subtitle" = "Когда кто-то ставит лайк вашему посту";
+"notifications.follows.title" = "Подписчики";
+"notifications.follows.subtitle" = "Когда кто-то подписывается на вас";
+"notifications.replies.title" = "Ответы";
+"notifications.replies.subtitle" = "Когда кто-то отвечает на ваш текст";
+
+"profile.edit.save" = "Сохранить";
+"profile.edit.save_failed" = "Не удалось сохранить.";
+"profile.edit.title" = "Edit Profile";
+"profile.edit.done" = "Done";
+"profile.edit.display_name" = "Display Name";
+"profile.edit.bio" = "Bio";
+"profile.edit.display_name_invalid" = "Enter a first and last name.";
+"profile.edit.username_locked" = "Имена пользователей постоянны.";
+"profile.edit.missing_fields" = "Введите имя, фамилию и email.";
+"profile.follow_action" = "Подписаться";
+"profile.unfollow_action" = "Отписаться";
+
+"security.title" = "Безопасность";
+"security.update" = "Обновить";
+"security.current_password" = "Текущий пароль";
+"security.new_password" = "Новый пароль";
+"security.confirm_new_password" = "Подтвердите новый пароль";
+"security.current_password_required" = "Введите текущий пароль и новый пароль.";
+"security.password_mismatch" = "Новый пароль и подтверждение не совпадают.";
+"security.updated_title" = "Обновлено";
+"security.updated_message" = "Ваш пароль обновлён.";
+
+"settings.profile_subtitle" = "Имя, email, о себе";
+"settings.notifications_subtitle" = "Push-уведомления и активность";
+"settings.security_subtitle" = "Пароль и вход";
+"settings.no_email" = "Email не указан";
+"settings.profile_stats" = "%d постов, %d подписчиков, %d подписок";
+
+"notifications.preview.title" = "Предпросмотр баннера";
+"notifications.preview.subtitle" = "Посмотрите, как выглядят уведомления внутри приложения во время использования NoFrillz.";
+"notifications.preview.banner_title" = "Новый подписчик";
+"notifications.preview.banner_body" = "@jacobgray подписался на вас.";

@@ -1,0 +1,137 @@
+"api.error.auth_missing_token_payload" = "Auth response missing token. Payload: %@";
+"api.error.decode_users_payload" = "Unable to decode users list response. Payload: %@";
+"api.error.decoding" = "Unable to decode API response.";
+"api.error.invalid_response" = "API returned an invalid response.";
+"api.error.invalid_url" = "Invalid API URL.";
+"api.error.missing_current_user_id" = "Missing current user id in session.";
+"api.error.request_failed_status" = "Request failed with status %d";
+"api.error.server_request_failed" = "Server request failed.";
+"api.error.unauthorized" = "Unauthorized. Please login again.";
+"auth.brand" = "NoFrillz";
+"auth.create_account" = "Create Account";
+"auth.login" = "Login";
+"auth.sign_up" = "Sign Up";
+"auth.subtitle" = "Write. Read. Nothing else.";
+"auth.welcome" = "Welcome";
+"common.error" = "Error";
+"common.ok" = "OK";
+"create.empty_error" = "Write something before posting.";
+"create.meta" = "No media. No links. Just text.";
+"create.post_action" = "Post";
+"create.title" = "Create Post";
+"date.few_minutes_ago" = "A few minutes ago";
+"date.mins_ago" = "%d mins ago";
+"date.now" = "Now";
+"date.one_min_ago" = "1 min ago";
+"error.enter_email_password" = "Enter email and password.";
+"error.enter_username_email_password" = "Enter username, email, and password.";
+"error.invalid_email" = "Enter a valid email address.";
+"error.invalid_username" = "Username must be 3-30 characters and use letters, numbers, _, -, or .";
+"field.email" = "Email";
+"field.password" = "Password";
+"field.username" = "Username";
+"post.meta.created_likes_comments" = "%@    Likes: %d    Comments: %d";
+"post.meta.likes_comments" = "Likes: %d    Comments: %d";
+"post.title" = "Post";
+"profile.counts" = "%d Followers  •  %d Following  •  %d Posts";
+"profile.default_user_handle" = "user";
+"profile.default_username" = "@user";
+"profile.followers" = "Followers";
+"profile.followers_count" = "%d Followers";
+"profile.following" = "Following";
+"profile.following_count" = "%d Following";
+"profile.follows_you" = "Follows you";
+"profile.logout" = "Log Out";
+
+"profile.no_users_yet" = "No users yet.";
+"profile.posts_count" = "%d Posts";
+"profile.user" = "User";
+"profile.you_follow" = "You follow";
+"search.empty" = "No users found.";
+"search.placeholder" = "Search users";
+"tab.feed" = "Feed";
+"tab.post" = "Post";
+"tab.profile" = "Profile";
+"tab.search" = "Discover";
+"user.fallback.anonymous" = "anonymous";
+"user.fallback.unknown" = "unknown";
+"date.short.now" = "now";
+"date.short.min" = "%dmin";
+"date.short.hour" = "%dh";
+"date.short.day" = "%dd";
+"date.short.week" = "%dw";
+"date.short.month" = "%dmo";
+"date.short.year" = "%dy";
+
+"field.first_name" = "First Name";
+"field.last_name" = "Last Name";
+"error.enter_signup_fields" = "Enter first name, last name, username, email, and password.";
+
+"auth.subtitle.1" = "Write. Read. Nothing else.";
+
+"auth.subtitle.2" = "A quieter place to write.";
+
+"auth.subtitle.3" = "Words, without the noise.";
+
+"settings.title" = "Settings";
+
+"field.about" = "About";
+
+"profile.no_about" = "No about yet.";
+
+"common.ai_label" = "ai";
+"common.back" = "Back";
+"common.cancel" = "Cancel";
+"common.clear" = "Clear";
+"common.count_of_total" = "%d/%d";
+"common.dismiss_keyboard" = "Dismiss Keyboard";
+"common.more" = "More";
+"common.report" = "Report";
+"common.settings" = "Settings";
+"common.share" = "Share";
+
+"create.write_title" = "Write";
+
+"notifications.title" = "Notifications";
+"notifications.note" = "These preferences are currently local to this device until notification settings are backed by the API.";
+"notifications.master.title" = "Push Notifications";
+"notifications.master.subtitle" = "Allow notifications from NoFrillz";
+"notifications.likes.title" = "Likes";
+"notifications.likes.subtitle" = "When someone likes your post";
+"notifications.follows.title" = "Followers";
+"notifications.follows.subtitle" = "When someone follows you";
+"notifications.replies.title" = "Replies";
+"notifications.replies.subtitle" = "When someone replies to your writing";
+
+"profile.edit.save" = "Save";
+"profile.edit.save_failed" = "Save failed.";
+"profile.edit.title" = "Edit Profile";
+"profile.edit.done" = "Done";
+"profile.edit.display_name" = "Display Name";
+"profile.edit.bio" = "Bio";
+"profile.edit.display_name_invalid" = "Enter a first and last name.";
+"profile.edit.username_locked" = "Usernames are permanent.";
+"profile.edit.missing_fields" = "Enter your first name, last name, and email.";
+"profile.follow_action" = "Follow";
+"profile.unfollow_action" = "Unfollow";
+
+"security.title" = "Security";
+"security.update" = "Update";
+"security.current_password" = "Current Password";
+"security.new_password" = "New Password";
+"security.confirm_new_password" = "Confirm New Password";
+"security.current_password_required" = "Enter your current password and a new password.";
+"security.password_mismatch" = "New password and confirmation do not match.";
+"security.updated_title" = "Updated";
+"security.updated_message" = "Your password was updated.";
+
+"settings.profile_subtitle" = "Name, email, bio";
+"settings.notifications_subtitle" = "Push and activity alerts";
+"settings.security_subtitle" = "Password and sign-in";
+"settings.no_email" = "No email on file";
+"settings.profile_stats" = "%d posts, %d followers, %d following";
+
+"notifications.preview.title" = "Preview Banner";
+"notifications.preview.subtitle" = "See how in-app notifications appear while you’re using NoFrillz.";
+"notifications.preview.banner_title" = "New follower";
+"notifications.preview.banner_body" = "@jacobgray started following you.";

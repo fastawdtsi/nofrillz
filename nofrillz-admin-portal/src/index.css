@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --bg: 245 243 238;
+  --bg-strong: 252 250 246;
+  --surface: 252 250 246;
+  --surface-muted: 254 253 250;
+  --line: 220 214 204;
+  --ink: 17 17 17;
+  --muted: 102 102 102;
+  --accent: 198 90 90;
+  --accent-soft: 254 253 250;
+  --accent-foreground: 245 243 238;
+  --control-fill: 0 0 0;
+  --control-fill-foreground: 245 243 238;
+  --blue: 76 111 255;
+  --blue-soft: 232 237 255;
+  --red: 198 90 90;
+  --red-soft: 245 232 232;
+  --green: 93 138 114;
+  --green-soft: 228 237 232;
+  --yellow: 201 164 76;
+  --yellow-soft: 246 238 214;
+  --orange: 194 122 61;
+  --orange-soft: 244 230 217;
+  --purple: 123 111 166;
+  --purple-soft: 236 232 245;
+  --teal: 79 140 141;
+  --teal-soft: 229 239 239;
+  --danger: 198 90 90;
+  --shadow: 17 17 17;
+  font-family: "Avenir Next", "Segoe UI Variable Display", "SF Pro Display",
+    "Helvetica Neue", sans-serif;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: 22 22 22;
+  --bg-strong: 29 29 29;
+  --surface: 29 29 29;
+  --surface-muted: 38 38 38;
+  --line: 60 60 60;
+  --ink: 245 243 238;
+  --muted: 168 163 154;
+  --accent: 198 90 90;
+  --accent-soft: 38 38 38;
+  --accent-foreground: 22 22 22;
+  --control-fill: 255 255 255;
+  --control-fill-foreground: 22 22 22;
+  --blue: 76 111 255;
+  --blue-soft: 43 52 94;
+  --red: 198 90 90;
+  --red-soft: 76 48 48;
+  --green: 93 138 114;
+  --green-soft: 43 61 51;
+  --yellow: 201 164 76;
+  --yellow-soft: 84 71 39;
+  --orange: 194 122 61;
+  --orange-soft: 86 58 38;
+  --purple: 123 111 166;
+  --purple-soft: 63 56 86;
+  --teal: 79 140 141;
+  --teal-soft: 42 63 63;
+  --danger: 198 90 90;
+  --shadow: 0 0 0;
+}
+
+@layer base {
+  * {
+    border-color: rgb(var(--line) / 0.55);
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    color: rgb(var(--ink));
+    background:
+      radial-gradient(circle at top left, rgb(var(--surface-muted) / 0.85), transparent 28%),
+      radial-gradient(circle at top right, rgb(var(--bg-strong) / 0.9), transparent 22%),
+      linear-gradient(180deg, rgb(var(--bg)), rgb(var(--bg-strong)));
+    background-attachment: fixed;
+    font-family: inherit;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}

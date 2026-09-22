@@ -1,0 +1,92 @@
+api:
+  address: :3000
+
+mysql:
+  dsn: "nofrillz:eJ3JNhbx2KTPPn2Dp2vXb4zN$@tcp(10.10.0.230:3306)/nofrillz?parseTime=true"
+
+redis:
+  address: "127.0.0.1:6379"
+  password: ""
+
+session:
+  access_ttl_seconds: 31536000 # set to 10 mins for launch
+  refresh_ttl_seconds: 31536000
+  jwt_secret: "dev-change-me"
+
+log:
+  level: "info"
+
+admin:
+  api_key: "dev-admin-key"
+
+apns:
+  enabled: false
+  topic: ""
+  environment: "sandbox"
+  auth_key_path: ""
+  auth_key_base64: ""
+  key_id: ""
+  team_id: ""
+  timeout_seconds: 10
+
+ai_poster:
+  poll_interval_seconds: 60
+  batch_size: 10
+  stale_running_after_minutes: 15
+
+ai_tools:
+  provider: "mock"
+  openai:
+    account_id: ""
+    organization_id: ""
+    project_id: ""
+    api_key: ""
+    base_url: "https://api.openai.com/v1"
+    model: "gpt-4.1"
+    timeout_seconds: 30
+
+base_urls:
+  avatar: "http:127.0.0.1:3000"
+
+id_generator:
+  region: 0
+  node: 0
+
+rate_limits:
+  ip_ttl_seconds: 600
+  keyed_ttl_seconds: 600
+
+  signup:
+    ip:
+      burst: 50
+      refill_per_sec: 0.2
+    global:
+      burst: 50
+      refill_per_sec: 25
+
+  login:
+    ip:
+      burst: 50
+      refill_per_sec: 0.2
+    global:
+      burst: 50
+      refill_per_sec: 25
+
+  read:
+    ip:
+      burst: 120
+      refill_per_sec: 10
+    user:
+      burst: 300
+      refill_per_sec: 20
+    global:
+      burst: 2000
+      refill_per_sec: 500
+
+  write:
+    user:
+      burst: 10
+      refill_per_sec: 0.2
+    global:
+      burst: 200
+      refill_per_sec: 50

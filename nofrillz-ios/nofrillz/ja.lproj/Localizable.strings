@@ -1,0 +1,137 @@
+"api.error.auth_missing_token_payload" = "認証レスポンスにトークンがありません。ペイロード: %@";
+"api.error.decode_users_payload" = "ユーザー一覧レスポンスをデコードできませんでした。ペイロード: %@";
+"api.error.decoding" = "APIレスポンスをデコードできませんでした。";
+"api.error.invalid_response" = "APIが無効なレスポンスを返しました。";
+"api.error.invalid_url" = "API URLが無効です。";
+"api.error.missing_current_user_id" = "セッションに現在のユーザーIDがありません。";
+"api.error.request_failed_status" = "リクエストはステータス %d で失敗しました";
+"api.error.server_request_failed" = "サーバーリクエストに失敗しました。";
+"api.error.unauthorized" = "認証されていません。再度ログインしてください。";
+"auth.brand" = "NoFrillz";
+"auth.create_account" = "アカウント作成";
+"auth.login" = "ログイン";
+"auth.sign_up" = "新規登録";
+"auth.subtitle" = "書く。読む。それだけ。";
+"auth.welcome" = "ようこそ";
+"common.error" = "エラー";
+"common.ok" = "OK";
+"create.empty_error" = "投稿する前に何か入力してください。";
+"create.meta" = "メディアなし。リンクなし。テキストのみ。";
+"create.post_action" = "投稿";
+"create.title" = "投稿を作成";
+"date.few_minutes_ago" = "数分前";
+"date.mins_ago" = "%d分前";
+"date.now" = "今";
+"date.one_min_ago" = "1分前";
+"error.enter_email_password" = "メールアドレスとパスワードを入力してください。";
+"error.enter_username_email_password" = "ユーザー名、メールアドレス、パスワードを入力してください。";
+"error.invalid_email" = "有効なメールアドレスを入力してください。";
+"error.invalid_username" = "ユーザー名は3〜30文字で、英数字、_、-、. のみ使用できます。";
+"field.email" = "メールアドレス";
+"field.password" = "パスワード";
+"field.username" = "ユーザー名";
+"post.meta.created_likes_comments" = "%@    いいね: %d    コメント: %d";
+"post.meta.likes_comments" = "いいね: %d    コメント: %d";
+"post.title" = "投稿";
+"profile.counts" = "フォロワー %d  •  フォロー中 %d  •  投稿 %d";
+"profile.default_user_handle" = "ユーザー";
+"profile.default_username" = "@ユーザー";
+"profile.followers" = "フォロワー";
+"profile.followers_count" = "フォロワー %d";
+"profile.following" = "フォロー中";
+"profile.following_count" = "フォロー中 %d";
+"profile.follows_you" = "あなたをフォロー";
+"profile.logout" = "ログアウト";
+
+"profile.no_users_yet" = "ユーザーがまだいません。";
+"profile.posts_count" = "投稿 %d";
+"profile.user" = "ユーザー";
+"profile.you_follow" = "フォロー中";
+"search.empty" = "ユーザーが見つかりません。";
+"search.placeholder" = "ユーザーを検索";
+"tab.feed" = "フィード";
+"tab.post" = "投稿";
+"tab.profile" = "プロフィール";
+"tab.search" = "検索";
+"user.fallback.anonymous" = "匿名";
+"user.fallback.unknown" = "不明";
+"date.short.now" = "今";
+"date.short.min" = "%d分";
+"date.short.hour" = "%d時間";
+"date.short.day" = "%d日";
+"date.short.week" = "%d週";
+"date.short.month" = "%dか月";
+"date.short.year" = "%d年";
+
+"field.first_name" = "名";
+"field.last_name" = "姓";
+"error.enter_signup_fields" = "名、姓、ユーザー名、メールアドレス、パスワードを入力してください。";
+
+"auth.subtitle.1" = "書く。読む。それだけ。";
+
+"auth.subtitle.2" = "もっと静かに書ける場所。";
+
+"auth.subtitle.3" = "言葉だけ。ノイズなし。";
+
+"settings.title" = "設定";
+
+"field.about" = "自己紹介";
+
+"profile.no_about" = "紹介文はまだありません。";
+
+"common.ai_label" = "ai";
+"common.back" = "戻る";
+"common.cancel" = "キャンセル";
+"common.clear" = "消去";
+"common.count_of_total" = "%d/%d";
+"common.dismiss_keyboard" = "キーボードを閉じる";
+"common.more" = "その他";
+"common.report" = "報告";
+"common.settings" = "設定";
+"common.share" = "共有";
+
+"create.write_title" = "書く";
+
+"notifications.title" = "通知";
+"notifications.note" = "通知設定が API で保存されるようになるまでは、これらの設定はこのデバイスにのみ保存されます。";
+"notifications.master.title" = "プッシュ通知";
+"notifications.master.subtitle" = "NoFrillz からの通知を許可";
+"notifications.likes.title" = "いいね";
+"notifications.likes.subtitle" = "誰かがあなたの投稿にいいねしたとき";
+"notifications.follows.title" = "フォロワー";
+"notifications.follows.subtitle" = "誰かがあなたをフォローしたとき";
+"notifications.replies.title" = "返信";
+"notifications.replies.subtitle" = "誰かがあなたの文章に返信したとき";
+
+"profile.edit.save" = "保存";
+"profile.edit.save_failed" = "保存に失敗しました。";
+"profile.edit.title" = "Edit Profile";
+"profile.edit.done" = "Done";
+"profile.edit.display_name" = "Display Name";
+"profile.edit.bio" = "Bio";
+"profile.edit.display_name_invalid" = "Enter a first and last name.";
+"profile.edit.username_locked" = "ユーザー名は変更できません。";
+"profile.edit.missing_fields" = "名、姓、メールアドレスを入力してください。";
+"profile.follow_action" = "フォロー";
+"profile.unfollow_action" = "フォロー解除";
+
+"security.title" = "セキュリティ";
+"security.update" = "更新";
+"security.current_password" = "現在のパスワード";
+"security.new_password" = "新しいパスワード";
+"security.confirm_new_password" = "新しいパスワードを確認";
+"security.current_password_required" = "現在のパスワードと新しいパスワードを入力してください。";
+"security.password_mismatch" = "新しいパスワードと確認用パスワードが一致しません。";
+"security.updated_title" = "更新済み";
+"security.updated_message" = "パスワードを更新しました。";
+
+"settings.profile_subtitle" = "名前、メール、自己紹介";
+"settings.notifications_subtitle" = "プッシュ通知とアクティビティ通知";
+"settings.security_subtitle" = "パスワードとサインイン";
+"settings.no_email" = "メールアドレス未登録";
+"settings.profile_stats" = "%d件の投稿、%d人のフォロワー、%d件のフォロー中";
+
+"notifications.preview.title" = "バナーをプレビュー";
+"notifications.preview.subtitle" = "NoFrillzの利用中にアプリ内通知がどのように表示されるかを確認できます。";
+"notifications.preview.banner_title" = "新しいフォロワー";
+"notifications.preview.banner_body" = "@jacobgray があなたをフォローしました。";

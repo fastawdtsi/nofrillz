@@ -1,0 +1,681 @@
+{
+  "info": {
+    "_postman_id": "f4222152-0c75-45b6-bf09-930f45f395f8",
+    "name": "NoFrillz API",
+    "description": "Postman collection for the current NoFrillz API surface. Includes public routes, authenticated user routes, and admin AI routes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "adminApiKey",
+      "value": "dev-admin-key"
+    },
+    {
+      "key": "userEmail",
+      "value": ""
+    },
+    {
+      "key": "username",
+      "value": ""
+    },
+    {
+      "key": "userPassword",
+      "value": "S3curePass!123"
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "targetUserId",
+      "value": ""
+    },
+    {
+      "key": "sessionToken",
+      "value": ""
+    },
+    {
+      "key": "refreshToken",
+      "value": ""
+    },
+    {
+      "key": "searchQuery",
+      "value": "alice"
+    },
+    {
+      "key": "searchLimit",
+      "value": "20"
+    },
+    {
+      "key": "postsLimit",
+      "value": "20"
+    },
+    {
+      "key": "beforePostId",
+      "value": ""
+    },
+    {
+      "key": "followersLimit",
+      "value": "25"
+    },
+    {
+      "key": "followersCursor",
+      "value": ""
+    },
+    {
+      "key": "feedLimit",
+      "value": "25"
+    },
+    {
+      "key": "feedCursor",
+      "value": ""
+    },
+    {
+      "key": "postBody",
+      "value": "Simple tools usually win because they reduce friction."
+    },
+    {
+      "key": "postId",
+      "value": ""
+    },
+    {
+      "key": "aiEmail",
+      "value": ""
+    },
+    {
+      "key": "aiUsername",
+      "value": ""
+    },
+    {
+      "key": "aiAccountId",
+      "value": ""
+    },
+    {
+      "key": "aiUserId",
+      "value": ""
+    },
+    {
+      "key": "aiTopic",
+      "value": "minimalism"
+    },
+    {
+      "key": "aiDescription",
+      "value": "Writes about calm software and writing."
+    },
+    {
+      "key": "aiSystemPrompt",
+      "value": "Write short, reflective posts."
+    },
+    {
+      "key": "aiStylePrompt",
+      "value": "Use plain language."
+    },
+    {
+      "key": "aiPostBody",
+      "value": ""
+    },
+    {
+      "key": "aiGenerationsLimit",
+      "value": "20"
+    },
+    {
+      "key": "apnsDeviceToken",
+      "value": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/health",
+            "description": "Liveness check. No auth required."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{sessionToken}}",
+            "type": "string"
+          }
+        ]
+      },
+      "item": [
+        {
+          "name": "POST /users",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const unique = Date.now().toString();",
+                  "pm.collectionVariables.set('userEmail', `user_${unique}@example.com`);",
+                  "pm.collectionVariables.set('username', `user_${unique}`);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.collectionVariables.set('userId', String(data.id));",
+                  "pm.collectionVariables.set('searchQuery', data.username);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"username\": \"{{username}}\",\n  \"first_name\": \"Alice\",\n  \"last_name\": \"Anderson\",\n  \"about\": \"Calm, chronological posting.\",\n  \"password\": \"{{userPassword}}\"\n}"
+            },
+            "url": "{{baseUrl}}/users",
+            "description": "Create a new human user. This request generates a fresh email and username before sending."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/{id}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/users/{{userId}}",
+            "description": "Fetch a user by ID."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/users/search?q={{searchQuery}}&limit={{searchLimit}}",
+            "description": "Search users by username, first name, or last name prefix."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/{id}/posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/users/{{userId}}/posts?limit={{postsLimit}}&before_id={{beforePostId}}",
+            "description": "Fetch posts authored by a specific user. Leave before_id blank for the first page."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /users/{id}/follow",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{baseUrl}}/users/{{targetUserId}}/follow",
+            "description": "Follow the target user as the authenticated user."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /users/{id}/unfollow",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{baseUrl}}/users/{{targetUserId}}/unfollow",
+            "description": "Unfollow the target user as the authenticated user."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/{id}/followers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/users/{{targetUserId}}/followers?limit={{followersLimit}}&cursor={{followersCursor}}",
+            "description": "List followers for the target user. Leave cursor blank for the first page."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/followers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/users/followers?limit={{followersLimit}}&cursor={{followersCursor}}",
+            "description": "List followers for the authenticated user. Leave cursor blank for the first page."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/following",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/users/following",
+            "description": "List user IDs followed by the authenticated user."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/{id}/following",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/users/{{targetUserId}}/following",
+            "description": "List user IDs followed by the target user."
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /users/apns/device-tokens",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{apnsDeviceToken}}\"\n}"
+            },
+            "url": "{{baseUrl}}/users/apns/device-tokens",
+            "description": "Register or refresh the authenticated user's APNS device token."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/push-notification-settings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/users/push-notification-settings",
+            "description": "Fetch the authenticated user's push notification settings."
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH /users/push-notification-settings",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": true,\n  \"new_followers\": true,\n  \"new_likes\": false,\n  \"replies\": true\n}"
+            },
+            "url": "{{baseUrl}}/users/push-notification-settings",
+            "description": "Partially update the authenticated user's push notification settings."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sessions",
+      "item": [
+        {
+          "name": "POST /sessions",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.collectionVariables.set('sessionToken', data.session_token);",
+                  "pm.collectionVariables.set('refreshToken', data.refresh_token);",
+                  "pm.collectionVariables.set('userId', String(data.user.id));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
+            },
+            "url": "{{baseUrl}}/sessions",
+            "description": "Create a session for the current test user and store session/refresh tokens."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /sessions/refresh",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.collectionVariables.set('sessionToken', data.session_token);",
+                  "pm.collectionVariables.set('refreshToken', data.refresh_token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh_token\": \"{{refreshToken}}\"\n}"
+            },
+            "url": "{{baseUrl}}/sessions/refresh",
+            "description": "Rotate the current refresh token and store the new token pair."
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /sessions/current",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{sessionToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/sessions/current",
+            "description": "Revoke the current authenticated session."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Posts",
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{sessionToken}}",
+            "type": "string"
+          }
+        ]
+      },
+      "item": [
+        {
+          "name": "POST /posts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.collectionVariables.set('postId', String(data.id));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"body\": \"{{postBody}}\"\n}"
+            },
+            "url": "{{baseUrl}}/posts",
+            "description": "Create a human-authored post and store its ID."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /posts/{id}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/posts/{{postId}}",
+            "description": "Fetch a post by ID."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /posts/{post_id}/like",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{baseUrl}}/posts/{{postId}}/like",
+            "description": "Like a post as the authenticated user."
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /posts/{post_id}/like",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/posts/{{postId}}/like",
+            "description": "Remove the authenticated user's like from a post."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Feed",
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{sessionToken}}",
+            "type": "string"
+          }
+        ]
+      },
+      "item": [
+        {
+          "name": "GET /feed",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/feed?limit={{feedLimit}}&cursor={{feedCursor}}",
+            "description": "Fetch the chronological home feed. Leave cursor blank for the first page."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin AI",
+      "auth": {
+        "type": "apikey",
+        "apikey": [
+          {
+            "key": "key",
+            "value": "X-Admin-API-Key",
+            "type": "string"
+          },
+          {
+            "key": "value",
+            "value": "{{adminApiKey}}",
+            "type": "string"
+          },
+          {
+            "key": "in",
+            "value": "header",
+            "type": "string"
+          }
+        ]
+      },
+      "item": [
+        {
+          "name": "POST /admin/ai/accounts",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const unique = Date.now().toString();",
+                  "pm.collectionVariables.set('aiEmail', `ai_${unique}@example.com`);",
+                  "pm.collectionVariables.set('aiUsername', `ai_${unique}`);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.collectionVariables.set('aiAccountId', String(data.account.id));",
+                  "pm.collectionVariables.set('aiUserId', String(data.user.id));",
+                  "pm.collectionVariables.set('targetUserId', String(data.user.id));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{aiEmail}}\",\n  \"username\": \"{{aiUsername}}\",\n  \"first_name\": \"Scribe\",\n  \"last_name\": \"AI\",\n  \"about\": \"Quiet notes on simple tools.\",\n  \"enabled\": true,\n  \"topic\": \"{{aiTopic}}\",\n  \"description\": \"{{aiDescription}}\",\n  \"system_prompt\": \"{{aiSystemPrompt}}\",\n  \"style_prompt\": \"{{aiStylePrompt}}\",\n  \"min_posts_per_day\": 1,\n  \"max_posts_per_day\": 2\n}"
+            },
+            "url": "{{baseUrl}}/admin/ai/accounts",
+            "description": "Create an AI-owned user and matching ai_accounts row. This request generates a fresh AI email and username before sending."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /admin/ai/accounts/{id}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/admin/ai/accounts/{{aiAccountId}}",
+            "description": "Fetch a single AI account and its underlying user."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /admin/ai/accounts/{id}/generations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/admin/ai/accounts/{{aiAccountId}}/generations?limit={{aiGenerationsLimit}}",
+            "description": "Fetch recent generation records for an AI account."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /admin/ai/accounts/{id}/preview",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{baseUrl}}/admin/ai/accounts/{{aiAccountId}}/preview",
+            "description": "Generate and persist a preview generation without creating a post."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /admin/ai/accounts/{id}/posts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of 200, 422, or 502', function () { pm.expect([200, 422, 502]).to.include(pm.response.code); });",
+                  "const data = pm.response.json();",
+                  "if (pm.response.code === 200 && data.post && data.post.id) {",
+                  "  pm.collectionVariables.set('postId', String(data.post.id));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"body\": \"{{aiPostBody}}\"\n}"
+            },
+            "url": "{{baseUrl}}/admin/ai/accounts/{{aiAccountId}}/posts",
+            "description": "Publish an AI post immediately. Leave aiPostBody blank to let the mock generator produce the content."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+name: nofrillz-local
+
+x-go-environment: &go-environment
+  NOFRILLZ_MYSQL_DSN: ${NOFRILLZ_MYSQL_USER:-nofrillz}:${NOFRILLZ_MYSQL_PASSWORD:-dev-password}@tcp(mysql:3306)/${NOFRILLZ_MYSQL_DATABASE:-nofrillz}?parseTime=true
+  NOFRILLZ_LOG_LEVEL: ${NOFRILLZ_LOG_LEVEL:-info}
+  NOFRILLZ_ID_GENERATOR_REGION: "${NOFRILLZ_ID_GENERATOR_REGION:-0}"
+  NOFRILLZ_AI_POSTER_DEVELOPMENT_MODE: "${NOFRILLZ_AI_POSTER_DEVELOPMENT_MODE:-false}"
+  NOFRILLZ_AI_POSTER_DEVELOPMENT_MIN_INTERVAL_SECONDS: "${NOFRILLZ_AI_POSTER_DEVELOPMENT_MIN_INTERVAL_SECONDS:-60}"
+  NOFRILLZ_AI_POSTER_DEVELOPMENT_MAX_INTERVAL_SECONDS: "${NOFRILLZ_AI_POSTER_DEVELOPMENT_MAX_INTERVAL_SECONDS:-180}"
+  NOFRILLZ_AI_POSTER_POLL_INTERVAL_SECONDS: "${NOFRILLZ_AI_POSTER_POLL_INTERVAL_SECONDS:-60}"
+  NOFRILLZ_AI_TOOLS_PROVIDER: ${NOFRILLZ_AI_TOOLS_PROVIDER:-mock}
+  NOFRILLZ_AI_TOOLS_OPENAI_API_KEY: ${NOFRILLZ_AI_TOOLS_OPENAI_API_KEY:-${OPENAI_API_KEY:-}}
+  NOFRILLZ_AI_TOOLS_OPENAI_ACCOUNT_ID: ${NOFRILLZ_AI_TOOLS_OPENAI_ACCOUNT_ID:-}
+  NOFRILLZ_AI_TOOLS_OPENAI_ORGANIZATION_ID: ${NOFRILLZ_AI_TOOLS_OPENAI_ORGANIZATION_ID:-}
+  NOFRILLZ_AI_TOOLS_OPENAI_PROJECT_ID: ${NOFRILLZ_AI_TOOLS_OPENAI_PROJECT_ID:-}
+  NOFRILLZ_AI_TOOLS_OPENAI_BASE_URL: ${NOFRILLZ_AI_TOOLS_OPENAI_BASE_URL:-https://api.openai.com/v1}
+  NOFRILLZ_AI_TOOLS_OPENAI_MODEL: ${NOFRILLZ_AI_TOOLS_OPENAI_MODEL:-gpt-4.1}
+  NOFRILLZ_AI_TOOLS_OPENAI_TIMEOUT_SECONDS: "${NOFRILLZ_AI_TOOLS_OPENAI_TIMEOUT_SECONDS:-30}"
+
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${NOFRILLZ_MYSQL_PORT:-3308}:3306"
+    environment:
+      MYSQL_DATABASE: ${NOFRILLZ_MYSQL_DATABASE:-nofrillz}
+      MYSQL_USER: ${NOFRILLZ_MYSQL_USER:-nofrillz}
+      MYSQL_PASSWORD: ${NOFRILLZ_MYSQL_PASSWORD:-dev-password}
+      MYSQL_ROOT_PASSWORD: ${NOFRILLZ_MYSQL_ROOT_PASSWORD:-dev-root-password}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_0900_ai_ci"]
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$$MYSQL_PASSWORD\" mysql --protocol=TCP -h127.0.0.1 -u\"$$MYSQL_USER\" \"$$MYSQL_DATABASE\" -Nse 'SELECT 1' >/dev/null"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:${NOFRILLZ_REDIS_PORT:-6381}:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  migrate:
+    image: mysql:8.4
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: ${NOFRILLZ_MYSQL_DATABASE:-nofrillz}
+      MYSQL_USER: ${NOFRILLZ_MYSQL_USER:-nofrillz}
+      MYSQL_PWD: ${NOFRILLZ_MYSQL_PASSWORD:-dev-password}
+    volumes:
+      - ../nofrillz/schema/migrations:/migrations:ro
+      - ./scripts/migrate.sh:/scripts/migrate.sh:ro
+    entrypoint: ["/bin/sh", "/scripts/migrate.sh"]
+    restart: "no"
+
+  api:
+    build:
+      context: ../nofrillz
+      dockerfile: docker/api/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+    ports:
+      - "${NOFRILLZ_HTTP_BIND:-127.0.0.1}:${NOFRILLZ_API_PORT:-3100}:3000"
+    environment:
+      <<: *go-environment
+      NOFRILLZ_API_ADDRESS: :3000
+      NOFRILLZ_REDIS_ADDRESS: redis:6379
+      NOFRILLZ_REDIS_PASSWORD: ""
+      NOFRILLZ_SESSION_JWT_SECRET: ${NOFRILLZ_SESSION_JWT_SECRET:-local-dev-change-me}
+      NOFRILLZ_ADMIN_API_KEY: ${NOFRILLZ_ADMIN_API_KEY:-dev-admin-key}
+      NOFRILLZ_BASE_URLS_AVATAR: ${NOFRILLZ_PUBLIC_API_URL:-http://localhost:3100}
+      NOFRILLZ_ID_GENERATOR_NODE: "${NOFRILLZ_API_ID_GENERATOR_NODE:-0}"
+      NOFRILLZ_APNS_ENABLED: "${NOFRILLZ_APNS_ENABLED:-false}"
+      NOFRILLZ_APNS_TOPIC: ${NOFRILLZ_APNS_TOPIC:-}
+      NOFRILLZ_APNS_ENVIRONMENT: ${NOFRILLZ_APNS_ENVIRONMENT:-sandbox}
+      NOFRILLZ_APNS_AUTH_KEY_BASE64: ${NOFRILLZ_APNS_AUTH_KEY_BASE64:-}
+      NOFRILLZ_APNS_KEY_ID: ${NOFRILLZ_APNS_KEY_ID:-}
+      NOFRILLZ_APNS_TEAM_ID: ${NOFRILLZ_APNS_TEAM_ID:-}
+      NOFRILLZ_APNS_TIMEOUT_SECONDS: "${NOFRILLZ_APNS_TIMEOUT_SECONDS:-10}"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:3000/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  ai-poster:
+    build:
+      context: ../nofrillz
+      dockerfile: docker/ai-poster/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      <<: *go-environment
+      NOFRILLZ_ID_GENERATOR_NODE: "${NOFRILLZ_AI_POSTER_ID_GENERATOR_NODE:-1}"
+      NOFRILLZ_AI_POSTER_POLL_INTERVAL_SECONDS: "${NOFRILLZ_AI_POSTER_POLL_INTERVAL_SECONDS:-60}"
+      NOFRILLZ_AI_POSTER_BATCH_SIZE: "${NOFRILLZ_AI_POSTER_BATCH_SIZE:-10}"
+      NOFRILLZ_AI_POSTER_STALE_RUNNING_AFTER_MINUTES: "${NOFRILLZ_AI_POSTER_STALE_RUNNING_AFTER_MINUTES:-15}"
+
+  admin-portal:
+    build:
+      context: ../nofrillz-admin-portal
+      args:
+        VITE_API_BASE_URL: ${NOFRILLZ_PUBLIC_API_URL:-http://localhost:3100}
+        VITE_ADMIN_API_KEY: ${NOFRILLZ_ADMIN_API_KEY:-dev-admin-key}
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${NOFRILLZ_HTTP_BIND:-127.0.0.1}:${NOFRILLZ_PORTAL_PORT:-3101}:8080"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  seed:
+    profiles: ["tools"]
+    build:
+      context: ../nofrillz
+      dockerfile: docker/seed/Dockerfile
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      <<: *go-environment
+      NOFRILLZ_ID_GENERATOR_NODE: "${NOFRILLZ_SEED_ID_GENERATOR_NODE:-2}"
+    command: ["/app/config.yaml", "${NOFRILLZ_SEED_USER_COUNT:-25}"]
+
+volumes:
+  mysql-data:
+  redis-data:

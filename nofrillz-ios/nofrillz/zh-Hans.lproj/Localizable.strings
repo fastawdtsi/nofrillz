@@ -1,0 +1,137 @@
+"api.error.auth_missing_token_payload" = "认证响应缺少令牌。负载：%@";
+"api.error.decode_users_payload" = "无法解码用户列表响应。负载：%@";
+"api.error.decoding" = "无法解码 API 响应。";
+"api.error.invalid_response" = "API 返回了无效响应。";
+"api.error.invalid_url" = "无效的 API URL。";
+"api.error.missing_current_user_id" = "会话中缺少当前用户 ID。";
+"api.error.request_failed_status" = "请求失败，状态码 %d";
+"api.error.server_request_failed" = "服务器请求失败。";
+"api.error.unauthorized" = "未授权。请重新登录。";
+"auth.brand" = "NoFrillz";
+"auth.create_account" = "创建账户";
+"auth.login" = "登录";
+"auth.sign_up" = "注册";
+"auth.subtitle" = "写。读。仅此而已。";
+"auth.welcome" = "欢迎";
+"common.error" = "错误";
+"common.ok" = "确定";
+"create.empty_error" = "发布前请先输入内容。";
+"create.meta" = "无媒体。无链接。仅文本。";
+"create.post_action" = "发布";
+"create.title" = "创建帖子";
+"date.few_minutes_ago" = "几分钟前";
+"date.mins_ago" = "%d 分钟前";
+"date.now" = "刚刚";
+"date.one_min_ago" = "1 分钟前";
+"error.enter_email_password" = "请输入邮箱和密码。";
+"error.enter_username_email_password" = "请输入用户名、邮箱和密码。";
+"error.invalid_email" = "请输入有效的邮箱地址。";
+"error.invalid_username" = "用户名必须为 3-30 个字符，并且只能使用字母、数字、_、- 或 .";
+"field.email" = "邮箱";
+"field.password" = "密码";
+"field.username" = "用户名";
+"post.meta.created_likes_comments" = "%@    点赞: %d    评论: %d";
+"post.meta.likes_comments" = "点赞: %d    评论: %d";
+"post.title" = "帖子";
+"profile.counts" = "%d 粉丝  •  %d 关注中  •  %d 帖子";
+"profile.default_user_handle" = "用户";
+"profile.default_username" = "@用户";
+"profile.followers" = "粉丝";
+"profile.followers_count" = "%d 粉丝";
+"profile.following" = "关注中";
+"profile.following_count" = "%d 关注中";
+"profile.follows_you" = "关注了你";
+"profile.logout" = "退出登录";
+
+"profile.no_users_yet" = "还没有用户。";
+"profile.posts_count" = "%d 帖子";
+"profile.user" = "用户";
+"profile.you_follow" = "你已关注";
+"search.empty" = "未找到用户。";
+"search.placeholder" = "搜索用户";
+"tab.feed" = "动态";
+"tab.post" = "发帖";
+"tab.profile" = "个人资料";
+"tab.search" = "搜索";
+"user.fallback.anonymous" = "匿名";
+"user.fallback.unknown" = "未知";
+"date.short.now" = "刚刚";
+"date.short.min" = "%d分";
+"date.short.hour" = "%d小时";
+"date.short.day" = "%d天";
+"date.short.week" = "%d周";
+"date.short.month" = "%d个月";
+"date.short.year" = "%d年";
+
+"field.first_name" = "名字";
+"field.last_name" = "姓氏";
+"error.enter_signup_fields" = "请输入名字、姓氏、用户名、邮箱和密码。";
+
+"auth.subtitle.1" = "写。读。仅此而已。";
+
+"auth.subtitle.2" = "一个更安静的写作空间。";
+
+"auth.subtitle.3" = "只有文字，没有噪音。";
+
+"settings.title" = "设置";
+
+"field.about" = "简介";
+
+"profile.no_about" = "暂无简介。";
+
+"common.ai_label" = "ai";
+"common.back" = "返回";
+"common.cancel" = "取消";
+"common.clear" = "清除";
+"common.count_of_total" = "%d/%d";
+"common.dismiss_keyboard" = "关闭键盘";
+"common.more" = "更多";
+"common.report" = "举报";
+"common.settings" = "设置";
+"common.share" = "分享";
+
+"create.write_title" = "写作";
+
+"notifications.title" = "通知";
+"notifications.note" = "在通知设置由 API 持久化之前，这些偏好当前仅保存在此设备上。";
+"notifications.master.title" = "推送通知";
+"notifications.master.subtitle" = "允许来自 NoFrillz 的通知";
+"notifications.likes.title" = "点赞";
+"notifications.likes.subtitle" = "当有人点赞你的帖子时";
+"notifications.follows.title" = "粉丝";
+"notifications.follows.subtitle" = "当有人关注你时";
+"notifications.replies.title" = "回复";
+"notifications.replies.subtitle" = "当有人回复你的文字时";
+
+"profile.edit.save" = "保存";
+"profile.edit.save_failed" = "保存失败。";
+"profile.edit.title" = "Edit Profile";
+"profile.edit.done" = "Done";
+"profile.edit.display_name" = "Display Name";
+"profile.edit.bio" = "Bio";
+"profile.edit.display_name_invalid" = "Enter a first and last name.";
+"profile.edit.username_locked" = "用户名是固定的。";
+"profile.edit.missing_fields" = "请输入名字、姓氏和邮箱。";
+"profile.follow_action" = "关注";
+"profile.unfollow_action" = "取消关注";
+
+"security.title" = "安全";
+"security.update" = "更新";
+"security.current_password" = "当前密码";
+"security.new_password" = "新密码";
+"security.confirm_new_password" = "确认新密码";
+"security.current_password_required" = "请输入当前密码和新密码。";
+"security.password_mismatch" = "新密码与确认内容不一致。";
+"security.updated_title" = "已更新";
+"security.updated_message" = "你的密码已更新。";
+
+"settings.profile_subtitle" = "姓名、邮箱、简介";
+"settings.notifications_subtitle" = "推送和活动提醒";
+"settings.security_subtitle" = "密码和登录";
+"settings.no_email" = "未填写邮箱";
+"settings.profile_stats" = "%d 条帖子，%d 位粉丝，%d 个关注";
+
+"notifications.preview.title" = "预览横幅";
+"notifications.preview.subtitle" = "查看你在使用 NoFrillz 时，应用内通知会如何显示。";
+"notifications.preview.banner_title" = "新关注者";
+"notifications.preview.banner_body" = "@jacobgray 关注了你。";

@@ -1,0 +1,137 @@
+"api.error.auth_missing_token_payload" = "Falta el token en la respuesta de autenticación. Carga útil: %@";
+"api.error.decode_users_payload" = "No se pudo decodificar la respuesta de la lista de usuarios. Carga útil: %@";
+"api.error.decoding" = "No se pudo decodificar la respuesta de la API.";
+"api.error.invalid_response" = "La API devolvió una respuesta no válida.";
+"api.error.invalid_url" = "URL de API no válida.";
+"api.error.missing_current_user_id" = "Falta el ID del usuario actual en la sesión.";
+"api.error.request_failed_status" = "La solicitud falló con estado %d";
+"api.error.server_request_failed" = "La solicitud al servidor falló.";
+"api.error.unauthorized" = "No autorizado. Inicia sesión de nuevo.";
+"auth.brand" = "NoFrillz";
+"auth.create_account" = "Crear cuenta";
+"auth.login" = "Iniciar sesión";
+"auth.sign_up" = "Registrarse";
+"auth.subtitle" = "Escribe. Lee. Nada más.";
+"auth.welcome" = "Bienvenido";
+"common.error" = "Error";
+"common.ok" = "Aceptar";
+"create.empty_error" = "Escribe algo antes de publicar.";
+"create.meta" = "Sin multimedia. Sin enlaces. Solo texto.";
+"create.post_action" = "Publicar";
+"create.title" = "Crear publicación";
+"date.few_minutes_ago" = "Hace unos minutos";
+"date.mins_ago" = "Hace %d min";
+"date.now" = "Ahora";
+"date.one_min_ago" = "Hace 1 min";
+"error.enter_email_password" = "Ingresa correo y contraseña.";
+"error.enter_username_email_password" = "Ingresa usuario, correo y contraseña.";
+"error.invalid_email" = "Ingresa un correo electrónico válido.";
+"error.invalid_username" = "El usuario debe tener entre 3 y 30 caracteres y usar letras, números, _, -, o .";
+"field.email" = "Correo";
+"field.password" = "Contraseña";
+"field.username" = "Usuario";
+"post.meta.created_likes_comments" = "%@    Me gusta: %d    Comentarios: %d";
+"post.meta.likes_comments" = "Me gusta: %d    Comentarios: %d";
+"post.title" = "Publicación";
+"profile.counts" = "%d Seguidores  •  %d Siguiendo  •  %d Publicaciones";
+"profile.default_user_handle" = "usuario";
+"profile.default_username" = "@usuario";
+"profile.followers" = "Seguidores";
+"profile.followers_count" = "%d Seguidores";
+"profile.following" = "Siguiendo";
+"profile.following_count" = "%d Siguiendo";
+"profile.follows_you" = "Te sigue";
+"profile.logout" = "Cerrar sesión";
+
+"profile.no_users_yet" = "Aún no hay usuarios.";
+"profile.posts_count" = "%d Publicaciones";
+"profile.user" = "Usuario";
+"profile.you_follow" = "Lo sigues";
+"search.empty" = "No se encontraron usuarios.";
+"search.placeholder" = "Buscar usuarios";
+"tab.feed" = "Inicio";
+"tab.post" = "Publicar";
+"tab.profile" = "Perfil";
+"tab.search" = "Buscar";
+"user.fallback.anonymous" = "anonimo";
+"user.fallback.unknown" = "desconocido";
+"date.short.now" = "ahora";
+"date.short.min" = "%d min";
+"date.short.hour" = "%d h";
+"date.short.day" = "%d d";
+"date.short.week" = "%dsem";
+"date.short.month" = "%dmes";
+"date.short.year" = "%da";
+
+"field.first_name" = "Nombre";
+"field.last_name" = "Apellido";
+"error.enter_signup_fields" = "Ingresa nombre, apellido, usuario, correo y contraseña.";
+
+"auth.subtitle.1" = "Escribe. Lee. Nada más.";
+
+"auth.subtitle.2" = "Un lugar más tranquilo para escribir.";
+
+"auth.subtitle.3" = "Palabras, sin el ruido.";
+
+"settings.title" = "Configuración";
+
+"field.about" = "Acerca de";
+
+"profile.no_about" = "Sin información todavía.";
+
+"common.ai_label" = "ai";
+"common.back" = "Atrás";
+"common.cancel" = "Cancelar";
+"common.clear" = "Borrar";
+"common.count_of_total" = "%d/%d";
+"common.dismiss_keyboard" = "Ocultar teclado";
+"common.more" = "Más";
+"common.report" = "Denunciar";
+"common.settings" = "Configuración";
+"common.share" = "Compartir";
+
+"create.write_title" = "Escribir";
+
+"notifications.title" = "Notificaciones";
+"notifications.note" = "Estas preferencias son locales a este dispositivo hasta que la API respalde la configuración de notificaciones.";
+"notifications.master.title" = "Notificaciones push";
+"notifications.master.subtitle" = "Permitir notificaciones de NoFrillz";
+"notifications.likes.title" = "Me gusta";
+"notifications.likes.subtitle" = "Cuando alguien le da Me gusta a tu publicación";
+"notifications.follows.title" = "Seguidores";
+"notifications.follows.subtitle" = "Cuando alguien te sigue";
+"notifications.replies.title" = "Respuestas";
+"notifications.replies.subtitle" = "Cuando alguien responde a tu texto";
+
+"profile.edit.save" = "Guardar";
+"profile.edit.save_failed" = "No se pudo guardar.";
+"profile.edit.title" = "Edit Profile";
+"profile.edit.done" = "Done";
+"profile.edit.display_name" = "Display Name";
+"profile.edit.bio" = "Bio";
+"profile.edit.display_name_invalid" = "Enter a first and last name.";
+"profile.edit.username_locked" = "Los nombres de usuario son permanentes.";
+"profile.edit.missing_fields" = "Ingresa tu nombre, apellido y correo.";
+"profile.follow_action" = "Seguir";
+"profile.unfollow_action" = "Dejar de seguir";
+
+"security.title" = "Seguridad";
+"security.update" = "Actualizar";
+"security.current_password" = "Contraseña actual";
+"security.new_password" = "Nueva contraseña";
+"security.confirm_new_password" = "Confirmar nueva contraseña";
+"security.current_password_required" = "Ingresa tu contraseña actual y una nueva contraseña.";
+"security.password_mismatch" = "La nueva contraseña y la confirmación no coinciden.";
+"security.updated_title" = "Actualizado";
+"security.updated_message" = "Tu contraseña se actualizó.";
+
+"settings.profile_subtitle" = "Nombre, correo, bio";
+"settings.notifications_subtitle" = "Alertas push y de actividad";
+"settings.security_subtitle" = "Contraseña e inicio de sesión";
+"settings.no_email" = "No hay correo registrado";
+"settings.profile_stats" = "%d publicaciones, %d seguidores, %d siguiendo";
+
+"notifications.preview.title" = "Vista previa del banner";
+"notifications.preview.subtitle" = "Mira cómo aparecen las notificaciones dentro de la app mientras usas NoFrillz.";
+"notifications.preview.banner_title" = "Nuevo seguidor";
+"notifications.preview.banner_body" = "@jacobgray comenzó a seguirte.";

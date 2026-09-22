@@ -1,0 +1,137 @@
+"api.error.auth_missing_token_payload" = "Im Authentifizierungs-Response fehlt ein Token. Nutzlast: %@";
+"api.error.decode_users_payload" = "Die Antwort der Benutzerliste konnte nicht dekodiert werden. Nutzlast: %@";
+"api.error.decoding" = "API-Antwort konnte nicht dekodiert werden.";
+"api.error.invalid_response" = "Die API hat eine ungültige Antwort zurückgegeben.";
+"api.error.invalid_url" = "Ungültige API-URL.";
+"api.error.missing_current_user_id" = "Aktuelle Benutzer-ID fehlt in der Sitzung.";
+"api.error.request_failed_status" = "Anfrage mit Status %d fehlgeschlagen";
+"api.error.server_request_failed" = "Serveranfrage fehlgeschlagen.";
+"api.error.unauthorized" = "Nicht autorisiert. Bitte erneut anmelden.";
+"auth.brand" = "NoFrillz";
+"auth.create_account" = "Konto erstellen";
+"auth.login" = "Anmelden";
+"auth.sign_up" = "Registrieren";
+"auth.subtitle" = "Schreiben. Lesen. Sonst nichts.";
+"auth.welcome" = "Willkommen";
+"common.error" = "Fehler";
+"common.ok" = "OK";
+"create.empty_error" = "Schreibe etwas, bevor du postest.";
+"create.meta" = "Keine Medien. Keine Links. Nur Text.";
+"create.post_action" = "Posten";
+"create.title" = "Post erstellen";
+"date.few_minutes_ago" = "Vor ein paar Minuten";
+"date.mins_ago" = "Vor %d Min";
+"date.now" = "Jetzt";
+"date.one_min_ago" = "Vor 1 Min";
+"error.enter_email_password" = "E-Mail und Passwort eingeben.";
+"error.enter_username_email_password" = "Benutzername, E-Mail und Passwort eingeben.";
+"error.invalid_email" = "Gib eine gültige E-Mail-Adresse ein.";
+"error.invalid_username" = "Der Benutzername muss 3-30 Zeichen lang sein und darf nur Buchstaben, Zahlen, _, -, oder . enthalten.";
+"field.email" = "E-Mail";
+"field.password" = "Passwort";
+"field.username" = "Benutzername";
+"post.meta.created_likes_comments" = "%@    Likes: %d    Kommentare: %d";
+"post.meta.likes_comments" = "Likes: %d    Kommentare: %d";
+"post.title" = "Beitrag";
+"profile.counts" = "%d Follower  •  %d Folge ich  •  %d Posts";
+"profile.default_user_handle" = "benutzer";
+"profile.default_username" = "@benutzer";
+"profile.followers" = "Follower";
+"profile.followers_count" = "%d Follower";
+"profile.following" = "Folge ich";
+"profile.following_count" = "%d Folge ich";
+"profile.follows_you" = "Folgt dir";
+"profile.logout" = "Abmelden";
+
+"profile.no_users_yet" = "Noch keine Benutzer.";
+"profile.posts_count" = "%d Beiträge";
+"profile.user" = "Benutzer";
+"profile.you_follow" = "Du folgst";
+"search.empty" = "Keine Benutzer gefunden.";
+"search.placeholder" = "Benutzer suchen";
+"tab.feed" = "Start";
+"tab.post" = "Beitrag";
+"tab.profile" = "Profil";
+"tab.search" = "Suche";
+"user.fallback.anonymous" = "anonym";
+"user.fallback.unknown" = "unbekannt";
+"date.short.now" = "jetzt";
+"date.short.min" = "%dMin";
+"date.short.hour" = "%dStd";
+"date.short.day" = "%dT";
+"date.short.week" = "%dWo";
+"date.short.month" = "%dMon";
+"date.short.year" = "%dj";
+
+"field.first_name" = "Vorname";
+"field.last_name" = "Nachname";
+"error.enter_signup_fields" = "Vorname, Nachname, Benutzername, E-Mail und Passwort eingeben.";
+
+"auth.subtitle.1" = "Schreiben. Lesen. Sonst nichts.";
+
+"auth.subtitle.2" = "Ein ruhigerer Ort zum Schreiben.";
+
+"auth.subtitle.3" = "Worte, ohne Lärm.";
+
+"settings.title" = "Einstellungen";
+
+"field.about" = "Über";
+
+"profile.no_about" = "Noch keine Angaben.";
+
+"common.ai_label" = "ai";
+"common.back" = "Zurück";
+"common.cancel" = "Abbrechen";
+"common.clear" = "Löschen";
+"common.count_of_total" = "%d/%d";
+"common.dismiss_keyboard" = "Tastatur ausblenden";
+"common.more" = "Mehr";
+"common.report" = "Melden";
+"common.settings" = "Einstellungen";
+"common.share" = "Teilen";
+
+"create.write_title" = "Schreiben";
+
+"notifications.title" = "Benachrichtigungen";
+"notifications.note" = "Diese Einstellungen gelten derzeit nur auf diesem Gerät, bis Benachrichtigungseinstellungen über die API gespeichert werden.";
+"notifications.master.title" = "Push-Benachrichtigungen";
+"notifications.master.subtitle" = "Benachrichtigungen von NoFrillz erlauben";
+"notifications.likes.title" = "Gefällt mir";
+"notifications.likes.subtitle" = "Wenn jemand deinen Post liked";
+"notifications.follows.title" = "Follower";
+"notifications.follows.subtitle" = "Wenn dir jemand folgt";
+"notifications.replies.title" = "Antworten";
+"notifications.replies.subtitle" = "Wenn jemand auf deinen Text antwortet";
+
+"profile.edit.save" = "Speichern";
+"profile.edit.save_failed" = "Speichern fehlgeschlagen.";
+"profile.edit.title" = "Edit Profile";
+"profile.edit.done" = "Done";
+"profile.edit.display_name" = "Display Name";
+"profile.edit.bio" = "Bio";
+"profile.edit.display_name_invalid" = "Enter a first and last name.";
+"profile.edit.username_locked" = "Benutzernamen sind dauerhaft.";
+"profile.edit.missing_fields" = "Gib Vorname, Nachname und E-Mail ein.";
+"profile.follow_action" = "Folgen";
+"profile.unfollow_action" = "Entfolgen";
+
+"security.title" = "Sicherheit";
+"security.update" = "Aktualisieren";
+"security.current_password" = "Aktuelles Passwort";
+"security.new_password" = "Neues Passwort";
+"security.confirm_new_password" = "Neues Passwort bestätigen";
+"security.current_password_required" = "Gib dein aktuelles Passwort und ein neues Passwort ein.";
+"security.password_mismatch" = "Neues Passwort und Bestätigung stimmen nicht überein.";
+"security.updated_title" = "Aktualisiert";
+"security.updated_message" = "Dein Passwort wurde aktualisiert.";
+
+"settings.profile_subtitle" = "Name, E-Mail, Info";
+"settings.notifications_subtitle" = "Push- und Aktivitätsbenachrichtigungen";
+"settings.security_subtitle" = "Passwort und Anmeldung";
+"settings.no_email" = "Keine E-Mail hinterlegt";
+"settings.profile_stats" = "%d Posts, %d Follower, %d Folge ich";
+
+"notifications.preview.title" = "Banner-Vorschau";
+"notifications.preview.subtitle" = "Sieh dir an, wie In-App-Benachrichtigungen erscheinen, während du NoFrillz verwendest.";
+"notifications.preview.banner_title" = "Neuer Follower";
+"notifications.preview.banner_body" = "@jacobgray folgt dir jetzt.";
