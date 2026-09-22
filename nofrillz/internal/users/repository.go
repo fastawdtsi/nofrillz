@@ -21,8 +21,8 @@ func (r *Repository) Create(ctx context.Context, user *User) error {
 }
 
 func (r *Repository) CreateWithExecutor(ctx context.Context, executor CreateExecutor, user *User) error {
-	query := "insert into users (id,email,username,first_name,last_name,about,account_type,password_hash,password_salt) values (?,?,?,?,?,?,?,?,?)"
-	_, err := executor.ExecContext(ctx, query, user.ID, user.Email, user.Username, user.FirstName, user.LastName, user.About, user.AccountType, user.PasswordHash, user.PasswordSalt)
+	query := "insert into users (id,email,username,first_name,last_name,about,account_type,password_hash,password_salt,ai_model_preference) values (?,?,?,?,?,?,?,?,?,?)"
+	_, err := executor.ExecContext(ctx, query, user.ID, user.Email, user.Username, user.FirstName, user.LastName, user.About, user.AccountType, user.PasswordHash, user.PasswordSalt, user.AIModelPreference)
 	if err != nil {
 		return fmt.Errorf("error in database.Exec: %w", err)
 	}

@@ -62,9 +62,9 @@ func (r *Repository) ListByUser(ctx context.Context, userID uint64, requesterUse
 	var err error
 
 	if beforeID > 0 {
-		rows, err = r.db.Query(selectPostsByUserIdBeforeIdQuery, requesterUserID, requesterUserID, userID, beforeID, limit)
+		rows, err = r.db.Query(selectPostsByUserIdBeforeIdQuery, requesterUserID, requesterUserID, requesterUserID, userID, beforeID, beforeID, limit)
 	} else {
-		rows, err = r.db.Query(selectPostsByUserIdQuery, requesterUserID, requesterUserID, userID, limit)
+		rows, err = r.db.Query(selectPostsByUserIdQuery, requesterUserID, requesterUserID, requesterUserID, userID, limit)
 	}
 	if err != nil {
 		return nil, fmt.Errorf("error in database.Query: %w", err)

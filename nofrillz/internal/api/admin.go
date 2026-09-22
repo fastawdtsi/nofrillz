@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"nofrillz/internal/admin"
-	"nofrillz/internal/aiaccounts"
 	"nofrillz/internal/app"
 	"nofrillz/internal/users"
 )
@@ -27,6 +26,14 @@ type AdminHandler struct {
 }
 
 type createAdminAIAccountRequest struct {
+	ContentMode          string   `json:"content_mode"`
+	CheckIntervalSeconds int      `json:"check_interval_seconds"`
+	Exclusions           string   `json:"exclusions"`
+	SourceURLs           []string `json:"source_urls"`
+	ModelOptions         []string `json:"model_options"`
+	DefaultModelOption   string   `json:"default_model_option"`
+	SourceMaxAgeHours    int      `json:"source_max_age_hours"`
+
 	Email          string     `json:"email"`
 	Username       string     `json:"username"`
 	FirstName      string     `json:"first_name"`
@@ -40,10 +47,6 @@ type createAdminAIAccountRequest struct {
 	MinPostsPerDay *int       `json:"min_posts_per_day"`
 	MaxPostsPerDay *int       `json:"max_posts_per_day"`
 	NextGenerateAt *time.Time `json:"next_generate_at"`
-}
-
-type createAdminAIPostRequest struct {
-	Body string `json:"body"`
 }
 
 type generateAdminAIPostContentRequest struct {
@@ -60,15 +63,6 @@ type adminAIAccountResponse struct {
 
 type adminAIGenerationsResponse struct {
 	Generations any `json:"generations"`
-}
-
-type adminAIPreviewResponse struct {
-	Generation any `json:"generation"`
-}
-
-type adminAIPostResponse struct {
-	Post       any `json:"post,omitempty"`
-	Generation any `json:"generation"`
 }
 
 type adminAIGeneratedPostResponse struct {
@@ -107,8 +101,10 @@ func (h *AdminHandler) AddRoutes(sm *http.ServeMux, middleware func(http.Handler
 	sm.HandleFunc("GET /admin/ai/status", adminOnly(h.AIStatus))
 	sm.HandleFunc("GET /admin/ai/accounts/{id}", adminOnly(h.ShowAIAccount))
 	sm.HandleFunc("GET /admin/ai/accounts/{id}/generations", adminOnly(h.ListAIGenerations))
-	sm.HandleFunc("POST /admin/ai/accounts/{id}/preview", adminOnly(h.CreateAIPreview))
-	sm.HandleFunc("POST /admin/ai/accounts/{id}/posts", adminOnly(h.CreateAIPost))
+	sm.HandleFunc("POST /admin/ai/accounts/{id}/preview", adminOnly(h.LegacyAIPublishing))
+	sm.HandleFunc("GET /admin/ai/accounts/{id}/content", adminOnly(h.AIContentItems))
+	sm.HandleFunc("POST /admin/ai/accounts/{id}/check", adminOnly(h.CheckAIAccount))
+	sm.HandleFunc("POST /admin/ai/accounts/{id}/posts", adminOnly(h.LegacyAIPublishing))
 	sm.HandleFunc("POST /admin/ai/tools/generate-post", adminOnly(h.GenerateAIPostContent))
 }
 
@@ -309,6 +305,7 @@ func (h *AdminHandler) CreateAIAccount(w http.ResponseWriter, r *http.Request) {
 	}
 
 	record, err := h.app.Admin.CreateAccount(r.Context(), admin.CreateAccountInput{
+		ContentMode: req.ContentMode, CheckIntervalSeconds: req.CheckIntervalSeconds, Exclusions: req.Exclusions, SourceURLs: req.SourceURLs, ModelOptions: req.ModelOptions, DefaultModelOption: req.DefaultModelOption, SourceMaxAgeHours: req.SourceMaxAgeHours,
 		Email:          req.Email,
 		Username:       req.Username,
 		FirstName:      req.FirstName,
@@ -415,95 +412,6 @@ func (h *AdminHandler) ListAIGenerations(w http.ResponseWriter, r *http.Request)
 	Respond(w, http.StatusOK, adminAIGenerationsResponse{Generations: generations}, h.app.Logger)
 }
 
-func (h *AdminHandler) CreateAIPreview(w http.ResponseWriter, r *http.Request) {
-	accountID, err := strconv.ParseUint(r.PathValue("id"), 10, 64)
-	if err != nil {
-		http.Error(w, "invalid ai account id", http.StatusBadRequest)
-		return
-	}
-
-	generation, err := h.app.Admin.CreatePreview(r.Context(), accountID)
-	if err != nil {
-		switch {
-		case errors.Is(err, aiaccounts.ErrClaimLost):
-			http.Error(w, "Account is currently posting; retry shortly", http.StatusConflict)
-		case errors.Is(err, admin.ErrAIAccountNotFound):
-			w.WriteHeader(http.StatusNotFound)
-		case errors.Is(err, admin.ErrPreviewRejected):
-			h.app.Logger.Warn().Uint64("ai_account_id", accountID).Str("status", generation.Status).Msg("admin ai preview rejected")
-			Respond(w, http.StatusUnprocessableEntity, adminAIPreviewResponse{Generation: generation}, h.app.Logger)
-		case errors.Is(err, admin.ErrPreviewGenerationFailed):
-			h.app.Logger.Warn().Uint64("ai_account_id", accountID).Msg("admin ai preview generation failed")
-			Respond(w, http.StatusBadGateway, adminAIPreviewResponse{Generation: generation}, h.app.Logger)
-		default:
-			h.app.Logger.Error().Err(err).Msg("error in Admin.CreatePreview")
-			w.WriteHeader(http.StatusInternalServerError)
-		}
-		return
-	}
-	h.app.Logger.Info().Uint64("ai_account_id", accountID).Uint64("generation_id", generation.ID).Msg("admin ai preview created")
-
-	Respond(w, http.StatusOK, adminAIPreviewResponse{Generation: generation}, h.app.Logger)
-}
-
-func (h *AdminHandler) CreateAIPost(w http.ResponseWriter, r *http.Request) {
-	accountID, err := strconv.ParseUint(r.PathValue("id"), 10, 64)
-	if err != nil {
-		http.Error(w, "invalid ai account id", http.StatusBadRequest)
-		return
-	}
-
-	req, err := DecodeRequestBody[createAdminAIPostRequest](w, r, 1<<20)
-	if err != nil {
-		h.app.Logger.Warn().Str("method", r.Method).Str("path", r.URL.Path).Msg("invalid admin ai post create json")
-		http.Error(w, "invalid json", http.StatusBadRequest)
-		return
-	}
-
-	result, err := h.app.Admin.CreatePost(r.Context(), accountID, req.Body)
-	if err != nil {
-		switch {
-		case errors.Is(err, aiaccounts.ErrClaimLost):
-			http.Error(w, "Account is currently posting; retry shortly", http.StatusConflict)
-		case errors.Is(err, admin.ErrAIAccountNotFound):
-			w.WriteHeader(http.StatusNotFound)
-		case errors.Is(err, admin.ErrPreviewRejected):
-			h.app.Logger.Warn().Uint64("ai_account_id", accountID).Msg("admin ai post rejected")
-			Respond(w, http.StatusUnprocessableEntity, adminAIPostResponse{Generation: result.Generation}, h.app.Logger)
-		case errors.Is(err, admin.ErrPostGenerationFailed):
-			h.app.Logger.Warn().Uint64("ai_account_id", accountID).Msg("admin ai post generation failed")
-			Respond(w, http.StatusBadGateway, adminAIPostResponse{Generation: result.Generation}, h.app.Logger)
-		default:
-			h.app.Logger.Error().Err(err).Msg("error in Admin.CreatePost")
-			w.WriteHeader(http.StatusInternalServerError)
-		}
-		return
-	}
-
-	createdPost, err := h.app.Posts.GetByID(r.Context(), result.Post.ID, 0)
-	if err != nil {
-		h.app.Logger.Error().Err(err).Msg("error in Posts.GetByID")
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	if createdPost == nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	SetPostResponseFields(h.app, createdPost)
-	h.app.Logger.Info().
-		Uint64("ai_account_id", accountID).
-		Uint64("post_id", createdPost.ID).
-		Uint64("generation_id", result.Generation.ID).
-		Str("source", createdPost.Source).
-		Msg("admin ai post created")
-
-	Respond(w, http.StatusOK, adminAIPostResponse{
-		Post:       createdPost,
-		Generation: result.Generation,
-	}, h.app.Logger)
-}
-
 func (h *AdminHandler) GenerateAIPostContent(w http.ResponseWriter, r *http.Request) {
 	req, err := DecodeRequestBody[generateAdminAIPostContentRequest](w, r, 1<<20)
 	if err != nil {
@@ -607,5 +515,46 @@ func (h *AdminHandler) UpdateAIAccount(w http.ResponseWriter, r *http.Request) {
 func (h *AdminHandler) AIStatus(w http.ResponseWriter, r *http.Request) {
 	cfg := h.app.Config.AIPosterConfig()
 	tools := h.app.Config.AIToolsConfig()
-	Respond(w, 200, map[string]any{"provider": tools.Provider, "model": tools.OpenAI.Model, "development_mode": cfg.DevelopmentMode, "development_min_interval_seconds": cfg.DevelopmentMinIntervalSeconds, "development_max_interval_seconds": cfg.DevelopmentMaxIntervalSeconds, "poll_interval_seconds": cfg.PollIntervalSeconds}, h.app.Logger)
+	Respond(w, 200, map[string]any{"models": h.app.AIModels.Options(), "provider": tools.Provider, "model": tools.OpenAI.Model, "development_mode": cfg.DevelopmentMode, "development_min_interval_seconds": cfg.DevelopmentMinIntervalSeconds, "development_max_interval_seconds": cfg.DevelopmentMaxIntervalSeconds, "poll_interval_seconds": cfg.PollIntervalSeconds}, h.app.Logger)
+}
+
+func (h *AdminHandler) LegacyAIPublishing(w http.ResponseWriter, r *http.Request) {
+	http.Error(w, "Use the content-account check endpoint; direct AI publishing bypasses logical items and variants", http.StatusGone)
+}
+func (h *AdminHandler) AIContentItems(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.ParseUint(r.PathValue("id"), 10, 64)
+	if err != nil {
+		http.Error(w, "invalid account id", 400)
+		return
+	}
+	items, err := h.app.AIContent.List(r.Context(), id, 20)
+	if err != nil {
+		h.app.Logger.Error().Err(err).Msg("AI content list failed")
+		w.WriteHeader(500)
+		return
+	}
+	Respond(w, 200, map[string]any{"items": items}, h.app.Logger)
+}
+func (h *AdminHandler) CheckAIAccount(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.ParseUint(r.PathValue("id"), 10, 64)
+	if err != nil {
+		http.Error(w, "invalid account id", 400)
+		return
+	}
+	result, err := h.app.MySQL.DB.ExecContext(r.Context(), `UPDATE ai_accounts a SET next_generate_at=? WHERE a.id=? AND a.enabled=TRUE AND a.generation_status='idle' AND EXISTS(SELECT 1 FROM users u WHERE u.id=a.user_id AND u.deleted IS NULL AND u.blocked IS NULL)`, time.Now().UTC(), id)
+	if err != nil {
+		h.app.Logger.Error().Err(err).Msg("schedule AI check failed")
+		w.WriteHeader(500)
+		return
+	}
+	n, err := result.RowsAffected()
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+	if n != 1 {
+		http.Error(w, "account is paused, unavailable, or already checking", 409)
+		return
+	}
+	Respond(w, 202, map[string]any{"scheduled": true}, h.app.Logger)
 }

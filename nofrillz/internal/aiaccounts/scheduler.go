@@ -6,8 +6,8 @@ import (
 	"time"
 )
 
-// Schedule's zero value uses normal daily posting rates. Development timing
-// must be explicitly enabled and is never inferred from the configured rate.
+// Schedule's zero value uses configured check intervals. Development timing
+// must be explicitly enabled. Next retains legacy daily-rate compatibility.
 type Schedule struct {
 	Development bool
 	MinInterval time.Duration
@@ -65,4 +65,14 @@ func computeNextGenerateAtWithRand(now time.Time, minPostsPerDay int, maxPostsPe
 	}
 
 	return next
+}
+
+// NextCheck schedules evaluations, never a quota of published posts.
+func (s Schedule) NextCheck(now time.Time, intervalSeconds int) time.Time {
+	if s.Development {
+		return s.Next(now, 1, 1)
+	}
+	base := time.Duration(max(intervalSeconds, 300)) * time.Second
+	spread := base / 5
+	return now.UTC().Add(base - spread + time.Duration(rand.Int63n(int64(2*spread)+1)))
 }

@@ -23,11 +23,11 @@ func TestBuildPostPromptIncludesKeywordsAndDescription(t *testing.T) {
 		"Keywords:",
 		"- minimalism",
 		"- tools",
-		"Description:",
+		"Content mission:",
 		"Thoughtful notes about deliberate product choices.",
-		"System prompt:",
+		"Additional instructions:",
 		"Write short reflective posts.",
-		"Style prompt:",
+		"Tone/style:",
 		"Use plain language.",
 	} {
 		if !strings.Contains(prompt, expected) {
@@ -134,5 +134,12 @@ func TestOpenAIRejectsIncompleteRefusalAndRedactsErrors(t *testing.T) {
 				t.Fatal("credential leaked in error")
 			}
 		})
+	}
+}
+
+func TestPromptPreservesProfileWithoutDisplayName(t *testing.T) {
+	prompt := BuildPostPrompt(GeneratePostInput{Username: "tiny_gardens", Bio: "Windowsill gardener"})
+	if !strings.Contains(prompt, "tiny_gardens") || !strings.Contains(prompt, "Windowsill gardener") {
+		t.Fatal("profile omitted when display name is empty")
 	}
 }

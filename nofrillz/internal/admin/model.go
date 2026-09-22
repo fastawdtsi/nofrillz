@@ -1,11 +1,11 @@
 package admin
 
 import (
+	"encoding/json"
 	"time"
 
 	"nofrillz/internal/aiaccounts"
 	"nofrillz/internal/aitools"
-	"nofrillz/internal/posts"
 	"nofrillz/internal/users"
 )
 
@@ -20,6 +20,12 @@ type Stats struct {
 }
 
 type UserSummary struct {
+	AIContentMode          string          `json:"ai_content_mode"`
+	AICheckIntervalSeconds int             `json:"ai_check_interval_seconds"`
+	AILastCheckedAt        *time.Time      `json:"ai_last_checked_at"`
+	AILastCheckOutcome     string          `json:"ai_last_check_outcome"`
+	AIModelOptions         json.RawMessage `json:"ai_model_options"`
+
 	AIEnabled          bool       `json:"ai_enabled"`
 	AINextPostAt       *time.Time `json:"ai_next_post_at,omitempty"`
 	AILastPostAt       *time.Time `json:"ai_last_post_at,omitempty"`
@@ -79,6 +85,14 @@ type AccountRecord struct {
 }
 
 type CreateAccountInput struct {
+	ContentMode          string   `json:"content_mode"`
+	CheckIntervalSeconds int      `json:"check_interval_seconds"`
+	Exclusions           string   `json:"exclusions"`
+	SourceURLs           []string `json:"source_urls"`
+	ModelOptions         []string `json:"model_options"`
+	DefaultModelOption   string   `json:"default_model_option"`
+	SourceMaxAgeHours    int      `json:"source_max_age_hours"`
+
 	Email          string
 	Username       string
 	FirstName      string
@@ -94,11 +108,6 @@ type CreateAccountInput struct {
 	NextGenerateAt *time.Time
 }
 
-type CreatePostResult struct {
-	Post       *posts.Post                `json:"post"`
-	Generation *aiaccounts.PostGeneration `json:"generation"`
-}
-
 type GeneratePostContentInput struct {
 	Keywords     []string
 	Description  string
@@ -110,6 +119,14 @@ type GeneratePostContentResult = aitools.GeneratedPost
 
 // Pointer fields preserve omitted values for PATCH, including enabled=false.
 type UpdateAccountInput struct {
+	ContentMode          *string   `json:"content_mode"`
+	CheckIntervalSeconds *int      `json:"check_interval_seconds"`
+	Exclusions           *string   `json:"exclusions"`
+	SourceURLs           *[]string `json:"source_urls"`
+	ModelOptions         *[]string `json:"model_options"`
+	DefaultModelOption   *string   `json:"default_model_option"`
+	SourceMaxAgeHours    *int      `json:"source_max_age_hours"`
+
 	FirstName      *string `json:"first_name"`
 	LastName       *string `json:"last_name"`
 	About          *string `json:"about"`

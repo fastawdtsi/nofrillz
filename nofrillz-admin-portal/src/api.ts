@@ -1,8 +1,8 @@
 import type {
   AIAccountForm,
   AIStatus,
+  ContentItem,
   AIAccountRecord,
-  AIPostResult,
   AdminUser,
   AdminPostsResponse,
   AdminUsersResponse,
@@ -117,13 +117,6 @@ export function createAIAccount(settings: ConnectionSettings, payload: AIAccount
   });
 }
 
-export function createAIPost(settings: ConnectionSettings, accountId: string, body: string) {
-  return request<AIPostResult>(settings, `/admin/ai/accounts/${accountId}/posts`, {
-    method: "POST",
-    body: { body },
-  });
-}
-
 export function getAIAccount(settings: ConnectionSettings, id: string) {
   return request<AIAccountRecord>(settings, `/admin/ai/accounts/${id}`);
 }
@@ -133,6 +126,10 @@ export function updateAIAccount(settings: ConnectionSettings, id: string, payloa
 export function getAIStatus(settings: ConnectionSettings) {
   return request<AIStatus>(settings, "/admin/ai/status");
 }
-export function previewAIPost(settings: ConnectionSettings, id: string) {
-  return request<{ generation: AIPostResult["generation"] }>(settings, `/admin/ai/accounts/${id}/preview`, { method: "POST" });
+
+export function listAIContent(settings: ConnectionSettings, id: string) {
+ return request<{items: ContentItem[]}>(settings, `/admin/ai/accounts/${id}/content`);
+}
+export function checkAIAccount(settings: ConnectionSettings, id: string) {
+ return request<{scheduled: boolean}>(settings, `/admin/ai/accounts/${id}/check`, {method:"POST"});
 }

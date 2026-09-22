@@ -170,7 +170,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				NOFRILLZ_API_BASE_URL = "http://0.0.0.0:3000";
+				NOFRILLZ_API_BASE_URL = "http://localhost:3100";
 				NOFRILLZ_APS_ENVIRONMENT = development;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rosso-technologies.nofrillz";
 				PRODUCT_NAME = "$(TARGET_NAME)";

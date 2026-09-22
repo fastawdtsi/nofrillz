@@ -29,7 +29,10 @@ func (s *Service) List(ctx context.Context, requesterUserID uint64, cursor *uint
 
 	posts = posts[:limit]
 	lastPost := posts[len(posts)-1]
-	nextCursor := lastPost.ID
+	nextCursor := lastPost.SortID
+	if nextCursor == 0 {
+		nextCursor = lastPost.ID
+	}
 
 	return posts, &nextCursor, nil
 }
@@ -43,6 +46,9 @@ func (s *Service) Discover(ctx context.Context, requesterUserID uint64, cursor *
 		return items, nil, nil
 	}
 	items = items[:limit]
-	next := items[len(items)-1].ID
+	next := items[len(items)-1].SortID
+	if next == 0 {
+		next = items[len(items)-1].ID
+	}
 	return items, &next, nil
 }

@@ -4,3 +4,7 @@ api
 bin
 tmp
 .DS_Store
+
+# Never send local credentials in the build context.
+.env
+.env.*

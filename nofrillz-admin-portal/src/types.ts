@@ -10,7 +10,27 @@ export type Stats = {
   enabled_ai_account_count: number;
 };
 
+export type ModelOption = { id: string; name: string; provider: string; model: string; available: boolean };
+export type ContentConfig = {
+ content_mode: "research" | "generative";
+ check_interval_seconds: number;
+ exclusions: string;
+ source_urls: string[];
+ source_max_age_hours: number;
+ model_options: string[];
+ default_model_option: string;
+};
+export type ContentItem = {
+ id: string; title: string; context: string; status: string; created_at: string;
+ sources: {url: string; name: string; title: string; published_at?: string}[];
+ variants: {option_id: string; provider: string; model: string; post_id?: string; body?: string; status: string; error?: string}[];
+};
 export type AdminUser = {
+ ai_content_mode: string;
+ ai_check_interval_seconds: number;
+ ai_last_checked_at?: string;
+ ai_last_check_outcome: string;
+ ai_model_options: string[];
   id: string;
   email: string;
   username: string;
@@ -58,7 +78,7 @@ export type AdminPostsResponse = {
 };
 
 export type AIAccountRecord = {
-  account: {
+  account: ContentConfig & {
     id: string;
     user_id: string;
     enabled: boolean;
@@ -86,7 +106,7 @@ export type AIAccountRecord = {
   };
 };
 
-export type AIAccountForm = {
+export type AIAccountForm = ContentConfig & {
   email: string;
   username: string;
   first_name: string;
@@ -101,22 +121,6 @@ export type AIAccountForm = {
   max_posts_per_day: number;
 };
 
-export type AIPostResult = {
-  post?: {
-    id: string;
-    body: string;
-    source: string;
-  };
-  generation: {
-    id: string;
-    status: string;
-    candidate_body: string;
-    final_body: string;
-    reject_reason: string;
-    error: string;
-    model: string;
-  };
-};
 
 export type ConnectionSettings = {
   baseUrl: string;
@@ -124,6 +128,7 @@ export type ConnectionSettings = {
 };
 
 export type AIStatus = {
+ models: ModelOption[];
  provider: string;
  model: string;
  development_mode: boolean;

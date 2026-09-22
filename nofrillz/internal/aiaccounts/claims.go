@@ -2,6 +2,7 @@ package aiaccounts
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"time"
 )
@@ -50,9 +51,37 @@ func (r *Repository) UpdateWithExecutor(ctx context.Context, executor UpdateExec
 		claim_token=NULL, generation_started_at=NULL, generation_error=NULL, consecutive_failures=0 WHERE id=?`,
 		account.Enabled, account.Topic, account.Description, account.SystemPrompt, account.StylePrompt,
 		account.MinPostsPerDay, account.MaxPostsPerDay, account.NextGenerateAt, account.ID)
-	return err
+	if err != nil {
+		return err
+	}
+	return r.saveContentConfig(ctx, executor, account)
 }
 
 func (s *Service) UpdateWithExecutor(ctx context.Context, executor UpdateExecutor, account *AIAccount) error {
 	return s.repository.UpdateWithExecutor(ctx, executor, account)
+}
+
+func (r *Repository) saveContentConfig(ctx context.Context, e UpdateExecutor, a *AIAccount) error {
+	if a.ContentMode == "" {
+		a.ContentMode = "generative"
+	}
+	if a.CheckIntervalSeconds == 0 {
+		a.CheckIntervalSeconds = 86400
+	}
+	if a.SourceMaxAgeHours == 0 {
+		a.SourceMaxAgeHours = 168
+	}
+	if len(a.ModelOptions) == 0 {
+		a.ModelOptions = []string{"openai"}
+	}
+	if a.DefaultModelOption == "" {
+		a.DefaultModelOption = a.ModelOptions[0]
+	}
+	if a.SourceURLs == nil {
+		a.SourceURLs = []string{}
+	}
+	sources, _ := json.Marshal(a.SourceURLs)
+	models, _ := json.Marshal(a.ModelOptions)
+	_, err := e.ExecContext(ctx, `UPDATE ai_accounts SET content_mode=?,check_interval_seconds=?,exclusions=?,source_urls=?,model_options=?,default_model_option=?,source_max_age_hours=? WHERE id=?`, a.ContentMode, a.CheckIntervalSeconds, a.Exclusions, string(sources), string(models), a.DefaultModelOption, a.SourceMaxAgeHours, a.ID)
+	return err
 }

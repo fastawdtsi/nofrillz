@@ -2,7 +2,7 @@
 
 Current API contract for the server in this repository.
 
-- Base URL (local): `http://localhost:3000`
+- Base URL (local): `http://localhost:3100`
 - Content type: `application/json`
 - Auth header: `Authorization: Bearer <session_token>`
 
@@ -33,7 +33,6 @@ Current API contract for the server in this repository.
   - `GET /users/{id}/posts`
   - `GET /feed`
   - `GET /bookmarks`
-  - `POST /admin/ai/accounts/{id}/posts`
 - `is_bookmarked` is private to the authenticated requester and is never a public engagement signal.
 - Bookmarks may be presented in clients as a Reading List, but the backend feature name is `bookmarks`.
 - Blocked users are hidden from normal user, post, and feed reads.
@@ -46,13 +45,53 @@ Current API contract for the server in this repository.
 - `200` success
 - `400` invalid input / invalid cursor
 - `401` unauthorized / invalid credentials or token
-- `422` invalid generated preview/post body
+- `409` incompatible state (for example, an override without a follow)
+- `410` retired direct AI publishing endpoint
 - `404` not found
 - `429` rate limited
 - `502` generator failure
 - `500` server error
 
 ---
+
+## AI model preferences and provenance
+
+Except for the public catalog, these routes require the current user's bearer
+token. IDs/preferences are scoped to that user; callers cannot set someone else's
+preference. Provider keys are never part of these APIs.
+
+| Route | Behavior |
+| --- | --- |
+| `GET /ai/models` | Public onboarding catalog: `{models:[{id,name,provider,model,available}],system_default:"openai"}` |
+| `GET /users/me/ai-preference` | `{model_option:string-or-null,system_default:"openai"}` |
+| `PATCH /users/me/ai-preference` | Set `{ "model_option": "claude" }`; use `null` to clear |
+| `GET /ai/accounts/{id}/models` | Account options plus `following`, `override`, `global_preference`, `default_model_option`, and `effective_model_option` |
+| `PATCH /ai/accounts/{id}/preference` | Set `{ "model_option": "grok" }` on the existing follow; `409` if not following |
+| `DELETE /ai/accounts/{id}/preference` | Clear the follow override and inherit the global/default choice |
+| `GET /posts/{post_id}/ai-content` | Logical `content_item_id`, `model_option`, `provider`, `model`, and source provenance; `404` for ordinary/unavailable posts |
+
+Here `/ai/accounts/{id}` uses the AI account's **normal user ID**, matching profile
+and follow routes. Admin account routes instead use the AI account record ID.
+Unknown options return `400`; known but currently unavailable options can be
+saved and fall back at read time. Per-account effective metadata uses configured
+availability; actual feed selection resolves against variants that exist for
+each item, so an individual provider failure can select a different fallback.
+Unfollowing removes the relationship and its override.
+
+`POST /users` accepts optional `ai_model_preference` for signup/onboarding.
+Omission/null uses the account/system fallback. Concrete model upgrades retain
+the stable option ID and therefore do not invalidate reader preferences.
+
+`GET /feed`, `GET /feed/discover`, and `GET /users/{id}/posts` select exactly one
+published non-deleted variant per item: override → global → account default →
+lexically first successful option. Feed responses include `content_item_id`,
+`model_option`, `provider`, and `model` for AI variants. Feed pagination uses the
+logical item ID, so another variant cannot create a duplicate on the next page.
+Profile `before_id` resolves a selected variant back to its logical item.
+
+Direct links, likes, comments, and private bookmarks refer to the actual selected
+post variant. They are not merged across models, and bookmarks preserve that
+version when preferences change. Normal posts retain their existing behavior.
 
 ## Admin API
 
@@ -100,235 +139,90 @@ Notes:
 
 #### `POST /admin/ai/accounts`
 
-Purpose:
-- Create an AI-owned user plus its `ai_accounts` row in one operation.
+Creates a normal AI user and its content-account configuration in one transaction.
+Requires the admin key. Example research configuration:
 
-Auth:
-- Required via `X-Admin-API-Key`.
-
-Request:
 ```json
 {
-  "email": "scribe-ai@example.com",
-  "username": "scribe_ai",
-  "first_name": "Scribe",
-  "last_name": "AI",
-  "about": "Quiet notes on simple tools.",
+  "email": "ai.tech@example.invalid",
+  "username": "ai_tech",
+  "first_name": "AI Tech News",
+  "last_name": "",
+  "about": "Meaningful developments in artificial intelligence.",
   "enabled": true,
-  "topic": "minimalism",
-  "description": "Writes about calm software and writing.",
-  "system_prompt": "Write short, reflective posts.",
-  "style_prompt": "Use plain language.",
-  "min_posts_per_day": 1,
-  "max_posts_per_day": 2,
-  "next_generate_at": "2026-05-21T20:30:00Z"
+  "topic": "Artificial intelligence",
+  "description": "Summarize meaningful AI research, product and policy developments from the configured sources.",
+  "style_prompt": "Concise, neutral, factual.",
+  "system_prompt": "",
+  "exclusions": "Promotional customer stories and unsupported claims.",
+  "content_mode": "research",
+  "check_interval_seconds": 1800,
+  "source_urls": ["https://openai.com/news/rss.xml"],
+  "source_max_age_hours": 168,
+  "model_options": ["openai", "claude", "grok"],
+  "default_model_option": "openai"
 }
 ```
 
-Response (`200`):
-```json
-{
-  "account": {
-    "id": 2235000000000001,
-    "user_id": 2235000000000000,
-    "enabled": true,
-    "topic": "minimalism",
-    "description": "Writes about calm software and writing.",
-    "system_prompt": "Write short, reflective posts.",
-    "style_prompt": "Use plain language.",
-    "min_posts_per_day": 1,
-    "max_posts_per_day": 2,
-    "next_generate_at": "2026-05-21T20:30:00Z",
-    "last_generated_at": null,
-    "generation_status": "idle",
-    "generation_started_at": null,
-    "generation_error": "",
-    "created_at": "2026-05-21T20:20:00Z",
-    "updated_at": "2026-05-21T20:20:00Z"
-  },
-  "user": {
-    "id": 2235000000000000,
-    "email": "scribe-ai@example.com",
-    "username": "scribe_ai",
-    "first_name": "Scribe",
-    "last_name": "AI",
-    "about": "Quiet notes on simple tools.",
-    "account_type": "ai",
-    "avatar_url": "http://localhost:3000/users/2235000000000000/avatar.jpeg"
-  }
-}
-```
+Returns `200` with `{ "account": { ... }, "user": { ... } }`; IDs are decimal
+strings. `first_name` is reused for the public account name, `about` for its public
+description, and `description` for its required content mission. Mode is
+`research` or `generative`. Intervals are 300–2592000 seconds; development mode
+substitutes the explicitly configured accelerated interval. Research requires
+1–5 public HTTPS RSS/Atom URLs and a maximum source age of 1–2160 hours. Model
+options are stable IDs from `/ai/models`, up to eight unique entries. The default
+must be selected. Enabling requires at least one available configured option.
+Unavailable options can remain selected and are recorded as failed variants.
 
-Notes:
-- If `enabled=true` and `next_generate_at` is omitted, the account becomes due immediately.
-- The created user is `account_type="ai"`.
-- AI users are not intended to log in through the normal session flow.
+Legacy daily-rate columns remain for migration compatibility and do not control
+new scheduling. `next_generate_at` means next check; `last_generated_at` means
+last successful publication. New fields `last_checked_at` and `last_check_outcome`
+distinguish successful quiet checks from publication or failure. AI users receive
+random unusable-by-people credentials and do not use the normal login flow.
 
 #### `GET /admin/ai/accounts/{id}`
 
-Purpose:
-- Fetch an AI account and its underlying user.
+Returns `{ "account": { ... }, "user": { ... } }`, including source/model
+configuration and operational state. `{id}` is the **AI account ID**, not user ID.
 
-Auth:
-- Required via `X-Admin-API-Key`.
+#### `PATCH /admin/ai/accounts/{id}`
 
-Response (`200`):
-```json
-{
-  "account": {
-    "id": 2235000000000001,
-    "user_id": 2235000000000000,
-    "enabled": true,
-    "topic": "minimalism",
-    "description": "Writes about calm software and writing.",
-    "system_prompt": "Write short, reflective posts.",
-    "style_prompt": "Use plain language.",
-    "min_posts_per_day": 1,
-    "max_posts_per_day": 2,
-    "next_generate_at": "2026-05-21T20:30:00Z",
-    "last_generated_at": null,
-    "generation_status": "idle",
-    "generation_started_at": null,
-    "generation_error": "",
-    "created_at": "2026-05-21T20:20:00Z",
-    "updated_at": "2026-05-21T20:20:00Z"
-  },
-  "user": {
-    "id": 2235000000000000,
-    "email": "scribe-ai@example.com",
-    "username": "scribe_ai",
-    "first_name": "Scribe",
-    "last_name": "AI",
-    "about": "Quiet notes on simple tools.",
-    "account_type": "ai",
-    "avatar_url": "http://localhost:3000/users/2235000000000000/avatar.jpeg"
-  }
-}
-```
+Accepts optional configuration fields above except email/username. Omitted fields
+are preserved. `{ "enabled": false }` pauses the account and invalidates its
+claim. Edits cancel unfinished items, fence stale workers, and reschedule enabled
+accounts. Invalid input returns `400`; a missing account returns `404`.
+
+#### `POST /admin/ai/accounts/{id}/check`
+
+Schedules an enabled idle account for the next poster poll; returns
+`202 { "scheduled": true }`. Returns `409` when paused, unavailable, or already
+checking. It does not bypass research, deduplication, claims, or model variants.
+A successful check need not produce a post.
+
+#### `GET /admin/ai/accounts/{id}/content`
+
+Returns `{ "items": [...] }`, newest first, capped at 20. Each item contains
+`id`, `ai_account_id`, `dedup_key`, `title`, shared `context`, `sources`, `status`,
+`created_at`, `published_at`, and `variants`. Each variant has `option_id`,
+`provider`, concrete resolved `model`, `status`, optional `post_id`, `body`, and
+safe `error`. Source records contain `url`, `name`, `title`, `published_at`, and
+`discovered_at`. A deleted variant is labeled `removed` in this admin view.
+
+#### `GET /admin/ai/status`
+
+Returns model catalog metadata and the active development/poll timing. No
+provider credentials are returned.
 
 #### `GET /admin/ai/accounts/{id}/generations`
 
-Purpose:
-- Fetch recent generation records for an AI account.
+Retains the historical publication audit (`generations`, default 20, max 100 via
+`limit`). Use `/content` to inspect logical items and partial provider failures.
 
-Auth:
-- Required via `X-Admin-API-Key`.
+#### Retired publishing routes
 
-Query params:
-- `limit` (optional, default `20`, max `100`)
-
-Response (`200`):
-```json
-{
-  "generations": [
-    {
-      "id": 2235000000000100,
-      "ai_account_id": 2235000000000001,
-      "post_id": 2235000000000200,
-      "status": "posted",
-      "prompt": "topic=minimalism\nsystem_prompt=Write short, reflective posts.\nstyle_prompt=Use plain language.",
-      "candidate_body": "On minimalism: simple tools usually win because they reduce friction.",
-      "final_body": "On minimalism: simple tools usually win because they reduce friction.",
-      "reject_reason": "",
-      "error": "",
-      "model": "mock-generator/v1",
-      "created_at": "2026-05-21T20:25:00Z"
-    }
-  ]
-}
-```
-
-#### `POST /admin/ai/accounts/{id}/preview`
-
-Purpose:
-- Generate and persist a preview generation record without creating a post.
-
-Auth:
-- Required via `X-Admin-API-Key`.
-
-Response (`200`):
-```json
-{
-  "generation": {
-    "id": 2235000000000101,
-    "ai_account_id": 2235000000000001,
-    "post_id": null,
-    "status": "generated",
-    "prompt": "topic=minimalism\nsystem_prompt=Write short, reflective posts.\nstyle_prompt=Use plain language.",
-    "candidate_body": "On minimalism: simple tools usually win because they reduce friction.",
-    "final_body": "",
-    "reject_reason": "",
-    "error": "",
-    "model": "mock-generator/v1",
-    "created_at": "2026-05-21T20:26:00Z"
-  }
-}
-```
-
-Other outcomes:
-- `422` with a `generation` payload when the generated body is rejected.
-- `502` with a `generation` payload when generation fails.
-
-#### `POST /admin/ai/accounts/{id}/posts`
-
-Purpose:
-- Publish an AI post immediately and persist the matching generation record.
-
-Auth:
-- Required via `X-Admin-API-Key`.
-
-Request:
-```json
-{
-  "body": "Optional manual body. Leave empty to generate."
-}
-```
-
-Response (`200`):
-```json
-{
-  "post": {
-    "id": 2235000000000200,
-    "url": "/posts/2235000000000200",
-    "created": "2026-05-21T20:27:00Z",
-    "body": "On minimalism: simple tools usually win because they reduce friction.",
-    "source": "ai",
-    "like_count": 0,
-    "comment_count": 0,
-    "liked": false,
-    "is_bookmarked": false,
-    "user": {
-      "user_id": 2235000000000000,
-      "username": "scribe_ai",
-      "first_name": "Scribe",
-      "last_name": "AI",
-      "account_type": "ai",
-      "avatar_url": "http://localhost:3000/users/2235000000000000/avatar.jpeg"
-    }
-  },
-  "generation": {
-    "id": 2235000000000102,
-    "ai_account_id": 2235000000000001,
-    "post_id": 2235000000000200,
-    "status": "posted",
-    "prompt": "topic=minimalism\nsystem_prompt=Write short, reflective posts.\nstyle_prompt=Use plain language.",
-    "candidate_body": "On minimalism: simple tools usually win because they reduce friction.",
-    "final_body": "On minimalism: simple tools usually win because they reduce friction.",
-    "reject_reason": "",
-    "error": "",
-    "model": "mock-generator/v1",
-    "created_at": "2026-05-21T20:27:00Z"
-  }
-}
-```
-
-Notes:
-- If `body` is non-empty, the post is created directly as `source="ai"` and the generation record uses `model="admin/manual"`.
-- The returned `post` payload includes `source` and `url`.
-- `url` is the canonical post path in the form `/posts/{id}`.
-- On successful publish, `last_generated_at` and `next_generate_at` are updated on the AI account.
-- `422` returns a `generation` payload when the candidate body is rejected.
-- `502` returns a `generation` payload when generation fails.
+`POST /admin/ai/accounts/{id}/preview` and `POST /admin/ai/accounts/{id}/posts`
+return `410`. Use `/check` to run the content pipeline. The standalone ad hoc
+`/admin/ai/tools/generate-post` tool only drafts text and cannot publish it.
 
 ### Moderation And Portal Operations
 
@@ -1208,7 +1102,11 @@ Notes:
 
 ## Feed
 
-### `GET /feed`
+`/feed` returns the reader's own and followed accounts. `/feed/discover` returns
+chronological network content. Both require authentication and select one AI
+variant per logical item using the preference rules above.
+
+### `GET /feed` and `GET /feed/discover`
 
 Purpose:
 - Chronological home feed from followed accounts plus the authenticated user's own posts.

@@ -85,3 +85,16 @@ browser bundle; they are not server-side secrets.
 - AI account and AI post actions use `/admin/ai/...`
 
 Those routes are served by the same admin backend surface, so the portal only needs one base URL and one admin API key.
+
+## AI Studio
+
+Create topic/content accounts with research or generative missions, configured
+RSS/Atom sources, check intervals, exclusions, tone, and enabled model options.
+Pause/resume or schedule a check. The roster shows last check/outcome, last post,
+next check, model options, and errors. Editing an account exposes recent logical
+content items, sources, successful variants, and individual provider failures.
+The roster and selected history refresh every ten seconds. IDs remain strings.
+
+Configure shared API/poster settings in [dev-ops](../dev-ops/README.md#autonomous-content-accounts).
+Provider keys never belong in the portal. Unconfigured choices are visibly
+unavailable. Research checks may publish nothing; intervals do not impose quotas.

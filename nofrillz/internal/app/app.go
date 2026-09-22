@@ -5,7 +5,7 @@ import (
 
 	"nofrillz/internal/admin"
 	"nofrillz/internal/aiaccounts"
-	"nofrillz/internal/aigenerator"
+	"nofrillz/internal/aicontent"
 	"nofrillz/internal/aitools"
 	"nofrillz/internal/apns"
 	"nofrillz/internal/bookmarks"
@@ -18,12 +18,15 @@ import (
 	"nofrillz/internal/limiters"
 	"nofrillz/internal/notifications"
 	"nofrillz/internal/posts"
+	"nofrillz/internal/research"
 	"nofrillz/internal/sessions"
 	"nofrillz/internal/snowid"
 	"nofrillz/internal/users"
 )
 
 type App struct {
+	AIModels      *aitools.Registry
+	AIContent     *aicontent.Service
 	Config        *config.Config
 	Logger        *zerolog.Logger
 	MySQL         *db.MySQL
@@ -85,10 +88,17 @@ func New(config *config.Config, logger *zerolog.Logger) (*App, error) {
 		_ = mysql.Close()
 		return nil, err
 	}
-	aiGenerator := aigenerator.NewAIToolsGenerator(aiTools, usersService, postsService)
 	adminRepository := admin.NewRepository(mysql.DB)
-	adminService := admin.NewService(admin.NewSQLTransactionManager(mysql.DB), aiAccountsService, usersService, postsService, aiTools, aiGenerator, idGenerator, adminRepository)
+	adminService := admin.NewService(admin.NewSQLTransactionManager(mysql.DB), aiAccountsService, usersService, aiTools, idGenerator, adminRepository)
 	adminService.SetSchedule(config.AIPosterConfig().Schedule())
+	registry, err := aitools.NewRegistryFromConfig(config)
+	if err != nil {
+		_ = redis.Close()
+		_ = mysql.Close()
+		return nil, err
+	}
+	adminService.SetModels(registry)
+	contentService := aicontent.New(mysql.DB, registry, research.NewRSS(), postsService, idGenerator, config.AIPosterConfig().Schedule(), logger)
 	feedRepository := feed.NewRepository(mysql.DB)
 	feedService := feed.NewService(feedRepository)
 	followsRepository := follows.NewRepository(mysql.DB)
@@ -101,6 +111,7 @@ func New(config *config.Config, logger *zerolog.Logger) (*App, error) {
 	sessionsService := sessions.NewService(sessionsRepository)
 
 	instance := &App{
+		AIModels: registry, AIContent: contentService,
 		IDGenerator:   idGenerator,
 		Config:        config,
 		Logger:        logger,

@@ -19,6 +19,9 @@ const (
 		generation_error,
 		claim_token,
 		consecutive_failures,
+ content_mode, check_interval_seconds, COALESCE(exclusions,''),
+ source_urls, model_options, default_model_option, source_max_age_hours,
+ last_checked_at, COALESCE(last_check_outcome,''),
 		created_at,
 		updated_at
 	from ai_accounts
@@ -43,6 +46,9 @@ const (
 		generation_error,
 		claim_token,
 		consecutive_failures,
+ content_mode, check_interval_seconds, COALESCE(exclusions,''),
+ source_urls, model_options, default_model_option, source_max_age_hours,
+ last_checked_at, COALESCE(last_check_outcome,''),
 		created_at,
 		updated_at
 	from ai_accounts

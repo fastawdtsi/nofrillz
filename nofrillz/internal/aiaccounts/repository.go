@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"database/sql"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"time"
@@ -73,7 +74,7 @@ func (r *Repository) CreateWithExecutor(ctx context.Context, executor UpdateExec
 		return fmt.Errorf("error in database.ExecContext: %w", err)
 	}
 
-	return nil
+	return r.saveContentConfig(ctx, executor, account)
 }
 
 func (r *Repository) GetByID(ctx context.Context, id uint64) (*AIAccount, error) {
@@ -252,6 +253,7 @@ func scanAIAccount(scanner interface {
 	var generationStartedAt sql.NullTime
 	var generationError sql.NullString
 	var claimToken sql.NullString
+	var sourceURLs, modelOptions []byte
 
 	err := scanner.Scan(
 		&account.ID,
@@ -270,6 +272,9 @@ func scanAIAccount(scanner interface {
 		&generationError,
 		&claimToken,
 		&account.ConsecutiveFailures,
+		&account.ContentMode, &account.CheckIntervalSeconds, &account.Exclusions,
+		&sourceURLs, &modelOptions, &account.DefaultModelOption, &account.SourceMaxAgeHours,
+		&account.LastCheckedAt, &account.LastCheckOutcome,
 		&account.CreatedAt,
 		&account.UpdatedAt,
 	)
@@ -277,6 +282,16 @@ func scanAIAccount(scanner interface {
 		return nil, fmt.Errorf("error in rows.Scan: %w", err)
 	}
 
+	if len(sourceURLs) > 0 {
+		if err := json.Unmarshal(sourceURLs, &account.SourceURLs); err != nil {
+			return nil, err
+		}
+	}
+	if len(modelOptions) > 0 {
+		if err := json.Unmarshal(modelOptions, &account.ModelOptions); err != nil {
+			return nil, err
+		}
+	}
 	account.Description = description.String
 	account.StylePrompt = stylePrompt.String
 	account.GenerationError = generationError.String

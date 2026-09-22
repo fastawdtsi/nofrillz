@@ -69,7 +69,7 @@ const pageMeta: Record<
     caption: "AI creation tools",
     eyebrow: "Automation workspace",
     title: "AI Studio",
-    description: "Create AI personas, publish generated content, and monitor the current AI roster.",
+    description: "Configure content missions, research sources, and model variants.",
   },
   settings: {
     nav: "Settings",
@@ -1048,7 +1048,7 @@ function App() {
                 >
                   <div className={`text-sm font-semibold ${toneClasses.purple.value}`}>AI Studio</div>
                   <p className="mt-2 text-sm leading-6 text-[rgb(var(--muted))]">
-                    Create AI personas, draft output, and publish generated posts.
+                    Create AI content accounts, draft output, and publish generated posts.
                   </p>
                 </button>
                 <button

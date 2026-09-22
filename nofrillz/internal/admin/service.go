@@ -9,16 +9,17 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"unicode/utf8"
 
 	"nofrillz/internal/aiaccounts"
-	"nofrillz/internal/aigenerator"
 	"nofrillz/internal/aitools"
 	"nofrillz/internal/posts"
+	"nofrillz/internal/research"
 	"nofrillz/internal/users"
 )
 
 var (
-	ErrInvalidProfile          = errors.New("invalid profile or persona field length")
+	ErrInvalidProfile          = errors.New("invalid content account configuration")
 	ErrAIAccountNotFound       = errors.New("ai account not found")
 	ErrInvalidEmail            = errors.New("invalid email")
 	ErrInvalidUsername         = errors.New("invalid username")
@@ -27,9 +28,6 @@ var (
 	ErrInvalidSystemPrompt     = errors.New("invalid system prompt")
 	ErrInvalidKeywords         = errors.New("invalid keywords")
 	ErrInvalidPostsPerDay      = errors.New("invalid posts per day")
-	ErrPreviewGenerationFailed = errors.New("preview generation failed")
-	ErrPreviewRejected         = errors.New("preview rejected")
-	ErrPostGenerationFailed    = errors.New("post generation failed")
 	ErrContentGenerationFailed = errors.New("content generation failed")
 
 	ErrInvalidLimit       = errors.New("invalid limit")
@@ -39,8 +37,6 @@ var (
 	ErrUserNotFound       = errors.New("user not found")
 	ErrCannotBlockSystem  = errors.New("cannot block system user")
 )
-
-const manualGenerationModel = "admin/manual"
 
 type idGenerator interface {
 	MustNext() uint64
@@ -70,13 +66,8 @@ type usersService interface {
 	GetByID(ctx context.Context, id uint64) (*users.User, error)
 }
 
-type postsService interface {
-	CreatePostWithExecutor(ctx context.Context, executor posts.CreateExecutor, input posts.CreatePostInput) (*posts.Post, error)
-}
-
 type transaction interface {
 	users.CreateExecutor
-	posts.CreateExecutor
 	aiaccounts.UpdateExecutor
 	Commit() error
 	Rollback() error
@@ -95,13 +86,12 @@ type sqlTransaction struct {
 }
 
 type Service struct {
+	models       *aitools.Registry
 	schedule     aiaccounts.Schedule
 	transactions transactionManager
 	aiAccounts   aiAccountsService
 	users        usersService
-	posts        postsService
 	aiTools      aitools.Tools
-	generator    aigenerator.PostGenerator
 	idGenerator  idGenerator
 	repository   moderationRepository
 	now          func() time.Time
@@ -136,9 +126,7 @@ func NewService(
 	transactions transactionManager,
 	aiAccounts aiAccountsService,
 	users usersService,
-	posts postsService,
 	aiTools aitools.Tools,
-	generator aigenerator.PostGenerator,
 	idGenerator idGenerator,
 	repository moderationRepository,
 ) *Service {
@@ -146,9 +134,7 @@ func NewService(
 		transactions: transactions,
 		aiAccounts:   aiAccounts,
 		users:        users,
-		posts:        posts,
 		aiTools:      aiTools,
-		generator:    generator,
 		idGenerator:  idGenerator,
 		repository:   repository,
 		now:          time.Now,
@@ -261,23 +247,23 @@ func (s *Service) CreateAccount(ctx context.Context, input CreateAccountInput) (
 	if topic == "" {
 		return nil, ErrInvalidTopic
 	}
-	if systemPrompt == "" {
-		return nil, ErrInvalidSystemPrompt
-	}
 
 	minPostsPerDay := input.MinPostsPerDay
-	if minPostsPerDay <= 0 {
+	if minPostsPerDay < 0 || input.MaxPostsPerDay < 0 {
+		return nil, ErrInvalidPostsPerDay
+	}
+	if minPostsPerDay == 0 {
 		minPostsPerDay = 1
 	}
 	maxPostsPerDay := input.MaxPostsPerDay
-	if maxPostsPerDay <= 0 {
+	if maxPostsPerDay == 0 {
 		maxPostsPerDay = 2
 	}
 	if maxPostsPerDay < minPostsPerDay || maxPostsPerDay > 48 {
 		return nil, ErrInvalidPostsPerDay
 	}
 
-	if err := validatePersona(input.FirstName, input.LastName, input.About, topic, input.Description, systemPrompt, input.StylePrompt); err != nil {
+	if err := validateContentProfile(input.FirstName, input.LastName, input.About, topic, input.Description, systemPrompt, input.StylePrompt); err != nil {
 		return nil, err
 	}
 	passwordHash, passwordSalt, err := generateRandomCredentials()
@@ -322,6 +308,7 @@ func (s *Service) CreateAccount(ctx context.Context, input CreateAccountInput) (
 	}
 
 	account := &aiaccounts.AIAccount{
+		ContentMode: input.ContentMode, CheckIntervalSeconds: input.CheckIntervalSeconds, Exclusions: input.Exclusions, SourceURLs: input.SourceURLs, ModelOptions: input.ModelOptions, DefaultModelOption: input.DefaultModelOption, SourceMaxAgeHours: input.SourceMaxAgeHours,
 		ID:               s.idGenerator.MustNext(),
 		UserID:           user.ID,
 		Enabled:          input.Enabled,
@@ -335,6 +322,9 @@ func (s *Service) CreateAccount(ctx context.Context, input CreateAccountInput) (
 		GenerationStatus: aiaccounts.GenerationStatusIdle,
 		CreatedAt:        createdAt,
 		UpdatedAt:        createdAt,
+	}
+	if err := s.validateContent(account); err != nil {
+		return nil, err
 	}
 	if err := s.aiAccounts.CreateWithExecutor(ctx, tx, account); err != nil {
 		return nil, err
@@ -367,6 +357,7 @@ func (s *Service) GeneratePostContent(ctx context.Context, input GeneratePostCon
 	}
 
 	generated, err := s.aiTools.GeneratePostContent(ctx, aitools.GeneratePostInput{
+		ContentMode:  "generative",
 		Keywords:     keywords,
 		Description:  description,
 		SystemPrompt: strings.TrimSpace(input.SystemPrompt),
@@ -422,163 +413,6 @@ func (s *Service) ListPostGenerations(ctx context.Context, accountID uint64, lim
 	return s.aiAccounts.ListPostGenerationsByAccountID(ctx, accountID, limit)
 }
 
-func (s *Service) CreatePreview(ctx context.Context, accountID uint64) (*aiaccounts.PostGeneration, error) {
-	account, err := s.aiAccounts.GetByID(ctx, accountID)
-	if err != nil {
-		return nil, err
-	}
-	if account == nil {
-		return nil, ErrAIAccountNotFound
-	}
-
-	generated, err := s.generator.GeneratePost(ctx, account)
-	if err != nil {
-		now := s.now().UTC()
-		generation := &aiaccounts.PostGeneration{
-			ID:          s.idGenerator.MustNext(),
-			AIAccountID: account.ID,
-			Status:      aiaccounts.PostGenerationStatusFailed,
-			Error:       err.Error(),
-			CreatedAt:   now,
-		}
-		if createErr := s.aiAccounts.CreatePostGeneration(ctx, generation); createErr != nil {
-			return nil, createErr
-		}
-		return generation, ErrPreviewGenerationFailed
-	}
-
-	candidateBody := strings.TrimSpace(generated.Body)
-	now := s.now().UTC()
-	generation := &aiaccounts.PostGeneration{
-		ID:            s.idGenerator.MustNext(),
-		AIAccountID:   account.ID,
-		Status:        aiaccounts.PostGenerationStatusGenerated,
-		Prompt:        generated.Prompt,
-		CandidateBody: candidateBody,
-		Model:         generated.Model,
-		CreatedAt:     now,
-	}
-
-	if candidateBody == "" || len(candidateBody) > posts.MaxBodyBytes {
-		generation.Status = aiaccounts.PostGenerationStatusRejected
-		generation.RejectReason = "invalid generated post body"
-		if err := s.aiAccounts.CreatePostGeneration(ctx, generation); err != nil {
-			return nil, err
-		}
-		return generation, ErrPreviewRejected
-	}
-
-	if err := s.aiAccounts.CreatePostGeneration(ctx, generation); err != nil {
-		return nil, err
-	}
-
-	return generation, nil
-}
-
-func (s *Service) CreatePost(ctx context.Context, accountID uint64, body string) (*CreatePostResult, error) {
-	account, err := s.aiAccounts.GetByID(ctx, accountID)
-	if err != nil {
-		return nil, err
-	}
-	if account == nil {
-		return nil, ErrAIAccountNotFound
-	}
-
-	manualBody := strings.TrimSpace(body)
-	generated := aigenerator.GeneratedPost{}
-	model := manualGenerationModel
-	prompt := ""
-	candidateBody := manualBody
-
-	if manualBody == "" {
-		generated, err = s.generator.GeneratePost(ctx, account)
-		if err != nil {
-			generation := &aiaccounts.PostGeneration{
-				ID:          s.idGenerator.MustNext(),
-				AIAccountID: account.ID,
-				Status:      aiaccounts.PostGenerationStatusFailed,
-				Error:       err.Error(),
-				CreatedAt:   s.now().UTC(),
-			}
-			if createErr := s.aiAccounts.CreatePostGeneration(ctx, generation); createErr != nil {
-				return nil, createErr
-			}
-			return &CreatePostResult{Generation: generation}, ErrPostGenerationFailed
-		}
-		prompt = generated.Prompt
-		model = generated.Model
-		candidateBody = strings.TrimSpace(generated.Body)
-	}
-
-	if candidateBody == "" || len(candidateBody) > posts.MaxBodyBytes {
-		generation := &aiaccounts.PostGeneration{
-			ID:            s.idGenerator.MustNext(),
-			AIAccountID:   account.ID,
-			Status:        aiaccounts.PostGenerationStatusRejected,
-			Prompt:        prompt,
-			CandidateBody: candidateBody,
-			RejectReason:  "invalid generated post body",
-			Model:         model,
-			CreatedAt:     s.now().UTC(),
-		}
-		if err := s.aiAccounts.CreatePostGeneration(ctx, generation); err != nil {
-			return nil, err
-		}
-		return &CreatePostResult{Generation: generation}, ErrPreviewRejected
-	}
-
-	tx, err := s.transactions.Begin(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("begin transaction: %w", err)
-	}
-	committed := false
-	defer func() {
-		if !committed {
-			_ = tx.Rollback()
-		}
-	}()
-
-	now := s.now().UTC()
-	nextGenerateAt := s.schedule.Next(now, account.MinPostsPerDay, account.MaxPostsPerDay)
-	if err := s.aiAccounts.MarkGenerationSuccessWithExecutor(ctx, tx, account.ID, now, nextGenerateAt); err != nil {
-		return nil, err
-	}
-	post, err := s.posts.CreatePostWithExecutor(ctx, tx, posts.CreatePostInput{
-		AuthorID: account.UserID,
-		Body:     candidateBody,
-		Source:   posts.SourceAI,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	postID := post.ID
-	generation := &aiaccounts.PostGeneration{
-		ID:            s.idGenerator.MustNext(),
-		AIAccountID:   account.ID,
-		PostID:        &postID,
-		Status:        aiaccounts.PostGenerationStatusPosted,
-		Prompt:        prompt,
-		CandidateBody: candidateBody,
-		FinalBody:     post.Body,
-		Model:         model,
-		CreatedAt:     now,
-	}
-	if err := s.aiAccounts.CreatePostGenerationWithExecutor(ctx, tx, generation); err != nil {
-		return nil, err
-	}
-
-	if err := tx.Commit(); err != nil {
-		return nil, fmt.Errorf("commit transaction: %w", err)
-	}
-	committed = true
-
-	return &CreatePostResult{
-		Post:       post,
-		Generation: generation,
-	}, nil
-}
-
 func generateRandomCredentials() ([]byte, []byte, error) {
 	passwordBytes := make([]byte, 32)
 	if _, err := rand.Read(passwordBytes); err != nil {
@@ -611,8 +445,8 @@ func normalizeKeywords(raw []string) []string {
 
 func (s *Service) SetSchedule(schedule aiaccounts.Schedule) { s.schedule = schedule }
 
-func validatePersona(first, last, bio, topic, description, personality, style string) error {
-	if len(first) > 100 || len(last) > 100 || len(bio) > 1024 || len(topic) > 128 || len(description) > 4000 || len(personality) > 8000 || len(style) > 4000 {
+func validateContentProfile(first, last, bio, topic, description, instructions, style string) error {
+	if utf8.RuneCountInString(first) > 100 || utf8.RuneCountInString(last) > 100 || utf8.RuneCountInString(bio) > 1024 || utf8.RuneCountInString(topic) > 128 || utf8.RuneCountInString(description) > 4000 || utf8.RuneCountInString(instructions) > 8000 || utf8.RuneCountInString(style) > 4000 {
 		return ErrInvalidProfile
 	}
 	return nil
@@ -623,7 +457,29 @@ func (s *Service) UpdateAccount(ctx context.Context, id uint64, input UpdateAcco
 	if err != nil {
 		return nil, err
 	}
-	a, u := record.Account, record.User
+	accountCopy, userCopy := *record.Account, *record.User
+	a, u := &accountCopy, &userCopy
+	if input.ContentMode != nil {
+		a.ContentMode = *input.ContentMode
+	}
+	if input.CheckIntervalSeconds != nil {
+		a.CheckIntervalSeconds = *input.CheckIntervalSeconds
+	}
+	if input.Exclusions != nil {
+		a.Exclusions = *input.Exclusions
+	}
+	if input.SourceURLs != nil {
+		a.SourceURLs = *input.SourceURLs
+	}
+	if input.ModelOptions != nil {
+		a.ModelOptions = *input.ModelOptions
+	}
+	if input.DefaultModelOption != nil {
+		a.DefaultModelOption = *input.DefaultModelOption
+	}
+	if input.SourceMaxAgeHours != nil {
+		a.SourceMaxAgeHours = *input.SourceMaxAgeHours
+	}
 	if u.Blocked != nil || u.Deleted != nil {
 		return nil, ErrUserNotFound
 	}
@@ -651,13 +507,13 @@ func (s *Service) UpdateAccount(ctx context.Context, id uint64, input UpdateAcco
 	if a.Topic == "" {
 		return nil, ErrInvalidTopic
 	}
-	if a.SystemPrompt == "" {
-		return nil, ErrInvalidSystemPrompt
-	}
 	if a.MinPostsPerDay < 1 || a.MaxPostsPerDay < a.MinPostsPerDay || a.MaxPostsPerDay > 48 {
 		return nil, ErrInvalidPostsPerDay
 	}
-	if err := validatePersona(u.FirstName, u.LastName, u.About, a.Topic, a.Description, a.SystemPrompt, a.StylePrompt); err != nil {
+	if err := validateContentProfile(u.FirstName, u.LastName, u.About, a.Topic, a.Description, a.SystemPrompt, a.StylePrompt); err != nil {
+		return nil, err
+	}
+	if err := s.validateContent(a); err != nil {
 		return nil, err
 	}
 	a.NextGenerateAt = nil
@@ -675,6 +531,9 @@ func (s *Service) UpdateAccount(ctx context.Context, id uint64, input UpdateAcco
 	if err := s.aiAccounts.UpdateWithExecutor(ctx, tx, a); err != nil {
 		return nil, err
 	}
+	if _, err := tx.ExecContext(ctx, "UPDATE ai_content_items SET status='cancelled',completed_at=? WHERE ai_account_id=? AND status='processing'", s.now().UTC(), a.ID); err != nil {
+		return nil, err
+	}
 	if _, err := tx.ExecContext(ctx, "UPDATE users SET first_name=?,last_name=?,about=? WHERE id=?", u.FirstName, u.LastName, u.About, u.ID); err != nil {
 		return nil, err
 	}
@@ -682,4 +541,74 @@ func (s *Service) UpdateAccount(ctx context.Context, id uint64, input UpdateAcco
 		return nil, err
 	}
 	return s.GetAccount(ctx, id)
+}
+
+func (s *Service) SetModels(models *aitools.Registry) { s.models = models }
+func (s *Service) validateContent(a *aiaccounts.AIAccount) error {
+	if strings.TrimSpace(a.Description) == "" {
+		return fmt.Errorf("%w: content mission is required", ErrInvalidProfile)
+	}
+	if a.ContentMode == "" {
+		a.ContentMode = "generative"
+	}
+	if a.CheckIntervalSeconds == 0 {
+		a.CheckIntervalSeconds = 86400
+	}
+	if a.SourceMaxAgeHours == 0 {
+		a.SourceMaxAgeHours = 168
+	}
+	if a.ContentMode != "generative" && a.ContentMode != "research" {
+		return fmt.Errorf("%w: content mode must be generative or research", ErrInvalidProfile)
+	}
+	if a.CheckIntervalSeconds < 300 || a.CheckIntervalSeconds > 30*86400 {
+		return fmt.Errorf("%w: check interval must be 300–2592000 seconds", ErrInvalidProfile)
+	}
+	if a.SourceMaxAgeHours < 1 || a.SourceMaxAgeHours > 2160 {
+		return fmt.Errorf("%w: source age must be 1–2160 hours", ErrInvalidProfile)
+	}
+	if len(a.SourceURLs) > 5 || a.ContentMode == "research" && len(a.SourceURLs) == 0 {
+		return fmt.Errorf("%w: research requires 1–5 source feeds", ErrInvalidProfile)
+	}
+	for _, url := range a.SourceURLs {
+		if err := research.ValidateURL(url); err != nil {
+			return fmt.Errorf("%w: %s", ErrInvalidProfile, err)
+		}
+	}
+	if a.ModelOptions == nil {
+		a.ModelOptions = []string{"openai"}
+	}
+	if len(a.ModelOptions) == 0 {
+		return fmt.Errorf("%w: select at least one model option", ErrInvalidProfile)
+	}
+	if len(a.ModelOptions) > 8 {
+		return fmt.Errorf("%w: at most 8 model options", ErrInvalidProfile)
+	}
+	if a.DefaultModelOption == "" {
+		a.DefaultModelOption = a.ModelOptions[0]
+	}
+	seen := map[string]bool{}
+	available := false
+	for _, id := range a.ModelOptions {
+		if seen[id] {
+			return fmt.Errorf("%w: duplicate model option", ErrInvalidProfile)
+		}
+		seen[id] = true
+		if s.models != nil {
+			option, ok := s.models.Get(id)
+			if !ok {
+				return fmt.Errorf("%w: unknown model option", ErrInvalidProfile)
+			}
+			available = available || option.Available
+		}
+	}
+	if !seen[a.DefaultModelOption] {
+		return fmt.Errorf("%w: default must be an enabled account option", ErrInvalidProfile)
+	}
+	if s.models != nil && a.Enabled && !available {
+		return fmt.Errorf("%w: configure at least one available model before enabling", ErrInvalidProfile)
+	}
+	if utf8.RuneCountInString(a.Exclusions) > 2000 {
+		return ErrInvalidProfile
+	}
+	return nil
 }

@@ -7,24 +7,13 @@ import (
 	"time"
 
 	"nofrillz/internal/aiaccounts"
-	"nofrillz/internal/aigenerator"
 	"nofrillz/internal/aitools"
-	"nofrillz/internal/posts"
 	"nofrillz/internal/users"
 )
-
-type adminGeneratorStub struct {
-	post aigenerator.GeneratedPost
-	err  error
-}
 
 type adminAIToolsStub struct {
 	result aitools.GeneratedPost
 	err    error
-}
-
-func (s *adminGeneratorStub) GeneratePost(ctx context.Context, account *aiaccounts.AIAccount) (aigenerator.GeneratedPost, error) {
-	return s.post, s.err
 }
 
 func (s *adminAIToolsStub) GeneratePostContent(ctx context.Context, input aitools.GeneratePostInput) (aitools.GeneratedPost, error) {
@@ -68,16 +57,6 @@ func (s *adminUsersStub) CreateWithExecutor(ctx context.Context, executor users.
 
 func (s *adminUsersStub) GetByID(ctx context.Context, id uint64) (*users.User, error) {
 	return s.got, nil
-}
-
-type adminPostsStub struct {
-	input posts.CreatePostInput
-	post  *posts.Post
-}
-
-func (s *adminPostsStub) CreatePostWithExecutor(ctx context.Context, executor posts.CreateExecutor, input posts.CreatePostInput) (*posts.Post, error) {
-	s.input = input
-	return s.post, nil
 }
 
 type adminSuccessMark struct {
@@ -160,9 +139,7 @@ func TestServiceCreateAccountCreatesAIUserAndAccount(t *testing.T) {
 		&adminTxManager{},
 		accounts,
 		usersSvc,
-		&adminPostsStub{},
 		&adminAIToolsStub{},
-		&adminGeneratorStub{},
 		&adminIDGeneratorStub{next: []uint64{101, 202}},
 		&adminRepositoryStub{},
 	)
@@ -175,6 +152,7 @@ func TestServiceCreateAccountCreatesAIUserAndAccount(t *testing.T) {
 		LastName:     "AI",
 		Enabled:      true,
 		Topic:        "minimalism",
+		Description:  "Provide practical tips for simple software.",
 		SystemPrompt: "Write briefly.",
 	})
 	if err != nil {
@@ -198,95 +176,16 @@ func TestServiceCreateAccountCreatesAIUserAndAccount(t *testing.T) {
 	}
 }
 
-func TestServiceCreatePreviewPersistsGeneratedPreview(t *testing.T) {
-	account := &aiaccounts.AIAccount{
-		ID:           55,
-		UserID:       66,
-		Topic:        "writing",
-		SystemPrompt: "Be concise.",
-	}
-	accounts := &adminAIAccountsStub{gotAccount: account}
-	service := NewService(
-		&adminTxManager{},
-		accounts,
-		&adminUsersStub{},
-		&adminPostsStub{},
-		&adminAIToolsStub{},
-		&adminGeneratorStub{post: aigenerator.GeneratedPost{Body: "Simple tools usually win.", Prompt: "p", Model: "mock"}},
-		&adminIDGeneratorStub{next: []uint64{777}},
-		&adminRepositoryStub{},
-	)
-
-	generation, err := service.CreatePreview(context.Background(), 55)
-	if err != nil {
-		t.Fatalf("CreatePreview: %v", err)
-	}
-	if generation.Status != aiaccounts.PostGenerationStatusGenerated {
-		t.Fatalf("expected generated status, got %q", generation.Status)
-	}
-	if len(accounts.createdGenerations) != 1 {
-		t.Fatalf("expected one stored generation")
-	}
-	if accounts.createdGenerations[0].CandidateBody != "Simple tools usually win." {
-		t.Fatalf("expected candidate body to be persisted")
-	}
-}
-
-func TestServiceCreatePostPublishesAIPostAndMarksSuccess(t *testing.T) {
-	now := time.Date(2026, 5, 21, 12, 0, 0, 0, time.UTC)
-	account := &aiaccounts.AIAccount{
-		ID:             55,
-		UserID:         66,
-		Topic:          "writing",
-		SystemPrompt:   "Be concise.",
-		MinPostsPerDay: 1,
-		MaxPostsPerDay: 1,
-	}
-	accounts := &adminAIAccountsStub{gotAccount: account}
-	postsSvc := &adminPostsStub{post: &posts.Post{ID: 999, Body: "Simple tools usually win.", Source: posts.SourceAI}}
-	service := NewService(
-		&adminTxManager{},
-		accounts,
-		&adminUsersStub{},
-		postsSvc,
-		&adminAIToolsStub{},
-		&adminGeneratorStub{post: aigenerator.GeneratedPost{Body: "Simple tools usually win.", Prompt: "p", Model: "mock"}},
-		&adminIDGeneratorStub{next: []uint64{777}},
-		&adminRepositoryStub{},
-	)
-	service.now = func() time.Time { return now }
-
-	result, err := service.CreatePost(context.Background(), 55, "")
-	if err != nil {
-		t.Fatalf("CreatePost: %v", err)
-	}
-
-	if postsSvc.input.AuthorID != 66 || postsSvc.input.Source != posts.SourceAI {
-		t.Fatalf("expected ai post create input to use ai source and ai account user")
-	}
-	if result.Generation == nil || result.Generation.Status != aiaccounts.PostGenerationStatusPosted {
-		t.Fatalf("expected posted generation record")
-	}
-	if len(accounts.successMarks) != 1 {
-		t.Fatalf("expected success mark")
-	}
-	if !accounts.successMarks[0].nextGenerateAt.After(accounts.successMarks[0].lastGeneratedAt) {
-		t.Fatalf("expected next generate time after last generated time")
-	}
-}
-
 func TestServiceGeneratePostContentUsesAITools(t *testing.T) {
 	service := NewService(
 		&adminTxManager{},
 		&adminAIAccountsStub{},
 		&adminUsersStub{},
-		&adminPostsStub{},
 		&adminAIToolsStub{result: aitools.GeneratedPost{
 			Body:   "Small tools make room for better thinking.",
 			Prompt: "prompt",
 			Model:  "gpt-4.1",
 		}},
-		&adminGeneratorStub{},
 		&adminIDGeneratorStub{},
 		&adminRepositoryStub{},
 	)
@@ -309,4 +208,72 @@ func TestServiceGeneratePostContentUsesAITools(t *testing.T) {
 func (s *adminAIAccountsStub) UpdateWithExecutor(ctx context.Context, executor aiaccounts.UpdateExecutor, a *aiaccounts.AIAccount) error {
 	s.gotAccount = a
 	return nil
+}
+
+func TestUpdateAccountPauseResumeAndValidation(t *testing.T) {
+	now := time.Now().UTC()
+	accounts := &adminAIAccountsStub{gotAccount: &aiaccounts.AIAccount{ID: 1, UserID: 2, Enabled: true, Topic: "gardens", Description: "Offer general gardening tips.", MinPostsPerDay: 1, MaxPostsPerDay: 3}}
+	profile := &adminUsersStub{got: &users.User{ID: 2, FirstName: "Gardening", AccountType: users.AccountTypeAI}}
+	svc := NewService(&adminTxManager{}, accounts, profile, &adminAIToolsStub{}, &adminIDGeneratorStub{}, &adminRepositoryStub{})
+	svc.now = func() time.Time { return now }
+	svc.SetSchedule(aiaccounts.Schedule{Development: true, MinInterval: time.Minute, MaxInterval: 2 * time.Minute})
+	enabled := false
+	style := "Dry and concrete"
+	record, err := svc.UpdateAccount(context.Background(), 1, UpdateAccountInput{Enabled: &enabled, StylePrompt: &style})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if record.Account.Enabled || record.Account.NextGenerateAt != nil || record.Account.StylePrompt != style {
+		t.Fatal("pause or mission edit failed")
+	}
+	enabled = true
+	record, err = svc.UpdateAccount(context.Background(), 1, UpdateAccountInput{Enabled: &enabled})
+	if err != nil {
+		t.Fatal(err)
+	}
+	delta := record.Account.NextGenerateAt.Sub(now)
+	if delta < time.Minute || delta > 2*time.Minute {
+		t.Fatal("resume did not stagger schedule")
+	}
+	invalid := 0
+	if _, err = svc.UpdateAccount(context.Background(), 1, UpdateAccountInput{MinPostsPerDay: &invalid}); err != ErrInvalidPostsPerDay {
+		t.Fatalf("invalid rate accepted: %v", err)
+	}
+}
+
+func TestContentMissionValidation(t *testing.T) {
+	registry, err := aitools.NewRegistry([]aitools.Option{{ID: "openai", Provider: "openai", Model: "test", Tools: aitools.NewMockTools()}, {ID: "claude", Provider: "anthropic", Model: "test"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	service := &Service{models: registry}
+	for _, tt := range []struct {
+		name   string
+		change func(*aiaccounts.AIAccount)
+	}{
+		{"missing mission", func(a *aiaccounts.AIAccount) { a.Description = "" }},
+		{"missing research source", func(a *aiaccounts.AIAccount) { a.ContentMode = "research" }},
+		{"private source", func(a *aiaccounts.AIAccount) {
+			a.ContentMode = "research"
+			a.SourceURLs = []string{"https://127.0.0.1/feed"}
+		}},
+		{"empty selection", func(a *aiaccounts.AIAccount) { a.ModelOptions = []string{} }},
+		{"unknown model", func(a *aiaccounts.AIAccount) { a.ModelOptions = []string{"missing"} }},
+		{"duplicate model", func(a *aiaccounts.AIAccount) { a.ModelOptions = []string{"openai", "openai"} }},
+		{"unselected default", func(a *aiaccounts.AIAccount) { a.DefaultModelOption = "claude" }},
+		{"no available models", func(a *aiaccounts.AIAccount) { a.ModelOptions = []string{"claude"}; a.DefaultModelOption = "claude" }},
+		{"too frequent", func(a *aiaccounts.AIAccount) { a.CheckIntervalSeconds = 1 }},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			a := &aiaccounts.AIAccount{Description: "Useful content mission", Enabled: true}
+			tt.change(a)
+			if service.validateContent(a) == nil {
+				t.Fatal("invalid configuration accepted")
+			}
+		})
+	}
+	valid := &aiaccounts.AIAccount{Description: "Provide source-grounded research", ContentMode: "research", SourceURLs: []string{"https://example.org/feed"}, Enabled: true, ModelOptions: []string{"openai", "claude"}, DefaultModelOption: "openai"}
+	if err := service.validateContent(valid); err != nil {
+		t.Fatal(err)
+	}
 }

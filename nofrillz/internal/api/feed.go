@@ -27,6 +27,11 @@ type feedPostUserResponse struct {
 }
 
 type feedPostResponse struct {
+	ContentItemID *uint64 `json:"content_item_id,omitempty,string"`
+	ModelOption   string  `json:"model_option,omitempty"`
+	Provider      string  `json:"provider,omitempty"`
+	Model         string  `json:"model,omitempty"`
+
 	ID           string               `json:"id"`
 	URL          string               `json:"url"`
 	Body         string               `json:"body"`
@@ -113,6 +118,7 @@ func (h *FeedHandler) List(w http.ResponseWriter, r *http.Request) {
 	responsePosts := make([]feedPostResponse, 0, len(posts))
 	for _, post := range posts {
 		responsePosts = append(responsePosts, feedPostResponse{
+			ContentItemID: post.ContentItemID, ModelOption: post.ModelOption, Provider: post.Provider, Model: post.Model,
 			ID:           strconv.FormatUint(post.ID, 10),
 			URL:          PostURLPath(post.ID),
 			Body:         post.Body,

@@ -1,5 +1,7 @@
 package posts
 
+import "nofrillz/internal/aiselection"
+
 const (
 	selectPostByIdQuery = `
 	select p.id,p.user_id,p.body,p.source,p.created,p.updated,p.deleted,u.username,u.first_name,u.last_name,u.account_type,l.user_id is not null as liked,b.user_id is not null as is_bookmarked
@@ -29,9 +31,10 @@ const (
 	left join post_bookmarks b
 	  on b.post_id=p.id
 	 and b.user_id=?
+` + aiselection.Joins + `
 	where p.user_id=?
-	  and p.deleted is null
-	order by p.id desc
+	  and p.deleted is null` + aiselection.Visible + `
+	order by ` + aiselection.SortID + ` desc
 	limit ?
 	`
 
@@ -47,10 +50,11 @@ const (
 	left join post_bookmarks b
 	  on b.post_id=p.id
 	 and b.user_id=?
+` + aiselection.Joins + `
 	where p.user_id=?
-	  and p.deleted is null
-	  and p.id<?
-	order by p.id desc
+	  and p.deleted is null` + aiselection.Visible + `
+	  and ` + aiselection.SortID + `<COALESCE((SELECT content_item_id FROM ai_content_variants WHERE post_id=?),?)
+	order by ` + aiselection.SortID + ` desc
 	limit ?
 	`
 )

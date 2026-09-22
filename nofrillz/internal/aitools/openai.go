@@ -118,7 +118,7 @@ func (o *OpenAI) GeneratePostContent(ctx context.Context, input GeneratePostInpu
 	requestBody := openAIResponsesRequest{
 		Model:           o.model,
 		Input:           prompt,
-		Instructions:    PostInstructions,
+		Instructions:    Instructions(input),
 		MaxOutputTokens: 256,
 		Store:           false,
 	}

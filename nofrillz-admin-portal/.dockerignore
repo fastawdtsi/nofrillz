@@ -3,3 +3,7 @@ dist
 .git
 .DS_Store
 *.tsbuildinfo
+
+# Never send local credentials in the build context.
+.env
+.env.*

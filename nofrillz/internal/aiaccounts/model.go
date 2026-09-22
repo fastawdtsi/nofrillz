@@ -14,6 +14,16 @@ const (
 )
 
 type AIAccount struct {
+	ContentMode          string     `json:"content_mode"`
+	CheckIntervalSeconds int        `json:"check_interval_seconds"`
+	Exclusions           string     `json:"exclusions"`
+	SourceURLs           []string   `json:"source_urls"`
+	ModelOptions         []string   `json:"model_options"`
+	DefaultModelOption   string     `json:"default_model_option"`
+	SourceMaxAgeHours    int        `json:"source_max_age_hours"`
+	LastCheckedAt        *time.Time `json:"last_checked_at"`
+	LastCheckOutcome     string     `json:"last_check_outcome"`
+
 	ID                  uint64     `json:"id,string"`
 	UserID              uint64     `json:"user_id,string"`
 	Enabled             bool       `json:"enabled"`

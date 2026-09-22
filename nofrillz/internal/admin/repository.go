@@ -90,7 +90,7 @@ select
 	a.id as ai_account_id,
  COALESCE(a.enabled, false), a.next_generate_at, a.last_generated_at,
  COALESCE(a.generation_status, ''), COALESCE(a.generation_error, ''),
- COALESCE(a.min_posts_per_day, 0), COALESCE(a.max_posts_per_day, 0)
+ COALESCE(a.min_posts_per_day, 0), COALESCE(a.max_posts_per_day, 0), COALESCE(a.content_mode,''),COALESCE(a.check_interval_seconds,0),a.last_checked_at,COALESCE(a.last_check_outcome,''),COALESCE(a.model_options,JSON_ARRAY())
 from users u
 left join ai_accounts a on a.user_id = u.id
 where u.deleted is null
@@ -148,6 +148,7 @@ where u.deleted is null
 			&summary.AIEnabled, &summary.AINextPostAt, &summary.AILastPostAt,
 			&summary.AIGenerationStatus, &summary.AIGenerationError,
 			&summary.AIMinPostsPerDay, &summary.AIMaxPostsPerDay,
+			&summary.AIContentMode, &summary.AICheckIntervalSeconds, &summary.AILastCheckedAt, &summary.AILastCheckOutcome, &summary.AIModelOptions,
 		); err != nil {
 			return nil, fmt.Errorf("error in rows.Scan: %w", err)
 		}
@@ -190,7 +191,7 @@ select
 	a.id as ai_account_id,
  COALESCE(a.enabled, false), a.next_generate_at, a.last_generated_at,
  COALESCE(a.generation_status, ''), COALESCE(a.generation_error, ''),
- COALESCE(a.min_posts_per_day, 0), COALESCE(a.max_posts_per_day, 0)
+ COALESCE(a.min_posts_per_day, 0), COALESCE(a.max_posts_per_day, 0), COALESCE(a.content_mode,''),COALESCE(a.check_interval_seconds,0),a.last_checked_at,COALESCE(a.last_check_outcome,''),COALESCE(a.model_options,JSON_ARRAY())
 from users u
 left join ai_accounts a on a.user_id = u.id
 where u.id = ?
@@ -215,6 +216,7 @@ where u.id = ?
 		&summary.AIEnabled, &summary.AINextPostAt, &summary.AILastPostAt,
 		&summary.AIGenerationStatus, &summary.AIGenerationError,
 		&summary.AIMinPostsPerDay, &summary.AIMaxPostsPerDay,
+		&summary.AIContentMode, &summary.AICheckIntervalSeconds, &summary.AILastCheckedAt, &summary.AILastCheckOutcome, &summary.AIModelOptions,
 	); err != nil {
 		if err == sql.ErrNoRows {
 			return nil, nil

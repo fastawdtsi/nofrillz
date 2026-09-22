@@ -10,15 +10,15 @@ import (
 	"time"
 
 	"nofrillz/internal/aiaccounts"
-	"nofrillz/internal/aigenerator"
+	"nofrillz/internal/aicontent"
 	"nofrillz/internal/aiposter"
 	"nofrillz/internal/aitools"
 	"nofrillz/internal/config"
 	"nofrillz/internal/db"
 	"nofrillz/internal/logging"
 	"nofrillz/internal/posts"
+	"nofrillz/internal/research"
 	"nofrillz/internal/snowid"
-	"nofrillz/internal/users"
 )
 
 func main() {
@@ -52,31 +52,29 @@ func main() {
 	aiAccountsService := aiaccounts.NewService(aiAccountsRepository)
 	postsRepository := posts.NewRepository(mysql.DB)
 	postsService := posts.NewService(postsRepository, idGenerator)
-	aiTools, err := aitools.NewFromConfig(cfg.AIToolsConfig())
+	registry, err := aitools.NewRegistryFromConfig(cfg)
 	if err != nil {
 		panic(err)
 	}
-	generator := aigenerator.NewAIToolsGenerator(aiTools, users.NewService(users.NewRepository(mysql.DB)), postsService)
+	processor := aicontent.New(mysql.DB, registry, research.NewRSS(), postsService, idGenerator, cfg.AIPosterConfig().Schedule(), &logger)
 
 	aiPosterConfig := cfg.AIPosterConfig()
 	runner := aiposter.NewRunner(
 		&logger,
-		aiposter.NewSQLTransactionManager(mysql.DB),
 		aiAccountsService,
-		postsService,
-		generator,
-		idGenerator,
+		processor,
 		time.Duration(aiPosterConfig.PollIntervalSeconds)*time.Second,
 		aiPosterConfig.BatchSize,
 		time.Duration(aiPosterConfig.StaleRunningAfterMinutes)*time.Minute,
 	)
 
-	runner.SetSchedule(aiPosterConfig.Schedule())
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
 	logger.Info().
 		Str("level", level.String()).
+		Bool("development_mode", aiPosterConfig.DevelopmentMode).
+		Str("provider", cfg.AIToolsConfig().Provider).
 		Int("poll_interval_seconds", aiPosterConfig.PollIntervalSeconds).
 		Int("batch_size", aiPosterConfig.BatchSize).
 		Int("stale_running_after_minutes", aiPosterConfig.StaleRunningAfterMinutes).

@@ -2,81 +2,29 @@ package aiaccounts_test
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
-	"sort"
 	"sync"
 	"testing"
 	"time"
 
-	"github.com/go-sql-driver/mysql"
 	"nofrillz/internal/aiaccounts"
 	"nofrillz/internal/feed"
 	"nofrillz/internal/posts"
+	"nofrillz/internal/testdb"
 )
-
-// Explicit opt-in. Every run creates and drops its own database, never the
-// application's database. Supply an administrative DSN for a LOCAL MySQL only.
-func testDatabase(t *testing.T) *sql.DB {
-	t.Helper()
-	dsn := os.Getenv("NOFRILLZ_TEST_MYSQL_DSN")
-	if dsn == "" {
-		t.Skip("set NOFRILLZ_TEST_MYSQL_DSN to run isolated MySQL integration tests")
-	}
-	cfg, err := mysql.ParseDSN(dsn)
-	if err != nil {
-		t.Fatal(err)
-	}
-	cfg.DBName = ""
-	cfg.ParseTime = true
-	cfg.MultiStatements = true
-	root, err := sql.Open("mysql", cfg.FormatDSN())
-	if err != nil {
-		t.Fatal(err)
-	}
-	name := fmt.Sprintf("nofrillz_test_%d", time.Now().UnixNano())
-	if _, err = root.Exec("CREATE DATABASE " + name + " CHARACTER SET utf8mb4"); err != nil {
-		root.Close()
-		t.Fatal(err)
-	}
-	t.Cleanup(func() { root.Exec("DROP DATABASE " + name); root.Close() })
-	cfg.DBName = name
-	db, err := sql.Open("mysql", cfg.FormatDSN())
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Cleanup(func() { db.Close() })
-	files, err := filepath.Glob("../../schema/migrations/*.up.sql")
-	if err != nil {
-		t.Fatal(err)
-	}
-	sort.Strings(files)
-	for _, file := range files {
-		b, err := os.ReadFile(file)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if _, err = db.Exec(string(b)); err != nil {
-			t.Fatalf("migration %s: %v", file, err)
-		}
-	}
-	return db
-}
 
 type testIDs struct{ next uint64 }
 
 func (g *testIDs) MustNext() uint64 { g.next++; return g.next }
 func TestMySQLClaimFencingAndNormalDiscover(t *testing.T) {
-	db := testDatabase(t)
+	db := testdb.Open(t)
 	ctx := context.Background()
 	now := time.Now().UTC().Truncate(time.Second)
 	due := now.Add(-time.Minute)
 	repo := aiaccounts.NewRepository(db)
 	for i := uint64(1); i <= 6; i++ {
-		_, err := db.Exec("INSERT INTO users (id,email,username,first_name,last_name,about,password_hash,account_type) VALUES (?,?,?,?,?,?,?,'ai')", i, fmt.Sprintf("%d@example.invalid", i), fmt.Sprintf("persona%d", i), "Test", "Persona", "test", []byte("unused"))
+		_, err := db.Exec("INSERT INTO users (id,email,username,first_name,last_name,about,password_hash,account_type) VALUES (?,?,?,?,?,?,?,'ai')", i, fmt.Sprintf("%d@example.invalid", i), fmt.Sprintf("content%d", i), "Test", "Account", "test", []byte("unused"))
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -119,6 +67,18 @@ func TestMySQLClaimFencingAndNormalDiscover(t *testing.T) {
 	for a := range claims {
 		if a.ID > 3 || owned[a.ID] != nil || a.ClaimToken == "" {
 			t.Fatalf("invalid/duplicate claim: %+v", a)
+		}
+		owned[a.ID] = a
+	}
+	// A locking scan can briefly lock more rows than LIMIT. SKIP LOCKED
+	// deliberately returns early; the next poll must recover every remaining row.
+	remaining, err := repo.ClaimDueAIAccounts(ctx, now, 3, 15*time.Minute)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, a := range remaining {
+		if owned[a.ID] != nil || a.ID > 3 {
+			t.Fatal("duplicate or ineligible claim")
 		}
 		owned[a.ID] = a
 	}

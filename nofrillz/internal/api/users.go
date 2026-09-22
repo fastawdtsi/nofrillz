@@ -27,12 +27,13 @@ const (
 )
 
 type CreateUserRequest struct {
-	Email     string `json:"email"`
-	Username  string `json:"username"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	About     string `json:"about"`
-	Password  string `json:"password"`
+	AIModelPreference *string `json:"ai_model_preference"`
+	Email             string  `json:"email"`
+	Username          string  `json:"username"`
+	FirstName         string  `json:"first_name"`
+	LastName          string  `json:"last_name"`
+	About             string  `json:"about"`
+	Password          string  `json:"password"`
 }
 
 type SearchUsersResponse struct {
@@ -110,6 +111,16 @@ func (h *UsersHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if signup.AIModelPreference != nil {
+		if h.app.AIModels == nil {
+			http.Error(w, "AI model catalog unavailable", 503)
+			return
+		}
+		if _, ok := h.app.AIModels.Get(*signup.AIModelPreference); !ok {
+			http.Error(w, "unknown AI model option", 400)
+			return
+		}
+	}
 	passwordHash, passwordSalt, err := users.GeneratePasswordHashAndSalt(signup.Password)
 	if err != nil {
 		h.app.Logger.Warn().Str("username", signup.Username).Msg("invalid signup password")
@@ -118,12 +129,13 @@ func (h *UsersHandler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	user := users.User{
-		Email:       signup.Email,
-		Username:    signup.Username,
-		FirstName:   strings.TrimSpace(signup.FirstName),
-		LastName:    strings.TrimSpace(signup.LastName),
-		About:       strings.TrimSpace(signup.About),
-		AccountType: users.AccountTypeHuman,
+		AIModelPreference: signup.AIModelPreference,
+		Email:             signup.Email,
+		Username:          signup.Username,
+		FirstName:         strings.TrimSpace(signup.FirstName),
+		LastName:          strings.TrimSpace(signup.LastName),
+		About:             strings.TrimSpace(signup.About),
+		AccountType:       users.AccountTypeHuman,
 	}
 
 	user.ID = h.app.IDGenerator.MustNext()

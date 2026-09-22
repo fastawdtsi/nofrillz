@@ -59,6 +59,7 @@ func main() {
 		return api.Middleware(app, next)
 	}
 
+	api.NewAIModelHandler(app).AddRoutes(serveMux, middleware)
 	healthHandler := api.NewHealthHandler(app)
 	healthHandler.AddRoutes(serveMux, middleware)
 
