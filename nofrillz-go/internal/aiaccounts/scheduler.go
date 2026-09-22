@@ -73,6 +73,5 @@ func (s Schedule) NextCheck(now time.Time, intervalSeconds int) time.Time {
 		return s.Next(now, 1, 1)
 	}
 	base := time.Duration(max(intervalSeconds, 300)) * time.Second
-	spread := base / 5
-	return now.UTC().Add(base - spread + time.Duration(rand.Int63n(int64(2*spread)+1)))
+	return now.UTC().Add(base)
 }

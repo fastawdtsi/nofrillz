@@ -235,6 +235,12 @@ func TestUpdateAccountPauseResumeAndValidation(t *testing.T) {
 	if delta < time.Minute || delta > 2*time.Minute {
 		t.Fatal("resume did not stagger schedule")
 	}
+	svc.SetSchedule(aiaccounts.Schedule{})
+	daily := 86400
+	record, err = svc.UpdateAccount(context.Background(), 1, UpdateAccountInput{CheckIntervalSeconds: &daily})
+	if err != nil || record.Account.NextGenerateAt == nil || !record.Account.NextGenerateAt.Equal(now.Add(24*time.Hour)) {
+		t.Fatalf("editing daily account accelerated its next check: %+v %v", record, err)
+	}
 	invalid := 0
 	if _, err = svc.UpdateAccount(context.Background(), 1, UpdateAccountInput{MinPostsPerDay: &invalid}); err != ErrInvalidPostsPerDay {
 		t.Fatalf("invalid rate accepted: %v", err)
@@ -275,5 +281,15 @@ func TestContentMissionValidation(t *testing.T) {
 	valid := &aiaccounts.AIAccount{Description: "Provide source-grounded research", ContentMode: "research", SourceURLs: []string{"https://example.org/feed"}, Enabled: true, ModelOptions: []string{"openai", "claude"}, DefaultModelOption: "openai"}
 	if err := service.validateContent(valid); err != nil {
 		t.Fatal(err)
+	}
+	// Catalog entries may be saved as disabled drafts while a source adapter is
+	// missing. Enabling still requires real source configuration.
+	draft := &aiaccounts.AIAccount{Description: "Verified history for today's date", ContentMode: "research", Enabled: false}
+	if err := service.validateContent(draft); err != nil {
+		t.Fatalf("disabled research draft rejected: %v", err)
+	}
+	draft.Enabled = true
+	if service.validateContent(draft) == nil {
+		t.Fatal("source-less research draft could be enabled")
 	}
 }

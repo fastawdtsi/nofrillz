@@ -112,7 +112,7 @@ export default function AIStudio({ settings, refreshTick, onChanged }: {
     {status && <div className={panel}>
       <p className="font-semibold">{status.development_mode ? "Accelerated development checks" : "Content check schedule"}</p>
       <p className="text-sm text-[rgb(var(--muted))]">
-        {status.development_mode ? `Enabled accounts check at randomized intervals of ${status.development_min_interval_seconds}–${status.development_max_interval_seconds} seconds. Saved check intervals apply when development mode is off. Research checks may publish nothing.` : "Each account checks on its own interval with jitter. Only worthwhile new research produces a post."}
+        {status.development_mode ? `Enabled accounts check at randomized intervals of ${status.development_min_interval_seconds}–${status.development_max_interval_seconds} seconds. Saved check intervals apply when development mode is off. Research checks may publish nothing.` : "Each account checks after its saved interval. Duplicate or unsuitable content is skipped. Failed checks may be delayed further."}
         {" Status refreshes every 10 seconds."}
       </p>
     </div>}

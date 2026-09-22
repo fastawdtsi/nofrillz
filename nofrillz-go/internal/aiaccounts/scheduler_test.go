@@ -42,3 +42,14 @@ func TestDevelopmentScheduleIsExplicitAndBounded(t *testing.T) {
 		}
 	}
 }
+
+func TestNormalChecksHonorExactConfiguredInterval(t *testing.T) {
+	now := time.Date(2026, 9, 22, 19, 0, 0, 0, time.UTC)
+	for _, seconds := range []int{300, 1800, 86400, 7 * 86400} {
+		for range 10 {
+			if got := (Schedule{}).NextCheck(now, seconds); !got.Equal(now.Add(time.Duration(seconds) * time.Second)) {
+				t.Fatalf("configured interval %d changed to %s", seconds, got.Sub(now))
+			}
+		}
+	}
+}

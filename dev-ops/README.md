@@ -5,7 +5,7 @@ Shared Docker Compose configuration for the sibling NoFrillz repositories:
 ```text
 NoFrillz/
   dev-ops/
-  nofrillz/
+  nofrillz-go/
   nofrillz-admin-portal/
   nofrillz-android/
   nofrillz-ios/
@@ -80,7 +80,7 @@ docker compose up -d --build --wait
 ## Database migrations and sample data
 
 MySQL starts empty. The `migrate` service waits for an authenticated database
-connection and applies every `../nofrillz/schema/migrations/*.up.sql` file in
+connection and applies every `../nofrillz-go/schema/migrations/*.up.sql` file in
 filename order, including bookmarks. The API and AI poster wait for migration
 success; the portal waits for API health. `migrate` exiting with code 0 is normal.
 
@@ -193,7 +193,17 @@ continue to work. AI disclosure remains in `account_type=ai` and `source=ai`.
 Likes, bookmarks, comments, and direct links refer to the particular post variant
 the reader saw; switching preferences does not move or merge those interactions.
 Bookmarks retain that exact version. No consumer model-selection UI was added.
-The public APIs for future onboarding and clients are in [API.md](../nofrillz/API.md).
+The public APIs for future onboarding and clients are in [API.md](../nofrillz-go/API.md).
+
+Before publishing, the poster checks the account's full stored history across
+models (including legacy and soft-deleted posts). Exact repeats are suppressed;
+an additional model review compares likely historical matches for repeated
+information, tips or jokes with different wording. Sibling variants of the same
+logical item are allowed, as are genuine new developments on an earlier topic.
+A duplicate check publishes nothing, records the original post reference in AI
+Studio, and waits for the normal next check. Review errors cannot bypass this
+guard. The semantic comparison uses a bounded shortlist and is probabilistic;
+see [the design notes](AI_CONTENT_DESIGN.md) for scope, cost and limitations.
 
 ### Scheduling and recovery
 
@@ -202,11 +212,14 @@ claims, random ownership tokens, stale-claim recovery, and account failure
 isolation remain. Each item/variant mutation verifies ownership in a transaction.
 Pausing/editing an account fences in-flight work; edits cancel an unfinished item.
 
-Normal checks use the account's interval with ±20% jitter. This is a check cadence,
-not a post quota. New/re-enabled accounts start after a staggered 1–15 minutes.
-An explicit development setting substitutes 60–120 seconds in this local demo.
-Whole-check failures back off 15–22.5 minutes, doubling up to 4–6 hours. Partial
-provider failure retains successful variants and schedules normally.
+Normal checks wait the account's full configured interval with no timing jitter.
+This is a check cadence, not a post quota. New accounts start after a staggered
+1–15 minutes; edits/re-enabling schedule a full interval from the change.
+The local accounts currently use 86400 seconds (24 hours), with development mode
+off. An explicit development setting can substitute 60–120-second checks.
+Whole-check failures back off 15–22.5 minutes, doubling up to 4–6 hours, but never
+shorten the configured interval. Partial provider failure retains successful
+variants and schedules normally.
 
 A variant attempt is recorded before its external call. Completed, failed, or
 interrupted attempts are not automatically regenerated for that item. Recovery
@@ -224,7 +237,7 @@ NOFRILLZ_AI_TOOLS_PROVIDER=openai
 NOFRILLZ_AI_TOOLS_OPENAI_API_KEY=your-key
 NOFRILLZ_AI_TOOLS_OPENAI_MODEL=gpt-4.1-mini
 NOFRILLZ_AI_TOOLS_MODEL_OPTIONS_JSON='[{"id":"openai_compact","name":"OpenAI compact","provider":"openai","model":"gpt-4.1-nano"}]'
-NOFRILLZ_AI_POSTER_DEVELOPMENT_MODE=true
+NOFRILLZ_AI_POSTER_DEVELOPMENT_MODE=false
 NOFRILLZ_AI_POSTER_DEVELOPMENT_MIN_INTERVAL_SECONDS=60
 NOFRILLZ_AI_POSTER_DEVELOPMENT_MAX_INTERVAL_SECONDS=120
 NOFRILLZ_AI_POSTER_POLL_INTERVAL_SECONDS=10
@@ -252,12 +265,33 @@ docker compose down                 # Stop stack; retain database volumes
 
 To use saved account intervals, set `NOFRILLZ_AI_POSTER_DEVELOPMENT_MODE=false`,
 then `docker compose up -d api ai-poster`. Editing/re-enabling an account resets
-its pending schedule. The local demo remains enabled in accelerated mode and
-continues using OpenAI credits. No production networking was changed.
+its pending schedule. The local catalog has 24 topic accounts on daily intervals:
+23 enabled, and Today in History disabled until a date-aware source adapter is
+available. Enabled accounts use model credits when they generate. No production
+networking was changed.
+
+### Seed the topic-account catalog
+
+The [catalog report](AI_CATALOG.md) lists all 24 accounts, their exact feeds,
+preserved identities, and live verification results. Definitions are maintained
+in [catalog/ai-accounts.json](catalog/ai-accounts.json). From this directory:
+
+```sh
+python3 scripts/seed-ai-catalog.py          # Validate sources and preview changes
+python3 scripts/seed-ai-catalog.py --apply  # Apply through the local admin API
+python3 scripts/verify-ai-catalog.py        # Verify existing items and feed preferences
+```
+
+The seeder preserves the three existing topic identities and unchanged schedules;
+it never calls a model or writes SQL. It requires Python 3, Go, a running local
+API, real configured model options, and network access to validate source feeds.
+Feed preflight must pass before any account mutations. Optional `system_prompt`
+fields remain empty because the application already combines shared instructions
+with each mission, topic, style, exclusions, context, and prior content.
 
 ### Verification
 
-From `nofrillz`, tests use fixtures/mock providers and spend no API credits:
+From `nofrillz-go`, tests use fixtures/mock providers and spend no API credits:
 
 ```sh
 NOFRILLZ_TEST_MYSQL_DSN='root:dev-root-password@tcp(127.0.0.1:3308)/' \

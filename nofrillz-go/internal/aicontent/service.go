@@ -108,6 +108,9 @@ func (s *Service) Process(ctx context.Context, a *aiaccounts.AIAccount) error {
 			return s.fail(ctx, a, err)
 		}
 		if existing != nil {
+			if existing.Status == "duplicate" && successes == 0 {
+				return s.finish(ctx, a, item, false, "duplicate", "")
+			}
 			if existing.Status == "skipped" && a.ContentMode == "research" && successes == 0 {
 				return s.finish(ctx, a, item, false, "not_significant", "")
 			}
@@ -142,7 +145,7 @@ func (s *Service) Process(ctx context.Context, a *aiaccounts.AIAccount) error {
 		}); err != nil {
 			return err
 		}
-		recent, err := s.recent(ctx, a.UserID, optionID)
+		recent, err := s.recent(ctx, a.UserID, item.ID)
 		if err != nil {
 			return s.fail(ctx, a, err)
 		}
@@ -160,23 +163,15 @@ func (s *Service) Process(ctx context.Context, a *aiaccounts.AIAccount) error {
 			genErr = fmt.Errorf("model declined this content item")
 		}
 		if genErr == nil {
-			genErr = aigenerator.ValidateCandidate(strings.TrimSpace(generated.Body), recent)
+			// Format validation is separate from novelty. Similar wording may carry
+			// genuinely new facts; compare meaning before rejecting those updates.
+			genErr = aigenerator.ValidateCandidate(strings.TrimSpace(generated.Body), nil)
 		}
 		if genErr == nil && (a.ContentMode == "research" || item.Context != "") {
 			// A shared factual editor checks each presentation against the original
 			// evidence. It may reject a variant, but never rewrites its viewpoint.
-			reviewer, ok := s.Registry.Get(a.DefaultModelOption)
-			if !ok || !reviewer.Available || unavailableReviewOptions[reviewer.ID] {
-				reviewer = option
-			}
 			reviewInput := aitools.GeneratePostInput{ContentMode: a.ContentMode, ReviewBody: generated.Body, Context: item.Context, Sources: string(sources), Description: a.Description, Exclusions: a.Exclusions}
-			review, e := reviewer.Tools.GeneratePostContent(ctx, reviewInput)
-			if e != nil && reviewer.ID != option.ID {
-				unavailableReviewOptions[reviewer.ID] = true
-				s.log(a, "default evidence reviewer unavailable; using writer", map[string]any{"content_item_id": item.ID, "review_option": reviewer.ID, "option_id": option.ID})
-				reviewer = option
-				review, e = reviewer.Tools.GeneratePostContent(ctx, reviewInput)
-			}
+			review, reviewer, e := s.review(ctx, a, option, unavailableReviewOptions, reviewInput)
 			if e == nil && a.ContentMode == "research" && successes == 0 && strings.TrimSpace(review.Body) == "__NO_POST__" {
 				s.log(a, "research item excluded by editorial review", map[string]any{"content_item_id": item.ID, "review_option": reviewer.ID})
 				return s.skipResearch(ctx, a, item, option.ID)
@@ -191,6 +186,22 @@ func (s *Service) Process(ctx context.Context, a *aiaccounts.AIAccount) error {
 				}
 			}
 			s.log(a, "content evidence reviewed", map[string]any{"mode": a.ContentMode, "content_item_id": item.ID, "option_id": option.ID, "review_option": reviewer.ID, "review_model": review.Model, "approved": genErr == nil})
+		}
+		if genErr == nil {
+			var duplicate *aitools.PriorContent
+			duplicate, genErr = s.checkNovelty(ctx, a, item, option, unavailableReviewOptions, strings.TrimSpace(generated.Body))
+			if genErr == nil && duplicate != nil {
+				if err = s.saveDuplicate(ctx, a, item, option.ID, duplicate); err != nil {
+					return err
+				}
+				s.log(a, "duplicate content suppressed", map[string]any{"content_item_id": item.ID, "option_id": option.ID, "previous_post_id": duplicate.PostID, "previous_content_item_id": duplicate.ItemID})
+				if successes == 0 {
+					// Do not spend on more presentations of an already-covered item.
+					return s.finish(ctx, a, item, false, "duplicate", "")
+				}
+				failures++
+				continue
+			}
 		}
 		if genErr != nil {
 			if err = s.saveFailure(ctx, a, item, option, genErr.Error()); err != nil {
@@ -331,7 +342,10 @@ func (s *Service) finish(ctx context.Context, a *aiaccounts.AIAccount, item *Ite
 	next := s.Schedule.NextCheck(now, a.CheckIntervalSeconds)
 	if outcome == "failed" {
 		base := 15 * time.Minute * time.Duration(1<<min(a.ConsecutiveFailures, 4))
-		next = now.Add(base + time.Duration(now.UnixNano()%int64(base/2+1)))
+		backoff := now.Add(base + time.Duration(now.UnixNano()%int64(base/2+1)))
+		if backoff.After(next) {
+			next = backoff
+		}
 	}
 	err := s.withClaim(ctx, a, func(tx *sql.Tx) error {
 		var last any
@@ -344,7 +358,7 @@ func (s *Service) finish(ctx context.Context, a *aiaccounts.AIAccount, item *Ite
 		}
 		if item != nil {
 			state := "complete"
-			if outcome == "not_significant" {
+			if outcome == "not_significant" || outcome == "duplicate" {
 				state = "skipped"
 			}
 			if outcome == "failed" {
@@ -359,8 +373,12 @@ func (s *Service) finish(ctx context.Context, a *aiaccounts.AIAccount, item *Ite
 	}
 	return err
 }
-func (s *Service) recent(ctx context.Context, userID uint64, optionID string) ([]string, error) {
-	rows, err := s.DB.QueryContext(ctx, `SELECT p.body FROM posts p JOIN ai_content_variants v ON v.post_id=p.id WHERE p.user_id=? AND v.option_id=? AND p.deleted IS NULL ORDER BY p.id DESC LIMIT 15`, userID, optionID)
+func (s *Service) recent(ctx context.Context, userID uint64, itemID uint64) ([]string, error) {
+	rows, err := s.DB.QueryContext(ctx, `SELECT body FROM (
+SELECT p.id,p.body,ROW_NUMBER() OVER (PARTITION BY COALESCE(v.content_item_id,p.id) ORDER BY p.id DESC) AS item_rank
+FROM posts p LEFT JOIN ai_content_variants v ON v.post_id=p.id
+WHERE p.user_id=? AND (v.content_item_id IS NULL OR v.content_item_id<>?)
+) history WHERE item_rank=1 ORDER BY id DESC LIMIT 15`, userID, itemID)
 	if err != nil {
 		return nil, err
 	}

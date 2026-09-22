@@ -70,14 +70,14 @@ services:
       MYSQL_USER: ${NOFRILLZ_MYSQL_USER:-nofrillz}
       MYSQL_PWD: ${NOFRILLZ_MYSQL_PASSWORD:-dev-password}
     volumes:
-      - ../nofrillz/schema/migrations:/migrations:ro
+      - ../nofrillz-go/schema/migrations:/migrations:ro
       - ./scripts/migrate.sh:/scripts/migrate.sh:ro
     entrypoint: ["/bin/sh", "/scripts/migrate.sh"]
     restart: "no"
 
   api:
     build:
-      context: ../nofrillz
+      context: ../nofrillz-go
       dockerfile: docker/api/Dockerfile
     restart: unless-stopped
     depends_on:
@@ -112,7 +112,7 @@ services:
 
   ai-poster:
     build:
-      context: ../nofrillz
+      context: ../nofrillz-go
       dockerfile: docker/ai-poster/Dockerfile
     restart: unless-stopped
     depends_on:
@@ -146,7 +146,7 @@ services:
   seed:
     profiles: ["tools"]
     build:
-      context: ../nofrillz
+      context: ../nofrillz-go
       dockerfile: docker/seed/Dockerfile
     depends_on:
       migrate:

@@ -20,15 +20,26 @@ type fixtureIDs struct{ n uint64 }
 func (i *fixtureIDs) MustNext() uint64 { i.n++; return i.n }
 
 type fixtureProvider struct {
-	body         string
-	err          error
-	inputs       []aitools.GeneratePostInput
-	reviews      []aitools.GeneratePostInput
-	reviewResult string
-	before       func()
+	body          string
+	err           error
+	inputs        []aitools.GeneratePostInput
+	reviews       []aitools.GeneratePostInput
+	reviewResult  string
+	novelty       []aitools.GeneratePostInput
+	noveltyResult string
+	noveltyError  error
+	before        func()
 }
 
 func (p *fixtureProvider) GeneratePostContent(_ context.Context, in aitools.GeneratePostInput) (aitools.GeneratedPost, error) {
+	if in.Novelty != nil {
+		p.novelty = append(p.novelty, in)
+		body := p.noveltyResult
+		if body == "" {
+			body = `{"decision":"new"}`
+		}
+		return aitools.GeneratedPost{Body: body, Model: "fixture-reviewer"}, p.noveltyError
+	}
 	if in.ReviewBody != "" {
 		p.reviews = append(p.reviews, in)
 		body := p.reviewResult
@@ -397,5 +408,22 @@ func TestEditorialExclusionIsSuccessfulQuietCheck(t *testing.T) {
 	var count int
 	if err := s.DB.QueryRow(`SELECT COUNT(*) FROM posts`).Scan(&count); err != nil || count != 0 {
 		t.Fatal("excluded item published")
+	}
+}
+
+func TestDailyScheduleDoesNotAccelerateAfterFailure(t *testing.T) {
+	s, a, _, first, second, _ := fixtureService(t, "generative")
+	s.Schedule = aiaccounts.Schedule{}
+	a.CheckIntervalSeconds = 86400
+	if err := s.Accounts.UpdateWithExecutor(context.Background(), s.DB, a); err != nil {
+		t.Fatal(err)
+	}
+	first.err, second.err = errors.New("fixture outage"), errors.New("fixture outage")
+	if err := s.Process(context.Background(), claim(t, s, a, s.Now())); err != nil {
+		t.Fatal(err)
+	}
+	saved, err := s.Accounts.GetByID(context.Background(), a.ID)
+	if err != nil || saved.NextGenerateAt == nil || !saved.NextGenerateAt.Equal(s.Now().Add(24*time.Hour)) || saved.LastCheckOutcome != "failed" {
+		t.Fatalf("failure shortened daily interval: %+v %v", saved, err)
 	}
 }

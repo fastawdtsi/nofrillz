@@ -518,7 +518,7 @@ func (s *Service) UpdateAccount(ctx context.Context, id uint64, input UpdateAcco
 	}
 	a.NextGenerateAt = nil
 	if a.Enabled {
-		next := s.schedule.First(s.now().UTC())
+		next := s.schedule.NextCheck(s.now().UTC(), a.CheckIntervalSeconds)
 		a.NextGenerateAt = &next
 	}
 	tx, err := s.transactions.Begin(ctx)
@@ -566,8 +566,8 @@ func (s *Service) validateContent(a *aiaccounts.AIAccount) error {
 	if a.SourceMaxAgeHours < 1 || a.SourceMaxAgeHours > 2160 {
 		return fmt.Errorf("%w: source age must be 1–2160 hours", ErrInvalidProfile)
 	}
-	if len(a.SourceURLs) > 5 || a.ContentMode == "research" && len(a.SourceURLs) == 0 {
-		return fmt.Errorf("%w: research requires 1–5 source feeds", ErrInvalidProfile)
+	if len(a.SourceURLs) > 5 || a.Enabled && a.ContentMode == "research" && len(a.SourceURLs) == 0 {
+		return fmt.Errorf("%w: enabled research requires 1–5 source feeds", ErrInvalidProfile)
 	}
 	for _, url := range a.SourceURLs {
 		if err := research.ValidateURL(url); err != nil {

@@ -1,5 +1,16 @@
 # Content-account verification — September 22, 2026
 
+Current scheduling update: accelerated mode was subsequently disabled and all
+live content accounts changed to exact 24-hour intervals. Failed checks cannot
+shorten that interval. The accelerated timings below describe the earlier
+verification run, not the current configuration.
+
+AI Tech News, Healthy Living and Dad Joke of the Day are all enabled with
+`check_interval_seconds=86400`. Their next checks were moved to September 23,
+2026, at approximately 3:45 PM EDT. The API confirmed development mode is off.
+Scheduler/admin tests and MySQL integration tests passed, including a failed
+daily check retaining its 24-hour interval; the portal production build passed.
+
 The corrected system is running locally. All three accounts were created through AI Studio. The public API demonstration uses real stored posts; automated tests use fixtures and never fabricate live provider success.
 
 ## Accounts and configuration
@@ -115,3 +126,39 @@ Research editorial review also receives the account mission and exclusions.
 An excluded or insignificant source returns `__NO_POST__`, records a successful
 `not_significant` check, and avoids calls for remaining variants. A dedicated
 MySQL test verifies this behavior; exclusions are not treated as provider failures.
+
+## Follow-up: repeated-content prevention
+
+The poster now compares each proposed post with the account's full retained
+history across all models, including soft-deleted and legacy posts. Exact
+normalized repeats are suppressed directly; a separate novelty review compares
+the strongest historical matches and recent items for repeated meaning. Its
+shortlist and limitations are documented in `AI_CONTENT_DESIGN.md`. Same-item
+variants are excluded from history, so model choice still works as intended.
+
+Verified with isolated MySQL regression tests: a normalized copy older than 25
+intervening posts (and already soft-deleted), reworded older advice, cross-model
+history, identical sibling variants, syndicated research at a new URL, a genuine
+new development, duplicate recovery without regeneration, and failed/uncertain
+review responses that cannot publish. Duplicate checks preserve successful
+publication timestamps, do not count as provider failures, and use normal timing.
+
+Four additional real `gpt-4.1-mini` calls, using fixture content only in isolated
+test databases, correctly classified a reworded old joke, reworded advice, and
+repeated information as duplicates, while accepting a substantive factual update.
+All four passed. No fixture content was put into the application feed.
+
+The complete `go test -race ./...` suite with MySQL integration tests and
+`go vet ./...` passed again. No new migration or credentials were needed.
+The Compose build contexts and migration mount now use the renamed
+`nofrillz-go` directory.
+
+Live after deployment at `2026-09-22T18:25:37Z`, Healthy Living candidate item
+`162404999895188480` was classified as repeating post `162369337422775296`
+(item `162369309723591680`). It published nothing, skipped the compact-model
+call, and scheduled its next normal check with outcome `duplicate`. Dad Joke
+item `162405027695035392` passed novelty review and published OpenAI post
+`162405046519071744`; its inconsistent compact alternative was rejected by the
+existing seed check. AI Tech News found all 15 source candidates previously
+processed and completed a successful `no_content` check. API, poster, portal,
+MySQL and Redis remain running; the migration service exited successfully.
