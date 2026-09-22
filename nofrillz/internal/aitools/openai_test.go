@@ -104,3 +104,35 @@ func TestOpenAIGeneratePostContentUsesResponsesAPI(t *testing.T) {
 		t.Fatalf("unexpected model %q", result.Model)
 	}
 }
+
+func TestOpenAIRejectsIncompleteRefusalAndRedactsErrors(t *testing.T) {
+	for _, tt := range []struct {
+		name, body string
+		status     int
+	}{
+		{"incomplete", `{"status":"incomplete","output_text":"half a sentence"}`, 200},
+		{"refusal", `{"status":"completed","output":[{"content":[{"type":"refusal","refusal":"no"}]}]}`, 200},
+		{"empty", `{"status":"completed","output":[]}`, 200},
+		{"malformed", `not json`, 200},
+		{"provider error", `{"error":{"message":"secret-test-key","code":"rate_limit_exceeded"}}`, 429},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(tt.status)
+				_, _ = w.Write([]byte(tt.body))
+			}))
+			defer server.Close()
+			client, err := NewOpenAI(&config.OpenAIConfig{APIKey: "secret-test-key", BaseURL: server.URL, Model: "mock", TimeoutSeconds: 2})
+			if err != nil {
+				t.Fatal(err)
+			}
+			_, err = client.GeneratePostContent(context.Background(), GeneratePostInput{})
+			if err == nil {
+				t.Fatal("invalid result accepted")
+			}
+			if strings.Contains(err.Error(), "secret-test-key") {
+				t.Fatal("credential leaked in error")
+			}
+		})
+	}
+}

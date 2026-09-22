@@ -1,0 +1,30 @@
+# Binaries / build outputs
+/bin/*
+
+# Go tooling outputs
+*.test
+*.out
+coverage.out
+
+# Logs / runtime artifacts
+*.log
+*.pid
+
+# Local env/config overrides
+.env
+.env.*
+!.env.example
+
+# Editor / OS noise
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+tmp/
+temp/
+
+# Operating system files
+.DS_Store

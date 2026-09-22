@@ -87,6 +87,7 @@ type failureMark struct {
 }
 
 type fakeAIAccountsService struct {
+	finishErr      error
 	claimed        []*aiaccounts.AIAccount
 	generations    []*aiaccounts.PostGeneration
 	successMarks   []successMark
@@ -223,8 +224,64 @@ func randForTest() *rand.Rand {
 }
 
 func (s *fakeAIAccountsService) FinishClaimWithExecutor(ctx context.Context, executor aiaccounts.UpdateExecutor, a *aiaccounts.AIAccount, now, next time.Time, success bool, message string) error {
+	if s.finishErr != nil {
+		return s.finishErr
+	}
 	if success {
 		return s.MarkGenerationSuccessWithExecutor(ctx, executor, a.ID, now, next)
 	}
 	return s.MarkGenerationFailureWithExecutor(ctx, executor, a.ID, next, message)
+}
+
+func TestRunnerDisabledAndLostClaimsNeverCreatePosts(t *testing.T) {
+	for _, tt := range []struct {
+		name     string
+		enabled  bool
+		claimErr error
+	}{{"disabled", false, nil}, {"stale owner", true, aiaccounts.ErrClaimLost}} {
+		t.Run(tt.name, func(t *testing.T) {
+			svc := &fakeAIAccountsService{claimed: []*aiaccounts.AIAccount{{ID: 1, UserID: 2, Enabled: tt.enabled, ClaimToken: "old"}}, finishErr: tt.claimErr}
+			creator := &fakePostCreator{}
+			runner := NewRunner(nil, &fakeTransactionManager{}, svc, creator, &fakeGenerator{post: aigenerator.GeneratedPost{Body: "hello"}}, &fakeIDGenerator{}, time.Minute, 10, 15*time.Minute)
+			if err := runner.RunOnce(context.Background()); err != nil {
+				t.Fatal(err)
+			}
+			if creator.input.AuthorID != 0 || len(svc.generations) != 0 {
+				t.Fatal("cancelled account published")
+			}
+		})
+	}
+}
+func TestFailureBackoffGrowsAndIsBounded(t *testing.T) {
+	now := time.Now()
+	for failures := 0; failures < 12; failures++ {
+		delta := computeRetryAtWithRand(now, randForTest(), failures).Sub(now)
+		base := 15 * time.Minute * time.Duration(1<<min(failures, 4))
+		if delta < base || delta > base+base/2 {
+			t.Fatalf("bad failure delay: %s", delta)
+		}
+	}
+}
+
+type selectiveGenerator struct{}
+
+func (selectiveGenerator) GeneratePost(_ context.Context, a *aiaccounts.AIAccount) (aigenerator.GeneratedPost, error) {
+	if a.ID == 1 {
+		return aigenerator.GeneratedPost{}, errors.New("provider unavailable")
+	}
+	return aigenerator.GeneratedPost{Body: "second account succeeds"}, nil
+}
+func TestRunnerContinuesAfterGenerationFailure(t *testing.T) {
+	svc := &fakeAIAccountsService{claimed: []*aiaccounts.AIAccount{{ID: 1, UserID: 11, Enabled: true, ClaimToken: "a"}, {ID: 2, UserID: 22, Enabled: true, ClaimToken: "b"}}}
+	creator := &fakePostCreator{post: &posts.Post{ID: 123, Body: "second account succeeds"}}
+	runner := NewRunner(nil, &fakeTransactionManager{}, svc, creator, selectiveGenerator{}, &fakeIDGenerator{next: []uint64{101, 102}}, time.Minute, 10, 15*time.Minute)
+	if err := runner.RunOnce(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	if len(svc.failureMarks) != 1 || len(svc.successMarks) != 1 || creator.input.AuthorID != 22 || svc.claimBatchSize != 1 {
+		t.Fatal("failure prevented subsequent account processing")
+	}
+	if svc.generations[0].PostID != nil {
+		t.Fatal("failed generation acquired a post")
+	}
 }
