@@ -29,6 +29,7 @@ final class FeedViewController: BaseViewController {
     }
   }
 
+  private let discover: Bool
   private let environment: AppEnvironment
   private let feedCacheStore = FeedCacheStore()
   private var posts: [Post] = []
@@ -63,7 +64,8 @@ final class FeedViewController: BaseViewController {
 
   private let refreshControl = UIRefreshControl()
 
-  init(environment: AppEnvironment) {
+  init(environment: AppEnvironment, discover: Bool = false) {
+    self.discover = discover
     self.environment = environment
     super.init(nibName: nil, bundle: nil)
   }
@@ -75,7 +77,10 @@ final class FeedViewController: BaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-//    title = L10n.tr("tab.feed")
+    if discover {
+      title = "Discover"
+      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Find people", style: .plain, target: self, action: #selector(findPeopleTapped))
+    }
 
     setupTable()
     loadCachedFeedIfAvailable()
@@ -117,7 +122,7 @@ final class FeedViewController: BaseViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    navigationController?.setNavigationBarHidden(true, animated: animated)
+    navigationController?.setNavigationBarHidden(!discover, animated: animated)
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -132,6 +137,10 @@ final class FeedViewController: BaseViewController {
     updateStatusBarChromeGradient()
   }
 
+  @objc private func findPeopleTapped() {
+    navigationController?.pushViewController(SearchViewController(environment: environment), animated: true)
+  }
+
   private func setupTable() {
     tableView.dataSource = self
     tableView.delegate = self
@@ -144,14 +153,14 @@ final class FeedViewController: BaseViewController {
     }
     tableView.backgroundView = inlineStatusView
     refreshControl.addTarget(self, action: #selector(refreshTapped), for: .valueChanged)
-    configureBannerHeader()
+    if !discover { configureBannerHeader() }
     configureStatusBarChrome()
 
     view.addSubview(tableView)
     view.addSubview(statusBarChromeView)
 
     NSLayoutConstraint.activate([
-      tableView.topAnchor.constraint(equalTo: view.topAnchor),
+      tableView.topAnchor.constraint(equalTo: discover ? view.safeAreaLayoutGuide.topAnchor : view.topAnchor),
       tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -340,7 +349,7 @@ final class FeedViewController: BaseViewController {
         updateBackgroundState()
       }
       do {
-        let page = try await environment.api.fetchFeedPage(cursor: reset ? nil : nextCursor)
+        let page = try await environment.api.fetchFeedPage(cursor: reset ? nil : nextCursor, discover: discover)
         let resolvedItems = environment.bookmarkStore.absorbServerPosts(page.items)
         if reset {
           posts = resolvedItems
@@ -461,6 +470,7 @@ final class FeedViewController: BaseViewController {
   }
 
   private func loadCachedFeedIfAvailable() {
+    guard !discover else { return }
     guard let userID = environment.sessionStore.currentUser?.id,
           let cachedPosts = feedCacheStore.loadPosts(for: userID),
           !cachedPosts.isEmpty else {
@@ -474,6 +484,7 @@ final class FeedViewController: BaseViewController {
   }
 
   private func persistFeedCache() {
+    guard !discover else { return }
     guard let userID = environment.sessionStore.currentUser?.id else { return }
     feedCacheStore.save(posts: Array(posts.prefix(Constants.cachedPostLimit)), for: userID)
   }

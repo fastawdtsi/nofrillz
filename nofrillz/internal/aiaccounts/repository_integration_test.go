@@ -180,11 +180,13 @@ func TestMySQLClaimFencingAndNormalDiscover(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(found) != 1 || found[0].ID != post.ID || found[0].User.UserID != current.UserID || found[0].Source != "ai" {
+	if len(found) != 1 || found[0].ID != post.ID || found[0].UserID != current.UserID || found[0].Source != "ai" {
 		t.Fatalf("normal discover missing AI post: %+v", found)
 	}
-	if _, err := db.Exec("INSERT INTO likes(post_id,user_id) VALUES (?,4); INSERT INTO post_bookmarks(post_id,user_id) VALUES (?,4)", post.ID, post.ID); err != nil {
-		t.Fatal(err)
+	for _, query := range []string{"INSERT INTO likes(post_id,user_id) VALUES (?,4)", "INSERT INTO post_bookmarks(post_id,user_id) VALUES (?,4)"} {
+		if _, err := db.Exec(query, post.ID); err != nil {
+			t.Fatal(err)
+		}
 	}
 	found, err = feedRepo.ListDiscover(ctx, 4, nil, 20)
 	if err != nil || !found[0].Liked || !found[0].IsBookmarked {

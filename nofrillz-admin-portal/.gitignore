@@ -20,13 +20,11 @@ Thumbs.db
 /tmp/
 /temp/
 
-# Workspace-local tooling
-/bin/
-/.cache/
-/coverage/
-*.test
-coverage.out
-
-# Python helper caches
-__pycache__/
-*.py[cod]
+# Node / Vite / TypeScript outputs
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+coverage/
+playwright-report/
+test-results/

@@ -50,10 +50,10 @@ class NoFrillzApi(
         return login(email = email, password = password)
     }
 
-    fun fetchFeedPage(limit: Int = 25, cursor: String? = null): CursorPage<Post> {
+    fun fetchFeedPage(limit: Int = 25, cursor: String? = null, discover: Boolean = false): CursorPage<Post> {
         val query = linkedMapOf("limit" to limit.toString())
         if (!cursor.isNullOrBlank()) query["cursor"] = cursor
-        val body = request(path = "/feed", method = "GET", query = query, needsAuth = true)
+        val body = request(path = if (discover) "/feed/discover" else "/feed", method = "GET", query = query, needsAuth = true)
         return decodePostsPage(body, listKeys = listOf("posts"))
     }
 

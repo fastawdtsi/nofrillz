@@ -525,6 +525,7 @@ private fun FeedScreen(
     onOpenPost: (String) -> Unit,
     onOpenAuthor: (String) -> Unit,
 ) {
+    var discover by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val posts = remember { mutableStateListOf<Post>() }
     var nextCursor by remember { mutableStateOf<String?>(null) }
@@ -537,7 +538,7 @@ private fun FeedScreen(
             if (reset) loading = true else loadingMore = true
             val cursor = if (reset) null else nextCursor
             val result = runCatching {
-                withContext(Dispatchers.IO) { api.fetchFeedPage(cursor = cursor) }
+                withContext(Dispatchers.IO) { api.fetchFeedPage(cursor = cursor, discover = discover) }
             }
             result.onSuccess { page ->
                 if (reset) posts.clear()
@@ -551,13 +552,16 @@ private fun FeedScreen(
         }
     }
 
-    LaunchedEffect(Unit) { load(reset = true) }
+    LaunchedEffect(discover) { load(reset = true) }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("NoFrillz") },
-                actions = { TextButton(onClick = { load(true) }) { Text("Refresh") } },
+                title = { Text(if (discover) "Discover" else "Following") },
+                actions = {
+                    TextButton(enabled = !loading && !loadingMore, onClick = { discover = !discover }) { Text(if (discover) "Following" else "Discover") }
+                    TextButton(enabled = !loading && !loadingMore, onClick = { load(true) }) { Text("Refresh") }
+                },
             )
         },
         bottomBar = {

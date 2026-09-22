@@ -1,0 +1,42 @@
+# Local secrets and overrides
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# OS / editor files
+.DS_Store
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and temporary files
+*.log
+*.pid
+/tmp/
+/temp/
+
+# Xcode per-user state and build products
+build/
+DerivedData/
+.DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+*.ipa
+*.dSYM
+*.dSYM.zip
+*.xcarchive
+*.xcresult
+.build/
+/Pods/
+/Carthage/Build/
+# Local signing material
+*.p12
+*.p8
+*.mobileprovision

@@ -20,13 +20,16 @@ Thumbs.db
 /tmp/
 /temp/
 
-# Workspace-local tooling
+# Go builds, coverage, profiling and workspace overrides
 /bin/
-/.cache/
+/dist/
 /coverage/
 *.test
 coverage.out
-
-# Python helper caches
-__pycache__/
-*.py[cod]
+coverage.html
+*.prof
+*.pprof
+go.work
+go.work.sum
+/config.local.yaml
+/config.local.yml

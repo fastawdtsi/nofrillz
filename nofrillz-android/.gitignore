@@ -1,0 +1,38 @@
+# Local secrets and overrides
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# OS / editor files
+.DS_Store
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and temporary files
+*.log
+*.pid
+/tmp/
+/temp/
+
+# Gradle / Android Studio local state and outputs
+.gradle/
+.kotlin/
+build/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.iml
+*.apk
+*.aab
+*.hprof
+# Local signing material
+*.jks
+*.keystore
+keystore.properties

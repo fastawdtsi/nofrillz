@@ -222,7 +222,7 @@ final class MainTabBarController: UIViewController {
 
   @objc private func searchTapped() {
     feedNavigationController.pushViewController(
-      SearchViewController(environment: environment),
+      FeedViewController(environment: environment, discover: true),
       animated: true
     )
   }

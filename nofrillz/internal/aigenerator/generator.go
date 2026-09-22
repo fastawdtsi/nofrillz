@@ -124,7 +124,7 @@ func IsDuplicate(a, b string) bool {
 		}
 	}
 	union := len(as) + len(bs) - intersection
-	return float64(intersection)/float64(union) >= 0.9 && float64(min(len(aw), len(bw)))/float64(max(len(aw), len(bw))) >= 0.9
+	return float64(intersection)/float64(union) >= 0.85 && float64(min(len(aw), len(bw)))/float64(max(len(aw), len(bw))) >= 0.9
 }
 
 func topicKeywords(topic string) []string {

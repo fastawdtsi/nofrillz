@@ -83,12 +83,12 @@ final class NoFrillzAPI {
     try await fetchFeedPage().items
   }
 
-  func fetchFeedPage(limit: Int = 25, cursor: String? = nil) async throws -> CursorPage<Post> {
+  func fetchFeedPage(limit: Int = 25, cursor: String? = nil, discover: Bool = false) async throws -> CursorPage<Post> {
     var queryItems = [URLQueryItem(name: "limit", value: String(limit))]
     if let cursor, !cursor.isEmpty {
       queryItems.append(URLQueryItem(name: "cursor", value: cursor))
     }
-    let data = try await request(path: "/feed", method: "GET", queryItems: queryItems, needsAuth: true)
+    let data = try await request(path: discover ? "/feed/discover" : "/feed", method: "GET", queryItems: queryItems, needsAuth: true)
     let page = try decodePostsPage(from: data, listKeys: ["posts"])
     debugLogFeedResponse(page: page, payload: data, cursor: cursor)
     return page

@@ -1,4 +1,30 @@
+# Local secrets and overrides
 .env
 .env.*
 !.env.example
+!.env.*.example
+
+# OS / editor files
 .DS_Store
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and temporary files
+*.log
+*.pid
+/tmp/
+/temp/
+
+# Local service data, dumps, and generated verification artifacts
+/data/
+/backups/
+/artifacts/
+*.sql.gz
+*.sql.bz2
+*.dump
+/.cache/
